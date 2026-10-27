@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa Territorial da UBS — Protótipo</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--navy:#16324f;--teal:#197c78;--bg:#f3f6f8;--ink:#203040;--muted:#657585;--line:#dce4e9;--white:#fff;--orange:#d97706;--green:#23845b;--red:#b54747}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:white;padding:20px clamp(16px,3vw,34px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;opacity:.78;font-weight:700}.brand h1{font-size:clamp(21px,3vw,30px);margin:4px 0 5px}.brand p{margin:0;color:#d5e2ec;font-size:13px}
+.demo{background:#fff0d8;color:#74430b;padding:8px 11px;border-radius:9px;font-size:12px;font-weight:750;max-width:310px}
+main{max-width:1450px;margin:auto;padding:22px clamp(12px,2.5vw,30px) 36px}
+.notice{background:#fff;border:1px solid #f1d49b;border-left:4px solid var(--orange);padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.kpi{background:white;border:1px solid var(--line);border-radius:13px;padding:16px}.kpi .label{font-size:12px;color:var(--muted)}.kpi .value{font-size:27px;font-weight:800;margin-top:7px;color:var(--navy)}.kpi .sub{font-size:11px;color:var(--muted);margin-top:3px}
+.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(310px,.9fr);gap:16px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:14px;overflow:hidden}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.panel-head h2{font-size:16px;margin:0}.panel-head p{font-size:12px;color:var(--muted);margin:5px 0 0}.tag{font-size:11px;background:#eaf4f3;color:#176a66;padding:5px 8px;border-radius:99px;font-weight:750}
+#map{height:480px;width:100%;background:#e8eef0}.map-legend{padding:12px 16px;display:flex;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.controls{padding:16px 18px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:700;color:#425364}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd6dd;border-radius:8px;padding:10px 11px;font:inherit;font-size:13px;background:#fff;color:var(--ink)}.field textarea{min-height:68px;resize:vertical}
+.btn{border:0;border-radius:8px;padding:10px 13px;font:inherit;font-size:13px;font-weight:750;cursor:pointer}.btn-primary{background:var(--teal);color:#fff}.btn-secondary{background:#edf2f5;color:#31475a}.btn-danger{background:#fff0f0;color:#9c3434}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.selected{background:#f6fafb;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:15px}.selected strong{display:block;color:var(--navy);margin-bottom:4px}.selected span{font-size:12px;color:var(--muted)}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{background:#f8fafb;color:#607080;font-weight:700}.status{display:inline-block;border-radius:99px;padding:4px 7px;font-size:10px;font-weight:750}.realizada{background:#e4f5eb;color:#1e7049}.tentativa{background:#fff0d8;color:#8a540b}.pendente{background:#fce8e8;color:#a03a3a}.empty{padding:24px;text-align:center;color:var(--muted);font-size:13px}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.small-note{padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.55}.small-note strong{color:var(--ink)}
+footer{text-align:center;color:#788793;font-size:11px;padding:20px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#map{height:390px}}
+@media(max-width:500px){.kpis{gap:8px}.kpi{padding:12px}.kpi .value{font-size:23px}.bottom{grid-template-columns:1fr}.demo{max-width:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="eyebrow">Atenção Primária • Protótipo acadêmico</div><h1>Mapa Territorial da UBS</h1><p>Visualização de setores e acompanhamento de atividades de campo</p></div>
+  <div class="demo">DEMONSTRAÇÃO — setores e registros fictícios</div>
+</header>
+<main>
+  <div class="notice"><strong>Importante:</strong> este protótipo usa setores e visitas simulados. Os polígonos não representam a área real de nenhuma UBS. Não registre nomes, endereços de famílias ou informações de saúde reais nesta versão. A implantação real depende de validação da equipe e autorização da unidade.</div>
+  <section class="kpis">
+    <div class="kpi"><div class="label">Registros no período</div><div class="value" id="kTotal">12</div><div class="sub">Atividades de demonstração</div></div>
+    <div class="kpi"><div class="label">Visitas realizadas</div><div class="value" id="kDone">7</div><div class="sub">Status “realizada”</div></div>
+    <div class="kpi"><div class="label">Tentativas sem sucesso</div><div class="value" id="kAttempt">2</div><div class="sub">Podem exigir planejamento de retorno</div></div>
+    <div class="kpi"><div class="label">Pendentes</div><div class="value" id="kPending">3</div><div class="sub">Atividades não concluídas</div></div>
+  </section>
+  <div class="layout">
+    <section class="panel">
+      <div class="panel-head"><div><h2>Mapa interativo</h2><p>Selecione um setor no mapa para consultar seu resumo.</p></div><span class="tag">3 setores fictícios</span></div>
+      <div id="map" role="application" aria-label="Mapa demonstrativo interativo"></div>
+      <div class="map-legend"><span><i class="dot" style="background:#278b80"></i>Setor A</span><span><i class="dot" style="background:#4b78bb"></i>Setor B</span><span><i class="dot" style="background:#d69b35"></i>Setor C</span><span>Os limites são ilustrativos.</span></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><div><h2>Registrar atividade</h2><p>Use apenas os dados fictícios nesta demonstração.</p></div></div>
+      <div class="controls">
+        <div class="selected"><strong id="selectedTitle">Setor A</strong><span id="selectedSummary">Área demonstrativa • 4 registros de exemplo</span></div>
+        <form id="visitForm">
+          <div class="field"><label for="sector">Setor</label><select id="sector"><option value="A">Setor A — Verde</option><option value="B">Setor B — Azul</option><option value="C">Setor C — Amarelo</option></select></div>
+          <div class="field"><label for="date">Data da atividade</label><input id="date" type="date" required></div>
+          <div class="field"><label for="status">Situação</label><select id="status"><option value="Realizada">Realizada</option><option value="Tentativa sem sucesso">Tentativa sem sucesso</option><option value="Pendente">Pendente</option></select></div>
+          <div class="field"><label for="kind">Tipo de atividade</label><select id="kind"><option>Visita de rotina (simulada)</option><option>Retorno planejado (simulado)</option><option>Atividade territorial (simulada)</option></select></div>
+          <div class="field"><label for="notes">Observação operacional (opcional)</label><textarea id="notes" maxlength="160" placeholder="Ex.: setor revisado; sem dados pessoais."></textarea></div>
+          <div class="actions"><button class="btn btn-primary" type="submit">Adicionar registro</button><button class="btn btn-secondary" type="button" id="reset">Restaurar demonstração</button></div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <section class="panel" style="margin-top:16px">
+    <div class="panel-head"><div><h2>Histórico de atividades</h2><p>Registros fictícios para demonstrar filtros e acompanhamento.</p></div><div class="actions"><select id="filterSector" aria-label="Filtrar por setor" style="border:1px solid #cbd6dd;border-radius:8px;padding:8px;font:inherit;font-size:12px"><option value="Todos">Todos os setores</option><option value="A">Setor A</option><option value="B">Setor B</option><option value="C">Setor C</option></select><select id="filterStatus" aria-label="Filtrar por situação" style="border:1px solid #cbd6dd;border-radius:8px;padding:8px;font:inherit;font-size:12px"><option value="Todos">Todas as situações</option><option>Realizada</option><option>Tentativa sem sucesso</option><option>Pendente</option></select></div></div>
+    <div class="table-wrap"><table class="table"><thead><tr><th>Data</th><th>Setor</th><th>Atividade</th><th>Situação</th><th>Observação</th><th>Ação</th></tr></thead><tbody id="records"></tbody></table></div>
+  </section>
+  <div class="bottom">
+    <section class="panel"><div class="panel-head"><div><h2>Resumo por setor</h2><p>Distribuição dos registros no protótipo.</p></div></div><div class="table-wrap"><table class="table"><thead><tr><th>Setor</th><th>Registros</th><th>Realizadas</th><th>Pendentes</th></tr></thead><tbody id="sectorSummary"></tbody></table></div></section>
+    <section class="panel"><div class="panel-head"><div><h2>Próximos passos para a UBS</h2></div></div><div class="small-note"><strong>1.</strong> Confirmar a divisão territorial oficial com a coordenação.<br><br><strong>2.</strong> Validar com os ACS quais informações seriam úteis e quais já são registradas nos sistemas oficiais.<br><br><strong>3.</strong> Definir acesso, armazenamento, responsável pela manutenção e regras de privacidade antes de qualquer uso real.<br><br><strong>4.</strong> Testar a facilidade de uso com dados fictícios e só então avaliar uma implantação autorizada.</div></section>
+  </div>
+</main>
+<footer>Protótipo acadêmico • Os dados de demonstração ficam armazenados apenas neste navegador, quando o armazenamento local está disponível.</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+const initial=[
+{id:1,date:'2026-10-20',sector:'A',kind:'Visita de rotina (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:2,date:'2026-10-20',sector:'A',kind:'Retorno planejado (simulado)',status:'Pendente',notes:'Exemplo fictício'},
+{id:3,date:'2026-10-21',sector:'A',kind:'Atividade territorial (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:4,date:'2026-10-22',sector:'A',kind:'Visita de rotina (simulada)',status:'Tentativa sem sucesso',notes:'Exemplo fictício'},
+{id:5,date:'2026-10-20',sector:'B',kind:'Visita de rotina (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:6,date:'2026-10-21',sector:'B',kind:'Retorno planejado (simulado)',status:'Pendente',notes:'Exemplo fictício'},
+{id:7,date:'2026-10-22',sector:'B',kind:'Atividade territorial (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:8,date:'2026-10-23',sector:'B',kind:'Visita de rotina (simulada)',status:'Tentativa sem sucesso',notes:'Exemplo fictício'},
+{id:9,date:'2026-10-21',sector:'C',kind:'Visita de rotina (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:10,date:'2026-10-22',sector:'C',kind:'Retorno planejado (simulado)',status:'Pendente',notes:'Exemplo fictício'},
+{id:11,date:'2026-10-23',sector:'C',kind:'Atividade territorial (simulada)',status:'Realizada',notes:'Exemplo fictício'},
+{id:12,date:'2026-10-24',sector:'C',kind:'Visita de rotina (simulada)',status:'Realizada',notes:'Exemplo fictício'}
+];
+const colors={A:'#278b80',B:'#4b78bb',C:'#d69b35'};
+let records=initial.map(x=>({...x}));
+try{const saved=localStorage.getItem('ubsTerritoryDemo');if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed))records=parsed}}catch(e){}
+let selected='A';let nextId=Math.max(0,...records.map(r=>r.id||0))+1;
+const $=id=>document.getElementById(id);
+const today=new Date();$('date').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+function save(){try{localStorage.setItem('ubsTerritoryDemo',JSON.stringify(records))}catch(e){}}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function statusClass(s){return s==='Realizada'?'realizada':s==='Pendente'?'pendente':'tentativa'}
+function updateSelected(){const rs=records.filter(r=>r.sector===selected);$('selectedTitle').textContent='Setor '+selected;$('selectedSummary').textContent='Área demonstrativa • '+rs.length+' registros de atividade';$('sector').value=selected}
+function render(){
+const done=records.filter(r=>r.status==='Realizada').length,att=records.filter(r=>r.status==='Tentativa sem sucesso').length,pend=records.filter(r=>r.status==='Pendente').length;
+$('kTotal').textContent=records.length;$('kDone').textContent=done;$('kAttempt').textContent=att;$('kPending').textContent=pend;
+const fs=$('filterSector').value,ft=$('filterStatus').value;
+const list=records.filter(r=>(fs==='Todos'||r.sector===fs)&&(ft==='Todos'||r.status===ft)).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+$('records').innerHTML=list.length?list.map(r=>`<tr><td>${escapeHtml(r.date)}</td><td><strong>Setor ${escapeHtml(r.sector)}</strong></td><td>${escapeHtml(r.kind)}</td><td><span class="status ${statusClass(r.status)}">${escapeHtml(r.status)}</span></td><td>${escapeHtml(r.notes||'—')}</td><td><button class="btn btn-danger" style="padding:5px 8px" data-delete="${r.id}">Excluir</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">Nenhum registro para os filtros selecionados.</td></tr>';
+$('sectorSummary').innerHTML=['A','B','C'].map(s=>{const rs=records.filter(r=>r.sector===s);return `<tr><td><span class="dot" style="background:${colors[s]}"></span><strong>Setor ${s}</strong></td><td>${rs.length}</td><td>${rs.filter(r=>r.status==='Realizada').length}</td><td>${rs.filter(r=>r.status==='Pendente').length}</td></tr>`}).join('');
+updateSelected();if(window.sectorLayers)Object.keys(window.sectorLayers).forEach(s=>{const rs=records.filter(r=>r.sector===s);window.sectorLayers[s].setStyle({fillOpacity:s===selected?.38:.20,weight:s===selected?4:2});window.sectorLayers[s].bindTooltip(`Setor ${s} • ${rs.length} registros`,{sticky:true})});
+}
+$('records').addEventListener('click',e=>{const b=e.target.closest('[data-delete]');if(!b)return;records=records.filter(r=>r.id!==Number(b.dataset.delete));save();render()});
+$('filterSector').addEventListener('change',render);$('filterStatus').addEventListener('change',render);
+$('sector').addEventListener('change',e=>{selected=e.target.value;render()});
+$('visitForm').addEventListener('submit',e=>{e.preventDefault();records.push({id:nextId++,date:$('date').value,sector:$('sector').value,kind:$('kind').value,status:$('status').value,notes:$('notes').value.trim()||'—'});selected=$('sector').value;$('notes').value='';save();render()});
+$('reset').addEventListener('click',()=>{if(!confirm('Restaurar os 12 registros fictícios originais? Seus registros de teste atuais serão substituídos.'))return;records=initial.map(x=>({...x}));nextId=13;save();render()});
+if(window.L){
+const map=L.map('map').setView([-23.4215,-51.9332],14);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+const sectors={
+A:[[-23.414,-51.946],[-23.414,-51.930],[-23.425,-51.930],[-23.425,-51.946]],
+B:[[-23.414,-51.930],[-23.414,-51.914],[-23.425,-51.914],[-23.425,-51.930]],
+C:[[-23.425,-51.946],[-23.425,-51.914],[-23.437,-51.914],[-23.437,-51.946]]
+};
+window.sectorLayers={};
+Object.keys(sectors).forEach(s=>{const layer=L.polygon(sectors[s],{color:colors[s],fillColor:colors[s],fillOpacity:.2,weight:2}).addTo(map);layer.bindTooltip('Setor '+s,{sticky:true});layer.on('click',()=>{selected=s;render()});window.sectorLayers[s]=layer;L.marker(layer.getBounds().getCenter(),{title:'Setor '+s}).addTo(map).bindPopup(`<strong>Setor ${s}</strong><br>Área demonstrativa<br><button onclick="window.selectSector('${s}')" style="margin-top:6px;padding:5px 8px;cursor:pointer">Ver setor</button>`)});
+window.selectSector=s=>{selected=s;render();map.closePopup()};
+}else{$('map').innerHTML='<div class="empty">O mapa online não carregou. Verifique a conexão com a internet e reabra o arquivo.</div>'}
+render();
+})();
+</script>
+</body>
+</html>
