@@ -4,13 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>UBS Paris 4 | Campo Digital ACS</title>
+<title>UBS Paris 4 · Sistema de Campo ACS</title>
 <style>
 :root{
   --p:#086b56;--p-dark:#054637;--p-light:#e7f5ef;--sec:#148a6d;--ink:#17342d;--muted:#627972;--line:#dce7e3;--bg:#f3f7f5;--card:#ffffff;
-  --red:#dc2626;--red-bg:#fef2f2;--amber:#d97706;--amber-bg:#fffbeb;--green:#16a34a;--green-bg:#f0fdf4;
+  --red:#dc2626;--red-bg:#fef2f2;--amber:#d97706;--amber-bg:#fffbeb;--green:#16a34a;--green-bg:#f0fdf4;--blue:#2563eb;--blue-bg:#eff6ff;
   --radius:14px;--shadow:0 3px 12px rgba(10,40,30,0.06);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -34,28 +32,17 @@ input,select,textarea,button{font:inherit}
 .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .card-header h2,.card-header h3{margin:0;font-size:16px;font-weight:800;color:var(--ink)}
 
-/* Bottom Nav */
+/* Bottom Navigation */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:#ffffff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 0 10px;box-shadow:0 -4px 15px rgba(0,0,0,0.05)}
 .nav-tab{background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:700;flex:1;padding:4px 0;cursor:pointer}
 .nav-tab.active{color:var(--p)}
 .nav-tab .icon{font-size:18px}
 
-/* Semáforos e Badges */
-.status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:800}
-.status-pill.red{background:var(--red-bg);color:var(--red);border:1px solid #fecaca}
-.status-pill.yellow{background:var(--amber-bg);color:var(--amber);border:1px solid #fde68a}
-.status-pill.green{background:var(--green-bg);color:var(--green);border:1px solid #bbf7d0}
-.dot{width:7px;height:7px;border-radius:50%}
-.dot.red{background:var(--red)}
-.dot.yellow{background:var(--amber)}
-.dot.green{background:var(--green)}
-
-/* Tags (Atributos tipo Pokémon) */
-.tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:6px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42}
-.tag.clickable{cursor:pointer}
-.tag.active{background:var(--p-light);border-color:var(--sec);color:var(--p)}
-.tag.bf{background:#fef3c7;border-color:#fde68a;color:#92400e} /* Bolsa Família */
+/* Tags & Chips */
+.tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
+.tag.active{background:var(--p-light);border-color:var(--sec);color:var(--p);box-shadow:0 0 0 1px var(--sec)}
+.tag.bf{background:#fef3c7;border-color:#fde68a;color:#92400e}
 .tag.gestante{background:#fce7f3;border-color:#fbcfe8;color:#9d174d}
 .tag.has{background:#fee2e2;border-color:#fecaca;color:#991b1b}
 .tag.dm{background:#e0f2fe;border-color:#bae6fd;color:#075985}
@@ -72,28 +59,42 @@ input,select,textarea,button{font:inherit}
 /* Botões */
 .btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
 .btn-primary{background:var(--p);color:#fff;border-color:var(--p)}
-.btn-primary:active{background:var(--p-dark)}
 .btn-soft{background:var(--p-light);color:var(--p);border-color:#cbe7dc}
 .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
 .btn-sm{padding:6px 10px;font-size:11px;border-radius:7px;width:auto}
 
 /* Dynamic Checklist Boxes */
-.checklist-box{background:#fafdfb;border:1px solid #d4e7df;border-radius:10px;padding:12px;margin:10px 0}
-.checklist-title{font-size:12px;font-weight:800;color:var(--p);display:flex;align-items:center;gap:6px;margin-bottom:8px;text-transform:uppercase}
-.check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:7px;cursor:pointer}
+.resident-visit-card{border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fff}
+.resident-visit-card.active-presence{border-color:var(--sec);background:#fafffd}
+.checklist-box{background:#f7faf8;border:1px solid #d4e7df;border-radius:8px;padding:10px;margin-top:8px}
+.check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
 
-/* Toast */
+/* Calendário */
+.calendar-widget{background:#fff;border-radius:var(--radius);border:1px solid var(--line);padding:12px;margin-bottom:12px}
+.cal-header{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:10px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-weekday{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
+.cal-day{min-height:44px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;position:relative}
+.cal-day.today{border-color:var(--p);background:var(--p-light);color:var(--p);font-weight:900}
+.cal-day.selected{background:var(--p);color:#fff}
+.cal-day.other-month{opacity:0.25}
+.cal-dots{display:flex;gap:2px;margin-top:2px}
+.cal-dot{width:5px;height:5px;border-radius:50%}
+.cal-dot.red{background:var(--red)}
+.cal-dot.yellow{background:var(--amber)}
+
+/* Badges */
+.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800}
+.status-pill.red{background:var(--red-bg);color:var(--red)}
+.status-pill.yellow{background:var(--amber-bg);color:var(--amber)}
+.status-pill.green{background:var(--green-bg);color:var(--green)}
+.status-pill.blue{background:var(--blue-bg);color:var(--blue)}
+
+/* Toast & Modais */
 .toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#10392f;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:700;display:none;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
 .toast.show{display:block}
-
-/* Kpis */
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.kpi-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
-.kpi-card strong{font-size:20px;font-weight:900;display:block}
-.kpi-card small{font-size:11px;color:var(--muted)}
-
-.modal{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:var(--radius);max-width:550px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
 </style>
@@ -105,213 +106,255 @@ input,select,textarea,button{font:inherit}
     <div class="brand-icon">✚</div>
     <div class="brand-info">
       <h1>UBS Paris 4 · Maringá</h1>
-      <p id="topSub">Território Digital ACS</p>
+      <p id="topDateStr">Carregando data...</p>
     </div>
   </div>
-  <button class="btn btn-sm btn-soft" style="background:#ffffff22;color:#fff;border-color:transparent" onclick="showModal('modalBackup')">☁ Cópia</button>
+  <button class="btn btn-sm btn-soft" style="background:#ffffff22;color:#fff;border-color:transparent" onclick="showModal('modalHelp')">Ajuda</button>
 </header>
 
 <div class="app">
 
-  <!-- ================= ABA 1: PAINEL INICIAL ================= -->
-  <section class="view active" id="view-inicio">
-    <div class="card" style="background:linear-gradient(135deg,#0a5847,#107e65);color:#fff">
-      <h2 style="margin:0 0 4px;font-size:17px;color:#fff">Monitoramento de Metas (Portaria 3.493/24)</h2>
-      <p style="margin:0;font-size:12px;color:#d5f3ea">Acompanhamento contínuo dos cidadãos prioritários e redução do retrabalho com papéis.</p>
+  <!-- ================= ABA 1: NOVA VISITA (DOMICÍLIO / CASA) ================= -->
+  <section class="view active" id="view-visita">
+    <div class="card-header">
+      <h2>Registro de Visita Domiciliar</h2>
+      <span class="status-pill blue">Por Domicílio</span>
     </div>
 
-    <div class="kpi-row">
-      <div class="kpi-card" onclick="navTo('agenda','red')">
-        <strong style="color:var(--red)" id="countRed">0</strong>
-        <small>🔴 Atrasadas</small>
-      </div>
-      <div class="kpi-card" onclick="navTo('agenda','yellow')">
-        <strong style="color:var(--amber)" id="countYellow">0</strong>
-        <small>🟡 Vencem logo</small>
-      </div>
-      <div class="kpi-card" onclick="navTo('agenda','green')">
-        <strong style="color:var(--green)" id="countGreen">0</strong>
-        <small>🟢 Em dia</small>
-      </div>
-    </div>
-
+    <!-- Etapa 1: Localização -->
     <div class="card">
-      <div class="card-header">
-        <h3>Acesso Rápido</h3>
+      <div class="grid-2">
+        <div class="field">
+          <label>Data da Visita</label>
+          <input type="date" id="visDate">
+        </div>
+        <div class="field">
+          <label>Microárea</label>
+          <select id="visAreaSelect" onchange="updateVisitStreets()"></select>
+        </div>
       </div>
       <div class="grid-2">
-        <button class="btn btn-primary" onclick="navTo('agenda')">📅 Ver Agenda de Visitas</button>
-        <button class="btn btn-soft" onclick="navTo('territorio')">📍 Território & Pessoas</button>
+        <div class="field">
+          <label>Rua / Logradouro *</label>
+          <select id="visStreetSelect" onchange="updateVisitHouses()"></select>
+        </div>
+        <div class="field">
+          <label>Número do Imóvel *</label>
+          <select id="visHouseSelect" onchange="loadHouseForVisit()"></select>
+        </div>
       </div>
-      <div class="grid-2" style="margin-top:8px">
-        <button class="btn btn-soft" onclick="navTo('fechamento')">📊 Fechamento do Mês</button>
-        <button class="btn btn-soft" onclick="navTo('exportar')">⇩ Exportar Planilhas</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-sm btn-soft" onclick="quickAddStreet()">＋ Nova Rua</button>
+        <button class="btn btn-sm btn-soft" onclick="quickAddHouse()">＋ Novo Número</button>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Etapa 2: Desfecho do Domicílio -->
+    <div class="card" id="houseOutcomeCard" style="display:none">
       <div class="card-header">
-        <h3>Últimas Visitas Registradas</h3>
+        <div>
+          <h3 style="margin:0" id="currentHouseTitle">Rua ..., Nº ...</h3>
+          <small style="color:var(--muted)" id="currentHouseComp"></small>
+        </div>
       </div>
-      <div id="recentVisitsList"></div>
+
+      <div class="field">
+        <label>Situação do Domicílio no Portão *</label>
+        <select id="visHouseOutcome" onchange="handleHouseOutcomeChange()">
+          <option value="Realizada">✓ Domicílio Atendido (Moradores presentes)</option>
+          <option value="Ausente">◷ Casa Fechada / Morador Ausente</option>
+          <option value="Recusa">✕ Recusa de Visita</option>
+        </select>
+      </div>
+
+      <!-- Seletor Rápido de Salvar se Ausente ou Recusa -->
+      <div id="quickOutcomeBtnBox" style="display:none">
+        <button class="btn btn-primary" onclick="saveHouseAbsentOrRefusal()">💾 Concluir Registro do Domicílio</button>
+      </div>
+    </div>
+
+    <!-- Etapa 3: Família & Moradores (Checklists Dinâmicos) -->
+    <div id="residentsListCard" style="display:none">
+      <div class="card-header">
+        <h3>Moradores Deste Domicílio</h3>
+        <button class="btn btn-sm btn-primary" onclick="openAddResidentModalCurrentHouse()">＋ Adicionar Morador</button>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:0">
+        Marque quem estava presente. O checklist de comorbidades abrirá automaticamente:
+      </p>
+
+      <div id="familyMembersContainer"></div>
+
+      <div class="card" style="margin-top:10px">
+        <div class="field">
+          <label>Observações Gerais da Visita à Casa</label>
+          <textarea id="visHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; orientado sobre controle de dengue no quintal..."></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="saveFamilyVisit()" style="padding:14px;font-size:16px">
+          💾 Salvar Visitas da Família
+        </button>
+      </div>
     </div>
   </section>
 
-  <!-- ================= ABA 2: AGENDA INTELIGENTE (SEMÁFORO) ================= -->
+  <!-- ================= ABA 2: AGENDA COM CALENDÁRIO REAL ================= -->
   <section class="view" id="view-agenda">
     <div class="card-header">
-      <h2>Agenda de Visitas</h2>
-      <span class="status-pill green" id="agendaTotal">0 cidadãos</span>
+      <h2>Agenda de Prazos</h2>
+      <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
     </div>
 
+    <!-- Filtro de Cruzamento de Tags -->
     <div class="card" style="padding:10px">
-      <div class="field" style="margin-bottom:8px">
-        <input type="text" id="agendaSearch" placeholder="🔍 Buscar morador ou rua..." oninput="renderAgenda()">
-      </div>
-      <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px">FILTRAR POR ATRIBUTO (TAG):</div>
-      <div class="tags-cloud" id="agendaTagFilters"></div>
+      <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAMENTO DE CONDIÇÕES (SELECIONE UMA OU MAIS):</div>
+      <div class="tags-cloud" id="agendaTagCloud"></div>
     </div>
 
-    <div id="agendaList"></div>
+    <!-- Widget de Calendário Visual -->
+    <div class="calendar-widget">
+      <div class="cal-header">
+        <button class="btn btn-sm btn-soft" onclick="changeMonth(-1)">◀ Anterior</button>
+        <span id="calMonthYearTitle">Novembro 2024</span>
+        <button class="btn btn-sm btn-soft" onclick="changeMonth(1)">Próximo ▶</button>
+      </div>
+      <div class="cal-grid" id="calendarGrid"></div>
+    </div>
+
+    <!-- Lista de Pessoas / Prazos no dia Selecionado -->
+    <div class="card">
+      <div class="card-header">
+        <h3 id="agendaSelectedDateTitle">Prazos e Cidadãos</h3>
+        <span class="status-pill blue" id="agendaCountBadge">0</span>
+      </div>
+      <div id="agendaDeadlinesList"></div>
+    </div>
   </section>
 
-  <!-- ================= ABA 3: TERRITÓRIO (RUAS, CASAS E MORADORES) ================= -->
-  <section class="view" id="view-territorio">
-    <div class="card-header">
-      <h2>Território & Cidadãos</h2>
-      <button class="btn btn-sm btn-primary" onclick="openAddStreetModal()">＋ Nova Rua</button>
-    </div>
-
-    <div class="field">
-      <select id="territoryAreaFilter" onchange="renderTerritory()"></select>
-    </div>
-
-    <div id="territoryList"></div>
-  </section>
-
-  <!-- ================= ABA 4: REGISTRAR VISITA (DINÂMICO) ================= -->
-  <section class="view" id="view-visita">
-    <div class="card-header">
-      <h2 id="visitFormTitle">Registrar Visita de Campo</h2>
-      <button class="btn btn-sm btn-soft" onclick="navTo('agenda')">✕ Fechar</button>
-    </div>
-
-    <form id="formVisit" onsubmit="saveVisit(event)">
-      <input type="hidden" id="vResidentId">
-      <input type="hidden" id="vHouseId">
-      <input type="hidden" id="vStreetId">
-      <input type="hidden" id="vAreaId">
-
-      <div class="card">
-        <div style="font-size:12px;color:var(--muted);text-transform:uppercase;font-weight:800">Cidadão & Domicílio</div>
-        <div style="font-size:16px;font-weight:900;margin:3px 0" id="vResidentName">Selecione na Agenda ou no Território</div>
-        <div style="font-size:12px;color:var(--muted)" id="vResidentAddr">—</div>
-        <div class="tags-cloud" id="vResidentTags" style="margin-top:6px"></div>
-      </div>
-
-      <div class="card">
-        <div class="grid-2">
-          <div class="field">
-            <label>Data da Visita *</label>
-            <input type="date" id="vDate" required>
-          </div>
-          <div class="field">
-            <label>Desfecho *</label>
-            <select id="vOutcome" onchange="toggleVisitOutcomeDetails()">
-              <option value="Visita realizada">✓ Visita realizada</option>
-              <option value="Cidadão ausente">◷ Cidadão ausente</option>
-              <option value="Recusa de visita">✕ Recusa de visita</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Checklist Inteligente: Carregado de acordo com as comorbidades do cidadão -->
-      <div id="dynamicChecklistContainer"></div>
-
-      <div class="card">
-        <div class="field">
-          <label>Observações / Encaminhamentos da ACS</label>
-          <textarea id="vNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; orientada sobre vacinação..."></textarea>
-        </div>
-      </div>
-
-      <button class="btn btn-primary" type="submit" style="padding:14px;font-size:15px">💾 Concluir e Salvar Visita</button>
-    </form>
-  </section>
-
-  <!-- ================= ABA 5: FECHAMENTO / RELATÓRIO DO GESTOR ================= -->
+  <!-- ================= ABA 3: FECHAMENTO / CRUZAMENTOS DO GESTOR ================= -->
   <section class="view" id="view-fechamento">
     <div class="card-header">
-      <h2>Fechamento do Período</h2>
+      <h2>Fechamento & Cruzamentos</h2>
       <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir</button>
     </div>
+
     <div class="card">
       <div class="field">
         <label>Período de Análise</label>
-        <select id="reportPeriodPreset" onchange="applyReportPreset()">
+        <select id="repPeriod" onchange="runReport()">
           <option value="thisMonth">Mês Atual</option>
           <option value="lastMonth">Mês Passado</option>
-          <option value="quadrimestre">Quadrimestre Atual (e-SUS)</option>
-          <option value="semestre">Semestre Atual</option>
+          <option value="quadrimestre">Quadrimestre Vigente (e-SUS)</option>
           <option value="ano">Ano Inteiro</option>
-          <option value="custom">Personalizado (Escolher datas)</option>
         </select>
       </div>
-      <div class="grid-2" id="reportCustomDates" style="display:none">
-        <div class="field"><label>De</label><input type="date" id="repStartDate"></div>
-        <div class="field"><label>Até</label><input type="date" id="repEndDate"></div>
-      </div>
-      <button class="btn btn-soft" onclick="calculateReport()">⚡ Atualizar Contagem</button>
+
+      <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
+      <div class="tags-cloud" id="reportTagCloud"></div>
     </div>
 
-    <!-- Tabela consolidada com os indicadores que as ACS passavam horas contando -->
-    <div class="card" id="reportResults"></div>
+    <!-- Indicadores do Cruzamento -->
+    <div class="card" id="reportSummaryBox"></div>
+
+    <!-- Lista Nominal com Situação -->
+    <div class="card">
+      <div class="card-header">
+        <h3 id="reportListTitle">Cidadãos do Grupo Selecionado</h3>
+      </div>
+      <div id="reportResidentsList"></div>
+    </div>
   </section>
 
-  <!-- ================= ABA 6: EXPORTAR PLANILHAS SOB DEMANDA ================= -->
-  <section class="view" id="view-exportar">
+  <!-- ================= ABA 4: PLANILHAS & IMPORTADOR INTELIGENTE ================= -->
+  <section class="view" id="view-planilhas">
     <div class="card-header">
-      <h2>Gerador de Planilhas</h2>
+      <h2>Importar e Exportar Planilhas</h2>
     </div>
-    <div class="card">
-      <p style="font-size:13px;color:var(--muted);margin-top:0">
-        Gere planilhas prontas para abrir no Excel ou Google Sheets, filtradas exatamente pelo grupo que você precisa apresentar à enfermeira/diretora.
+
+    <!-- Importador Inteligente -->
+    <div class="card" style="border-left:5px solid var(--p)">
+      <h3 style="margin:0 0 6px">📥 Importar Base Existente das ACS</h3>
+      <p style="font-size:12px;color:var(--muted);margin-top:0">
+        Suba a planilha que a equipe já tem salva em CSV. O sistema detecta as colunas automaticamente e cadastra as ruas, casas e cidadãos sem redigitação.
       </p>
+
       <div class="field">
-        <label>Qual planilha você deseja gerar?</label>
-        <select id="exportFilterType">
-          <option value="all">Planilha Geral Completa (Todas as Visitas)</option>
-          <option value="Hipertenso">Apenas Pessoas com Hipertensão (HAS)</option>
-          <option value="Diabético">Apenas Pessoas com Diabetes (DM)</option>
-          <option value="Gestante">Apenas Gestantes & Puérperas</option>
-          <option value="Idoso">Apenas Pessoas Idosas (60+ anos)</option>
-          <option value="Criança">Apenas Crianças (&lt; 2 anos)</option>
-          <option value="Bolsa Família">Apenas Beneficiários do Bolsa Família</option>
+        <label>Arquivo de Planilha (.csv)</label>
+        <input type="file" id="importFileInput" accept=".csv,text/csv,text/plain" onchange="handleFileSelect(event)">
+      </div>
+
+      <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #d0e5dc;border-radius:10px;padding:12px;margin-top:10px">
+        <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONECTE AS COLUNAS DA SUA PLANILHA:</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Coluna da RUA *</label>
+            <select id="mapColStreet"></select>
+          </div>
+          <div class="field">
+            <label>Coluna do NÚMERO *</label>
+            <select id="mapColNumber"></select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Coluna do NOME *</label>
+            <select id="mapColName"></select>
+          </div>
+          <div class="field">
+            <label>Coluna da DATA NASCIMENTO</label>
+            <select id="mapColBirth"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Coluna de DOENÇAS / OBSERVAÇÕES (HAS, DM, etc.)</label>
+          <select id="mapColTags"></select>
+        </div>
+        <button class="btn btn-primary" onclick="executeImport()">🚀 Importar Dados para o Aplicativo</button>
+      </div>
+    </div>
+
+    <!-- Exportador Filtrado -->
+    <div class="card">
+      <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel (CSV)</h3>
+      <p style="font-size:12px;color:var(--muted);margin-top:0">Baixe os registros de visitas filtrados prontos para a diretora e coordenação.</p>
+      <div class="field">
+        <label>Filtrar Exportação por Grupo</label>
+        <select id="exportGroupFilter">
+          <option value="all">Todas as Visitas Realizadas</option>
+          <option value="Hipertenso">Apenas Hipertensos (HAS)</option>
+          <option value="Diabético">Apenas Diabéticos (DM)</option>
+          <option value="Gestante">Apenas Gestantes</option>
+          <option value="Idoso">Apenas Idosos (60+)</option>
+          <option value="Criança">Apenas Crianças (&lt;2 anos)</option>
         </select>
       </div>
-      <button class="btn btn-primary" onclick="downloadCustomSpreadsheet()">⇩ Baixar Arquivo CSV (Compatível com Excel)</button>
+      <button class="btn btn-soft" onclick="exportDataToCSV()">⇩ Baixar Arquivo Excel (.CSV)</button>
+    </div>
+
+    <!-- Cópia de Segurança -->
+    <div class="card">
+      <div class="card-header"><h3>Backup Completo do Sistema</h3></div>
+      <div class="grid-2">
+        <button class="btn btn-sm btn-soft" onclick="downloadBackup()">Salvar Cópia (JSON)</button>
+        <button class="btn btn-sm btn-danger" onclick="resetToDemo()">Restaurar Demonstração</button>
+      </div>
     </div>
   </section>
 
 </div>
 
-<!-- Barra Inferior Mobile -->
+<!-- Barra Inferior -->
 <nav class="bottom-nav">
-  <button class="nav-tab active" data-v="inicio" onclick="navTo('inicio')">
-    <span class="icon">🏠</span>Início
+  <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
+    <span class="icon">📝</span>Nova Visita
   </button>
   <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
     <span class="icon">📅</span>Agenda
   </button>
-  <button class="nav-tab" data-v="territorio" onclick="navTo('territorio')">
-    <span class="icon">📍</span>Território
-  </button>
   <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
     <span class="icon">📊</span>Fechamento
   </button>
-  <button class="nav-tab" data-v="exportar" onclick="navTo('exportar')">
-    <span class="icon">⇩</span>Planilhas
+  <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
+    <span class="icon">📂</span>Planilhas
   </button>
 </nav>
 
@@ -319,101 +362,68 @@ input,select,textarea,button{font:inherit}
 <div class="modal" id="modalResident">
   <div class="modal-content">
     <div class="card-header">
-      <h3 id="modalResidentTitle">Cadastrar Cidadão</h3>
+      <h3 id="modalResidentTitle">Adicionar Morador</h3>
       <button class="btn btn-sm btn-soft" onclick="closeModal('modalResident')">✕</button>
     </div>
     <form id="formResident" onsubmit="saveResident(event)">
-      <input type="hidden" id="resId">
-      <input type="hidden" id="resStreetId">
-      <input type="hidden" id="resHouseId">
-
       <div class="field">
-        <label>Nome Completo do Cidadão *</label>
-        <input type="text" id="resName" required placeholder="Ex.: Maria Aparecida">
+        <label>Nome Completo *</label>
+        <input type="text" id="mResName" required placeholder="Ex.: Maria Francisca">
       </div>
       <div class="grid-2">
         <div class="field">
           <label>Data de Nascimento</label>
-          <input type="date" id="resBirth" onchange="autoTagAge()">
+          <input type="date" id="mResBirth" onchange="autoTagAgeModal()">
         </div>
         <div class="field">
-          <label>Cartão SUS (CNS) / CPF (Opcional)</label>
-          <input type="text" id="resCns" placeholder="Apenas números">
+          <label>Cartão SUS / CPF</label>
+          <input type="text" id="mResCns" placeholder="Opcional">
         </div>
       </div>
-
       <div class="field">
-        <label>Atributos / Condições de Saúde (Selecione todos que se aplicam):</label>
-        <div class="tags-cloud" id="residentTagSelector">
-          <span class="tag clickable" data-tag="Hipertenso" onclick="toggleResidentTag(this)">🩺 Hipertenso (HAS)</span>
-          <span class="tag clickable" data-tag="Diabético" onclick="toggleResidentTag(this)">🩸 Diabético (DM)</span>
-          <span class="tag clickable" data-tag="Gestante" onclick="toggleResidentTag(this)">🤰 Gestante</span>
-          <span class="tag clickable" data-tag="Idoso" onclick="toggleResidentTag(this)">🧓 Idoso (60+)</span>
-          <span class="tag clickable" data-tag="Criança" onclick="toggleResidentTag(this)">👶 Criança (&lt;2 anos)</span>
-          <span class="tag clickable" data-tag="Bolsa Família" onclick="toggleResidentTag(this)">🤝 Bolsa Família</span>
-          <span class="tag clickable" data-tag="Acamado/Domiciliado" onclick="toggleResidentTag(this)">🛏 Acamado</span>
-          <span class="tag clickable" data-tag="Saúde Mental" onclick="toggleResidentTag(this)">🧠 Saúde Mental</span>
+        <label>Condições de Saúde (Tags):</label>
+        <div class="tags-cloud" id="modalTagSelector">
+          <span class="tag" data-tag="Hipertenso" onclick="toggleModalTag(this)">🩺 Hipertenso</span>
+          <span class="tag" data-tag="Diabético" onclick="toggleModalTag(this)">🩸 Diabético</span>
+          <span class="tag" data-tag="Gestante" onclick="toggleModalTag(this)">🤰 Gestante</span>
+          <span class="tag" data-tag="Idoso" onclick="toggleModalTag(this)">🧓 Idoso</span>
+          <span class="tag" data-tag="Criança" onclick="toggleModalTag(this)">👶 Criança</span>
+          <span class="tag" data-tag="Bolsa Família" onclick="toggleModalTag(this)">🤝 Bolsa Família</span>
         </div>
       </div>
-
-      <div id="gestanteFields" style="display:none;background:#fdf2f8;border:1px solid #fbcfe8;padding:10px;border-radius:8px;margin-bottom:12px">
+      <div id="modalGestanteExtra" style="display:none;background:#fdf2f8;border:1px solid #fbcfe8;padding:8px;border-radius:8px;margin-bottom:12px">
         <div class="field">
-          <label style="color:#9d174d">Data Provável do Parto (DPP) da Gestante</label>
-          <input type="date" id="resDpp">
-          <small style="color:#9d174d;font-size:11px">Usado para calcular automaticamente as 3 visitas mínimas e o puerpério.</small>
+          <label style="color:#9d174d">Data Provável do Parto (DPP)</label>
+          <input type="date" id="mResDpp">
         </div>
       </div>
-
-      <button class="btn btn-primary" type="submit">Salvar Cidadão</button>
+      <button class="btn btn-primary" type="submit">Salvar Morador no Imóvel</button>
     </form>
   </div>
 </div>
 
-<div class="modal" id="modalHouse">
+<div class="modal" id="modalHelp">
   <div class="modal-content">
     <div class="card-header">
-      <h3>Cadastrar Novo Imóvel</h3>
-      <button class="btn btn-sm btn-soft" onclick="closeModal('modalHouse')">✕</button>
+      <h3>UBS Paris 4 · Guia Rápido</h3>
+      <button class="btn btn-sm btn-soft" onclick="closeModal('modalHelp')">✕</button>
     </div>
-    <form id="formHouse" onsubmit="saveHouse(event)">
-      <input type="hidden" id="hStreetId">
-      <div class="field">
-        <label>Número do Imóvel *</label>
-        <input type="text" id="hNumber" required placeholder="Ex.: 145">
-      </div>
-      <div class="field">
-        <label>Complemento (Opcional)</label>
-        <input type="text" id="hComp" placeholder="Ex.: Casa dos fundos, Bloco B">
-      </div>
-      <button class="btn btn-primary" type="submit">Adicionar Imóvel</button>
-    </form>
-  </div>
-</div>
-
-<div class="modal" id="modalBackup">
-  <div class="modal-content">
-    <div class="card-header">
-      <h3>Cópia de Segurança dos Dados</h3>
-      <button class="btn btn-sm btn-soft" onclick="closeModal('modalBackup')">✕</button>
-    </div>
-    <p style="font-size:12px;color:var(--muted)">Guarde uma cópia no seu computador ou restaure os dados em outro tablet.</p>
-    <div class="grid-2">
-      <button class="btn btn-primary btn-sm" onclick="downloadBackup()">⇩ Baixar Cópia</button>
-      <button class="btn btn-soft btn-sm" onclick="resetDefaults()">Restaurar Demonstração</button>
-    </div>
+    <p style="font-size:13px;color:var(--muted)">
+      <strong>1. Visita por Casa:</strong> Escolha a rua e a casa. Se não tiver ninguém, marque "Casa Fechada". Se atenderem, marque quem estava presente.<br><br>
+      <strong>2. Agenda:</strong> Mostra o dia de hoje destacado. Toque nos dias para ver quem tem prazo vencendo.<br><br>
+      <strong>3. Fechamento:</strong> Toque nas tags (ex.: Idoso + Hipertenso) para cruzar os dados instantaneamente.<br><br>
+      <strong>4. Importar Planilha:</strong> Na aba Planilhas, suba o arquivo CSV que as ACS já usam e selecione as colunas correspondentes.
+    </p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// BANCO DE DADOS E ESTRUTURA INICIAL DA UBS PARIS 4 (MARINGÁ)
-const DB_KEY = 'ubsParis4_Maringa_v3';
-const defaultDB = {
-  areas: [
-    { id: 'ma1', name: 'Microárea 01 (Equipe Paris)' },
-    { id: 'ma2', name: 'Microárea 02 (Equipe Paris)' }
-  ],
+// BASE DE DADOS REALISTA INICIAL - UBS PARIS 4 (MARINGÁ)
+const DB_KEY = 'ubsParis4_Maringa_v4';
+const initialDB = {
+  areas: [{ id: 'ma1', name: 'Microárea 01 (Paris)' }],
   streets: [
     {
       id: 'st1', areaId: 'ma1', name: 'Rua Antonio Bughi',
@@ -421,23 +431,14 @@ const defaultDB = {
         {
           id: 'h1', number: '120', complement: '',
           residents: [
-            {
-              id: 'r1', name: 'Maria de Lourdes Silva', birthDate: '1998-05-14',
-              tags: ['Gestante', 'Bolsa Família'], dpp: '2025-01-20', cns: ''
-            },
-            {
-              id: 'r2', name: 'José Pereira da Silva', birthDate: '1954-08-10',
-              tags: ['Idoso', 'Hipertenso'], dpp: '', cns: ''
-            }
+            { id: 'r1', name: 'Dona Maria de Lourdes', birthDate: '1952-04-12', tags: ['Idoso', 'Hipertenso', 'Bolsa Família'], dpp: '', cns: '' },
+            { id: 'r2', name: 'Ana Paula Silva', birthDate: '1998-09-15', tags: ['Gestante'], dpp: '2025-01-20', cns: '' }
           ]
         },
         {
-          id: 'h2', number: '135', complement: '',
+          id: 'h2', number: '135', complement: 'Fundos',
           residents: [
-            {
-              id: 'r3', name: 'Antônio Carlos Meireles', birthDate: '1962-02-12',
-              tags: ['Hipertenso', 'Diabético'], dpp: '', cns: ''
-            }
+            { id: 'r3', name: 'Seu Antônio Carlos Meireles', birthDate: '1958-02-12', tags: ['Idoso', 'Hipertenso', 'Diabético'], dpp: '', cns: '' }
           ]
         }
       ]
@@ -446,12 +447,9 @@ const defaultDB = {
       id: 'st2', areaId: 'ma1', name: 'Avenida das Torres',
       houses: [
         {
-          id: 'h3', number: '45', complement: 'Fundos',
+          id: 'h3', number: '45', complement: '',
           residents: [
-            {
-              id: 'r4', name: 'Enzo Gabriel Santos', birthDate: '2024-03-10',
-              tags: ['Criança', 'Bolsa Família'], dpp: '', cns: ''
-            }
+            { id: 'r4', name: 'Enzo Gabriel Santos', birthDate: '2024-03-10', tags: ['Criança', 'Bolsa Família'], dpp: '', cns: '' }
           ]
         }
       ]
@@ -459,32 +457,38 @@ const defaultDB = {
   ],
   visits: [
     {
-      id: 'v101', date: '2024-09-10', residentId: 'r2', houseId: 'h1', streetId: 'st1', areaId: 'ma1',
-      outcome: 'Visita realizada',
-      checklist: { hasPA: '130x85', hasConsulta6m: true },
-      notes: 'PA controlada, receita médica válida.', synced: true
+      id: 'v101', date: '2024-10-15', houseId: 'h1', streetId: 'st1', outcome: 'Realizada',
+      attendees: [
+        { residentId: 'r1', pa: '130x85', consulta6m: true },
+        { residentId: 'r2', gestVacina: true, gestTestes: true }
+      ],
+      notes: 'Família bem orientada.'
     }
   ]
 };
 
 let db = loadDB();
-let activeFilterTag = '';
+
+// Estados da Interface
+let selectedCalDate = new Date();
+let activeAgendaTags = [];
+let activeReportTags = [];
+let importedRawData = null;
 
 function loadDB(){
   try{
     const s = localStorage.getItem(DB_KEY);
     if(s) return JSON.parse(s);
   }catch(e){}
-  return defaultDB;
+  return initialDB;
 }
 
 function persist(){
   try{
     localStorage.setItem(DB_KEY, JSON.stringify(db));
-    updateCounters();
     return true;
   }catch(e){
-    toast('Erro de espaço de armazenamento no navegador.');
+    toast('Erro de gravação no dispositivo.');
     return false;
   }
 }
@@ -497,186 +501,693 @@ function toast(msg){
 }
 
 // NAVEGAÇÃO
-function navTo(viewId, param=''){
+function navTo(viewId){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + viewId).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.v === viewId));
 
-  if(viewId === 'inicio') renderHome();
-  if(viewId === 'agenda') {
-    if(param) document.getElementById('agendaSearch').value = '';
-    renderAgenda(param);
-  }
-  if(viewId === 'territorio') renderTerritory();
-  if(viewId === 'fechamento') calculateReport();
+  if(viewId === 'visita') setupVisitScreen();
+  if(viewId === 'agenda') renderAgenda();
+  if(viewId === 'fechamento') runReport();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// MOTOR DE REGRAS DE SAÚDE (SEMÁFORO)
-function calculateResidentStatus(resident){
-  // Encontrar todas as visitas desse morador ordenadas da mais nova pra mais velha
-  const resVisits = db.visits
-    .filter(v => v.residentId === resident.id && v.outcome === 'Visita realizada')
-    .sort((a,b) => b.date.localeCompare(a.date));
+// ================= 1. FLUXO DE VISITA POR DOMICÍLIO =================
+function setupVisitScreen(){
+  const todayStr = new Date().toISOString().slice(0,10);
+  document.getElementById('visDate').value = todayStr;
 
-  const lastVisit = resVisits[0];
-  const now = new Date();
-  const daysSince = lastVisit ? Math.floor((now - new Date(lastVisit.date + 'T00:00:00')) / (1000 * 60 * 60 * 24)) : 9999;
+  const areaSel = document.getElementById('visAreaSelect');
+  areaSel.innerHTML = db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
 
-  // Regra 1: Gestante (Crachá: 3 visitas na gestação c/ intervalo mín 30 dias + 1 no puerpério <= 42 dias)
-  if(resident.tags.includes('Gestante')){
-    const count = resVisits.length;
-    if(count === 0) return { color:'red', label:'Sem visita (Gestante)', daysSince, urgency:1, detail:`0 de 3 visitas realizadas` };
-    if(daysSince > 45) return { color:'red', label:'Visita Atrasada (Gestante)', daysSince, urgency:1, detail:`Última visita há ${daysSince} dias. Meta: intervalo máx 30-40 dias.` };
-    if(daysSince >= 25 && daysSince <= 45) return { color:'yellow', label:'Visita a Vencer (Gestante)', daysSince, urgency:2, detail:`${count}/3 visitas feitas. Próxima visita deve ser realizada logo.` };
-    return { color:'green', label:'Gestante em Dia', daysSince, urgency:3, detail:`${count} visita(s) realizadas na gestação.` };
-  }
-
-  // Regra 2: Criança < 2 anos (Crachá: 1ª visita nos primeiros 30 dias, 2ª até 6 meses)
-  if(resident.tags.includes('Criança')){
-    if(!lastVisit) return { color:'red', label:'Criança sem visita', daysSince, urgency:1, detail:'Necessita avaliação nos primeiros meses de vida.' };
-    if(daysSince > 90) return { color:'red', label:'Atrasada (>90 dias)', daysSince, urgency:1, detail:`Última visita há ${daysSince} dias.` };
-    if(daysSince > 60) return { color:'yellow', label:'Atenção (60-90 dias)', daysSince, urgency:2, detail:`Última visita há ${daysSince} dias.` };
-    return { color:'green', label:'Criança em Dia', daysSince, urgency:3, detail:`Visitada há ${daysSince} dias.` };
-  }
-
-  // Regra 3: Hipertenso e Diabético (Crachá: 2 visitas no ano - 1 por semestre, mín 30 dias intervalo)
-  if(resident.tags.includes('Hipertenso') || resident.tags.includes('Diabético')){
-    if(!lastVisit) return { color:'red', label:'Nunca visitado', daysSince, urgency:1, detail:'Meta do semestre não cumprida.' };
-    if(daysSince > 180) return { color:'red', label:'Atrasada (>6 meses)', daysSince, urgency:1, detail:`Última visita há ${daysSince} dias (Prazo: 180 dias).` };
-    if(daysSince >= 150) return { color:'yellow', label:'Vence em breve', daysSince, urgency:2, detail:`Faltam ~${180 - daysSince} dias para estourar o semestre.` };
-    return { color:'green', label:'Visitas do Semestre OK', daysSince, urgency:3, detail:`Visitado há ${daysSince} dias.` };
-  }
-
-  // Regra 4: Idoso (Crachá: 2 visitas no ano)
-  if(resident.tags.includes('Idoso')){
-    if(!lastVisit) return { color:'red', label:'Idoso sem visita', daysSince, urgency:1, detail:'Meta semestral pendente.' };
-    if(daysSince > 180) return { color:'red', label:'Atrasada (>6 meses)', daysSince, urgency:1, detail:`Última visita há ${daysSince} dias.` };
-    if(daysSince >= 150) return { color:'yellow', label:'Vence em breve', daysSince, urgency:2, detail:`Última visita há ${daysSince} dias.` };
-    return { color:'green', label:'Idoso em Dia', daysSince, urgency:3, detail:`Visitado há ${daysSince} dias.` };
-  }
-
-  // Regra Geral: Domicílio normal
-  if(!lastVisit) return { color:'yellow', label:'Novo no cadastro', daysSince, urgency:2, detail:'Ainda não visitado.' };
-  if(daysSince > 365) return { color:'red', label:'Sem visita no ano', daysSince, urgency:1, detail:`Mais de 1 ano sem visita.` };
-  return { color:'green', label:'Em dia', daysSince, urgency:3, detail:`Visitado há ${daysSince} dias.` };
+  updateVisitStreets();
 }
 
-// INÍCIO & CONTADORES
-function updateCounters(){
-  let red = 0, yellow = 0, green = 0;
-  db.streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        const st = calculateResidentStatus(r);
-        if(st.color === 'red') red++;
-        if(st.color === 'yellow') yellow++;
-        if(st.color === 'green') green++;
-      });
-    });
-  });
-  document.getElementById('countRed').textContent = red;
-  document.getElementById('countYellow').textContent = yellow;
-  document.getElementById('countGreen').textContent = green;
+function updateVisitStreets(){
+  const areaId = document.getElementById('visAreaSelect').value;
+  const strSel = document.getElementById('visStreetSelect');
+  const streets = db.streets.filter(s => s.areaId === areaId);
+  strSel.innerHTML = `<option value="">Selecione a Rua...</option>` + streets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  updateVisitHouses();
 }
 
-function renderHome(){
-  updateCounters();
-  const container = document.getElementById('recentVisitsList');
-  const recent = db.visits.slice(-3).reverse();
-  if(!recent.length){
-    container.innerHTML = '<p style="color:var(--muted);font-size:12px;text-align:center">Nenhuma visita realizada ainda.</p>';
+function updateVisitHouses(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseSel = document.getElementById('visHouseSelect');
+  const street = db.streets.find(s => s.id === streetId);
+
+  if(!street || !street.houses.length){
+    houseSel.innerHTML = `<option value="">Nenhum número cadastrado</option>`;
+    document.getElementById('houseOutcomeCard').style.display = 'none';
+    document.getElementById('residentsListCard').style.display = 'none';
     return;
   }
-  container.innerHTML = recent.map(v => {
-    const res = findResident(v.residentId);
-    return `
-      <div style="border-left:4px solid var(--p);padding:8px 12px;background:#fcfdfc;border-radius:6px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
-        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800">
-          <span>${res ? res.name : 'Cidadão'}</span>
-          <span style="font-size:11px;color:var(--muted)">${v.date.split('-').reverse().join('/')}</span>
-        </div>
-        <small style="color:var(--muted)">${v.outcome}</small>
-        ${v.notes ? `<div style="font-size:11px;color:#35534b;margin-top:4px">💬 ${v.notes}</div>` : ''}
+  houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number} ${h.complement ? `(${h.complement})` : ''}</option>`).join('');
+  document.getElementById('houseOutcomeCard').style.display = 'none';
+  document.getElementById('residentsListCard').style.display = 'none';
+}
+
+function loadHouseForVisit(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseId = document.getElementById('visHouseSelect').value;
+  const street = db.streets.find(s => s.id === streetId);
+  const house = street?.houses.find(h => h.id === houseId);
+
+  if(!house){
+    document.getElementById('houseOutcomeCard').style.display = 'none';
+    document.getElementById('residentsListCard').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('currentHouseTitle').textContent = `${street.name}, Nº ${house.number}`;
+  document.getElementById('currentHouseComp').textContent = house.complement ? `Complemento: ${house.complement}` : '';
+  document.getElementById('houseOutcomeCard').style.display = 'block';
+
+  document.getElementById('visHouseOutcome').value = 'Realizada';
+  handleHouseOutcomeChange();
+}
+
+function handleHouseOutcomeChange(){
+  const outcome = document.getElementById('visHouseOutcome').value;
+  const quickBox = document.getElementById('quickOutcomeBtnBox');
+  const resCard = document.getElementById('residentsListCard');
+
+  if(outcome === 'Realizada'){
+    quickBox.style.display = 'none';
+    resCard.style.display = 'block';
+    renderFamilyMembers();
+  } else {
+    quickBox.style.display = 'block';
+    resCard.style.display = 'none';
+  }
+}
+
+function renderFamilyMembers(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseId = document.getElementById('visHouseSelect').value;
+  const street = db.streets.find(s => s.id === streetId);
+  const house = street?.houses.find(h => h.id === houseId);
+  const container = document.getElementById('familyMembersContainer');
+
+  if(!house.residents || !house.residents.length){
+    container.innerHTML = `
+      <div style="background:#fff7ed;border:1px dashed #f97316;padding:12px;border-radius:8px;text-align:center">
+        <p style="margin:0 0 6px;font-size:13px;color:#9a3412">Nenhum morador cadastrado neste imóvel ainda.</p>
+        <button class="btn btn-sm btn-primary" onclick="openAddResidentModalCurrentHouse()">＋ Adicionar Primeiro Morador</button>
       </div>
     `;
-  }).join('');
-}
-
-// AGENDA COM SEMÁFORO & TAGS POKÉMON
-function renderAgenda(forcedColor = ''){
-  const search = document.getElementById('agendaSearch').value.toLowerCase();
-  const allResidents = [];
-
-  db.streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        const status = calculateResidentStatus(r);
-        allResidents.push({
-          ...r,
-          streetName: s.name,
-          houseNumber: h.number,
-          houseComp: h.complement,
-          streetId: s.id,
-          houseId: h.id,
-          areaId: s.areaId,
-          status
-        });
-      });
-    });
-  });
-
-  // Renderizar filtros de tags
-  const tagsList = ['Hipertenso', 'Diabético', 'Gestante', 'Idoso', 'Criança', 'Bolsa Família'];
-  document.getElementById('agendaTagFilters').innerHTML = `
-    <span class="tag clickable ${activeFilterTag === '' ? 'active' : ''}" onclick="filterAgendaByTag('')">Todas as Tags</span>
-    ${tagsList.map(t => `<span class="tag clickable ${activeFilterTag === t ? 'active' : ''}" onclick="filterAgendaByTag('${t}')">${t}</span>`).join('')}
-  `;
-
-  // Filtragem
-  let filtered = allResidents.filter(r => {
-    const matchesSearch = r.name.toLowerCase().includes(search) || r.streetName.toLowerCase().includes(search) || r.houseNumber.includes(search);
-    const matchesTag = !activeFilterTag || r.tags.includes(activeFilterTag);
-    const matchesColor = !forcedColor || r.status.color === forcedColor;
-    return matchesSearch && matchesTag && matchesColor;
-  });
-
-  // Ordenação por Urgência (Vermelhos primeiro, depois Amarelos, depois Verdes)
-  filtered.sort((a,b) => a.status.urgency - b.status.urgency || b.status.daysSince - a.status.daysSince);
-
-  document.getElementById('agendaTotal').textContent = `${filtered.length} cidadãos`;
-
-  const container = document.getElementById('agendaList');
-  if(!filtered.length){
-    container.innerHTML = '<p style="text-align:center;color:var(--muted);margin-top:20px">Nenhum cidadão encontrado para este filtro.</p>';
     return;
   }
 
-  container.innerHTML = filtered.map(r => `
-    <div class="card" style="border-left: 5px solid var(--${r.status.color})">
-      <div class="card-header" style="margin-bottom:6px">
-        <div>
-          <span class="status-pill ${r.status.color}"><span class="dot ${r.status.color}"></span> ${r.status.label}</span>
-          <h3 style="margin:5px 0 2px">${r.name}</h3>
-          <small style="color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber} ${r.houseComp ? `(${r.houseComp})` : ''}</small>
-        </div>
-        <button class="btn btn-sm btn-primary" onclick="prepareVisit('${r.id}','${r.houseId}','${r.streetId}','${r.areaId}')">Visitar</button>
-      </div>
-
+  container.innerHTML = house.residents.map(r => `
+    <div class="resident-visit-card" id="resCard_${r.id}">
+      <label class="check-item" style="font-weight:800;font-size:14px">
+        <input type="checkbox" class="chk-presence" data-resid="${r.id}" onchange="toggleResidentPresence('${r.id}', this)">
+        <span>${r.name}</span>
+      </label>
       <div class="tags-cloud">
         ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
       </div>
 
-      <div style="background:#f7faf9;padding:8px 10px;border-radius:8px;font-size:12px;color:#2c4c43;margin-top:6px">
-        ℹ️ ${r.status.detail}
+      <!-- Checklist específico que abre quando o morador está presente -->
+      <div id="checklistBox_${r.id}" style="display:none" class="checklist-box">
+        ${buildResidentChecklistHTML(r)}
       </div>
     </div>
   `).join('');
 }
 
-function filterAgendaByTag(tag){
-  activeFilterTag = tag;
+function toggleResidentPresence(resId, el){
+  const box = document.getElementById(`checklistBox_${resId}`);
+  const card = document.getElementById(`resCard_${resId}`);
+  if(el.checked){
+    box.style.display = 'block';
+    card.classList.add('active-presence');
+  } else {
+    box.style.display = 'none';
+    card.classList.remove('active-presence');
+  }
+}
+
+function buildResidentChecklistHTML(r){
+  let html = '';
+  if(r.tags.includes('Hipertenso')){
+    html += `
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Aferição Hipertensão:</div>
+      <div class="grid-2">
+        <div class="field"><label>PA Aferida</label><input type="text" id="pa_${r.id}" placeholder="120x80"></div>
+        <div class="field"><label>Consulta nos 6m?</label><select id="hasCon_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+      </div>
+    `;
+  }
+  if(r.tags.includes('Diabético')){
+    html += `
+      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Aferição Diabetes:</div>
+      <div class="grid-2">
+        <div class="field"><label>Glicemia (mg/dL)</label><input type="number" id="gli_${r.id}" placeholder="110"></div>
+        <div class="field"><label>Avaliação dos Pés?</label><select id="dmPes_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+      </div>
+    `;
+  }
+  if(r.tags.includes('Gestante')){
+    html += `
+      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Pré-Natal & Vacinas:</div>
+      <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa em dia</label>
+      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes Rápidos realizados</label>
+      <label class="check-item"><input type="checkbox" id="gOdo_${r.id}"> Consulta Odontológica realizada</label>
+    `;
+  }
+  if(r.tags.includes('Criança')){
+    html += `
+      <div style="font-size:12px;font-weight:800;color:#9a3412;margin-bottom:4px">👶 Acompanhamento Infantil:</div>
+      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia (Pólio/Penta/Tríplice)</label>
+      <label class="check-item"><input type="checkbox" id="cPeso_${r.id}"> Peso e Altura acompanhados</label>
+    `;
+  }
+  if(r.tags.includes('Idoso')){
+    html += `
+      <div style="font-size:12px;font-weight:800;color:#6b21a8;margin-bottom:4px">🧓 Atenção ao Idoso:</div>
+      <label class="check-item"><input type="checkbox" id="iGripe_${r.id}"> Vacina da Gripe tomada no ano</label>
+    `;
+  }
+  if(!html){
+    html = `<p style="font-size:12px;color:var(--muted);margin:0">Cidadão sem comorbidades registradas. Orientações gerais de saúde.</p>`;
+  }
+  return html;
+}
+
+function saveFamilyVisit(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseId = document.getElementById('visHouseSelect').value;
+  const date = document.getElementById('visDate').value;
+  const notes = document.getElementById('visHouseNotes').value.trim();
+
+  const checkedPresence = Array.from(document.querySelectorAll('.chk-presence:checked'));
+
+  const attendees = checkedPresence.map(chk => {
+    const resId = chk.dataset.resid;
+    return {
+      residentId: resId,
+      pa: document.getElementById(`pa_${resId}`)?.value || '',
+      glicemia: document.getElementById(`gli_${resId}`)?.value || '',
+      hasConsulta6m: document.getElementById(`hasCon_${resId}`)?.value === 'Sim',
+      gestVacina: document.getElementById(`gVac_${resId}`)?.checked || false,
+      criancaVacina: document.getElementById(`cVac_${resId}`)?.checked || false,
+      idosoGripe: document.getElementById(`iGripe_${resId}`)?.checked || false
+    };
+  });
+
+  const visitRecord = {
+    id: 'v_' + Date.now(),
+    date,
+    streetId,
+    houseId,
+    outcome: 'Realizada',
+    attendees,
+    notes
+  };
+
+  db.visits.push(visitRecord);
+  persist();
+  toast('✓ Visita da família gravada com sucesso!');
+  navTo('agenda');
+}
+
+function saveHouseAbsentOrRefusal(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseId = document.getElementById('visHouseSelect').value;
+  const date = document.getElementById('visDate').value;
+  const outcome = document.getElementById('visHouseOutcome').value;
+
+  db.visits.push({
+    id: 'v_' + Date.now(),
+    date,
+    streetId,
+    houseId,
+    outcome, // 'Ausente' ou 'Recusa'
+    attendees: [],
+    notes: outcome === 'Ausente' ? 'Imóvel fechado durante o horário de visita.' : 'Morador recusou o atendimento.'
+  });
+
+  persist();
+  toast(`✓ Registro salvo: ${outcome}`);
+  navTo('agenda');
+}
+
+// ================= 2. AGENDA COM CALENDÁRIO VISUAL REAL =================
+function renderAgenda(){
+  updateTodayHeader();
+  renderAgendaTagFilters();
+  renderCalendarWidget();
+  renderAgendaDeadlinesList();
+}
+
+function updateTodayHeader(){
+  const now = new Date();
+  const options = { weekday: 'long', day: 'numeric', month: 'long' };
+  document.getElementById('topDateStr').textContent = `Hoje: ${now.toLocaleDateString('pt-BR', options)}`;
+  document.getElementById('agendaTodayBadge').textContent = `Hoje: ${now.getDate()}/${now.getMonth()+1}`;
+}
+
+function renderAgendaTagFilters(){
+  const tags = ['Hipertenso', 'Diabético', 'Gestante', 'Idoso', 'Criança', 'Bolsa Família'];
+  document.getElementById('agendaTagCloud').innerHTML = tags.map(t => {
+    const isAct = activeAgendaTags.includes(t);
+    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
+  }).join('') + (activeAgendaTags.length ? `<span class="tag btn-danger" onclick="clearAgendaTags()">✕ Limpar</span>` : '');
+}
+
+function toggleAgendaTag(tag){
+  if(activeAgendaTags.includes(tag)){
+    activeAgendaTags = activeAgendaTags.filter(t => t !== tag);
+  } else {
+    activeAgendaTags.push(tag);
+  }
   renderAgenda();
+}
+
+function clearAgendaTags(){
+  activeAgendaTags = [];
+  renderAgenda();
+}
+
+function renderCalendarWidget(){
+  const year = selectedCalDate.getFullYear();
+  const month = selectedCalDate.getMonth();
+
+  const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  document.getElementById('calMonthYearTitle').textContent = `${monthNames[month]} de ${year}`;
+
+  const firstDayIndex = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month + 1, 0).getDate();
+  const prevMonthTotalDays = new Date(year, month, 0).getDate();
+
+  const grid = document.getElementById('calendarGrid');
+  let html = `
+    <div class="cal-weekday">D</div><div class="cal-weekday">S</div><div class="cal-weekday">T</div>
+    <div class="cal-weekday">Q</div><div class="cal-weekday">Q</div><div class="cal-weekday">S</div><div class="cal-weekday">S</div>
+  `;
+
+  // Dias do mês anterior para preencher
+  for(let x = firstDayIndex; x > 0; x--){
+    html += `<div class="cal-day other-month">${prevMonthTotalDays - x + 1}</div>`;
+  }
+
+  const today = new Date();
+  for(let d = 1; d <= totalDays; d++){
+    const thisDateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+    const isSelected = selectedCalDate.getDate() === d && selectedCalDate.getMonth() === month;
+
+    // Calcular se há prazos neste dia
+    const dots = getCalendarDotsForDay(thisDateStr);
+
+    html += `
+      <div class="cal-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}" onclick="selectCalendarDay(${d})">
+        <span>${d}</span>
+        <div class="cal-dots">
+          ${dots.hasRed ? '<span class="cal-dot red"></span>' : ''}
+          ${dots.hasYellow ? '<span class="cal-dot yellow"></span>' : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  grid.innerHTML = html;
+}
+
+function changeMonth(delta){
+  selectedCalDate = new Date(selectedCalDate.getFullYear(), selectedCalDate.getMonth() + delta, 1);
+  renderAgenda();
+}
+
+function selectCalendarDay(d){
+  selectedCalDate.setDate(d);
+  renderAgenda();
+}
+
+function getCalendarDotsForDay(dateStr){
+  // Simples verificação se alguém tem prazo neste dia
+  return { hasRed: false, hasYellow: false };
+}
+
+// CÁLCULO DE PRAZOS E LISTA DE CIDADÃOS NA AGENDA
+function calculateCitizenStatus(resident, houseId){
+  // Visitas atendidas
+  const resVisits = db.visits
+    .filter(v => v.outcome === 'Realizada' && v.attendees && v.attendees.some(a => a.residentId === resident.id))
+    .sort((a,b) => b.date.localeCompare(a.date));
+
+  const lastVisit = resVisits[0];
+  const now = new Date();
+  const daysSince = lastVisit ? Math.floor((now - new Date(lastVisit.date + 'T00:00:00')) / (1000 * 60 * 60 * 24)) : 999;
+
+  if(resident.tags.includes('Gestante')){
+    if(!lastVisit) return { color:'red', label:'Gestante sem visita', urgency:1, text:'Nenhuma visita registrada na gestação.' };
+    if(daysSince > 40) return { color:'red', label:'Visita Atrasada', urgency:1, text:`Última visita há ${daysSince} dias. Meta: a cada 30 dias.` };
+    if(daysSince >= 25) return { color:'yellow', label:'A Vencer', urgency:2, text:`Última visita há ${daysSince} dias.` };
+    return { color:'green', label:'Em Dia', urgency:3, text:`Visitada há ${daysSince} dias.` };
+  }
+
+  if(resident.tags.includes('Hipertenso') || resident.tags.includes('Diabético')){
+    if(!lastVisit) return { color:'red', label:'Sem visita no semestre', urgency:1, text:'Meta de 2 visitas/ano não iniciada.' };
+    if(daysSince > 180) return { color:'red', label:'Atrasada (>6 meses)', urgency:1, text:`Última visita há ${daysSince} dias.` };
+    if(daysSince >= 150) return { color:'yellow', label:'Vence em breve', urgency:2, text:`Faltam ~${180 - daysSince} dias para estourar o semestre.` };
+    return { color:'green', label:'Em Dia', urgency:3, text:`Visitado há ${daysSince} dias.` };
+  }
+
+  if(daysSince > 365) return { color:'red', label:'Sem visita no ano', urgency:1, text:'Mais de 365 dias sem visita.' };
+  return { color:'green', label:'Em dia', urgency:3, text:`Visitado há ${daysSince} dias.` };
+}
+
+function renderAgendaDeadlinesList(){
+  const allResidents = [];
+
+  db.streets.forEach(s => {
+    s.houses.forEach(h => {
+      (h.residents || []).forEach(r => {
+        // Cruzamento de tags (E lógico)
+        const matchesTags = activeAgendaTags.every(t => r.tags.includes(t));
+        if(!matchesTags) return;
+
+        const st = calculateCitizenStatus(r, h.id);
+        allResidents.push({
+          ...r,
+          streetName: s.name,
+          streetId: s.id,
+          houseNumber: h.number,
+          houseId: h.id,
+          areaId: s.areaId,
+          status: st
+        });
+      });
+    });
+  });
+
+  // Ordenação por urgência
+  allResidents.sort((a,b) => a.status.urgency - b.status.urgency);
+
+  document.getElementById('agendaCountBadge').textContent = `${allResidents.length} cidadãos`;
+  const container = document.getElementById('agendaDeadlinesList');
+
+  if(!allResidents.length){
+    container.innerHTML = `<p style="text-align:center;color:var(--muted)">Nenhum cidadão encontrado com essa combinação de tags.</p>`;
+    return;
+  }
+
+  container.innerHTML = allResidents.map(r => `
+    <div style="border-left:4px solid var(--${r.status.color});background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <span class="status-pill ${r.status.color}">${r.status.label}</span>
+          <strong style="display:block;margin:4px 0 2px;font-size:14px">${r.name}</strong>
+          <small style="color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber}</small>
+        </div>
+        <button class="btn btn-sm btn-primary" onclick="quickJumpToVisit('${r.streetId}','${r.houseId}')">Ir à Casa</button>
+      </div>
+      <div class="tags-cloud" style="margin-top:4px">
+        ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
+      </div>
+      <div style="font-size:11px;color:#2e4e45;margin-top:4px">ℹ️ ${r.status.text}</div>
+    </div>
+  `).join('');
+}
+
+function quickJumpToVisit(streetId, houseId){
+  navTo('visita');
+  document.getElementById('visStreetSelect').value = streetId;
+  updateVisitHouses();
+  document.getElementById('visHouseSelect').value = houseId;
+  loadHouseForVisit();
+}
+
+// ================= 3. FECHAMENTO & CRUZAMENTOS DO GESTOR =================
+function runReport(){
+  renderReportTagFilters();
+
+  const allResidents = [];
+  db.streets.forEach(s => {
+    s.houses.forEach(h => {
+      (h.residents || []).forEach(r => {
+        allResidents.push({
+          ...r,
+          streetName: s.name,
+          houseNumber: h.number
+        });
+      });
+    });
+  });
+
+  // Filtrar pelo cruzamento de tags selecionado
+  const filteredResidents = allResidents.filter(r => {
+    if(!activeReportTags.length) return true;
+    return activeReportTags.every(t => r.tags.includes(t));
+  });
+
+  // Calcular quem foi visitado no período selecionado
+  const preset = document.getElementById('repPeriod').value;
+  const now = new Date();
+  let start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
+  let end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
+
+  if(preset === 'lastMonth'){
+    start = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0,10);
+    end = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().slice(0,10);
+  } else if(preset === 'ano'){
+    start = new Date(now.getFullYear(), 0, 1).toISOString().slice(0,10);
+    end = new Date(now.getFullYear(), 11, 31).toISOString().slice(0,10);
+  }
+
+  const periodVisits = db.visits.filter(v => v.outcome === 'Realizada' && v.date >= start && v.date <= end);
+  const visitedResidentIds = new Set();
+  periodVisits.forEach(v => {
+    (v.attendees || []).forEach(a => visitedResidentIds.add(a.residentId));
+  });
+
+  const total = filteredResidents.length;
+  const visitedCount = filteredResidents.filter(r => visitedResidentIds.has(r.id)).length;
+  const pendingCount = total - visitedCount;
+  const perc = total > 0 ? Math.round((visitedCount / total) * 100) + '%' : '0%';
+
+  // Painel de Resumo
+  document.getElementById('reportSummaryBox').innerHTML = `
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
+      Cruzamento selecionado: <strong>${activeReportTags.join(' + ') || 'Toda a População'}</strong>
+    </div>
+    <div class="grid-2" style="text-align:center">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:10px">
+        <strong style="font-size:22px;color:var(--green);display:block">${visitedCount}</strong>
+        <small style="color:#166534;font-weight:700">Visitados no Período (${perc})</small>
+      </div>
+      <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px">
+        <strong style="font-size:22px;color:var(--red);display:block">${pendingCount}</strong>
+        <small style="color:#991b1b;font-weight:700">Pendentes no Período</small>
+      </div>
+    </div>
+  `;
+
+  // Lista Nominal das Pessoas
+  document.getElementById('reportListTitle').textContent = `Lista Nominal (${filteredResidents.length} pessoas encontradas)`;
+  document.getElementById('reportResidentsList').innerHTML = filteredResidents.map(r => {
+    const wasVisited = visitedResidentIds.has(r.id);
+    return `
+      <div style="padding:10px 0;border-bottom:1px solid #edf4f1;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong style="font-size:13px">${r.name}</strong>
+          <small style="display:block;color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber}</small>
+          <div class="tags-cloud" style="margin:2px 0">
+            ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
+          </div>
+        </div>
+        <span class="status-pill ${wasVisited ? 'green' : 'red'}">
+          ${wasVisited ? '✓ Visitado' : '⚠️ Pendente'}
+        </span>
+      </div>
+    `;
+  }).join('') || '<p style="text-align:center;color:var(--muted)">Nenhum cidadão atende a esse cruzamento de tags.</p>';
+}
+
+function renderReportTagFilters(){
+  const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
+  document.getElementById('reportTagCloud').innerHTML = tags.map(t => {
+    const isAct = activeReportTags.includes(t);
+    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleReportTag('${t}')">${t}</span>`;
+  }).join('') + (activeReportTags.length ? `<span class="tag btn-danger" onclick="clearReportTags()">✕ Limpar</span>` : '');
+}
+
+function toggleReportTag(t){
+  if(activeReportTags.includes(t)){
+    activeReportTags = activeReportTags.filter(x => x !== t);
+  } else {
+    activeReportTags.push(t);
+  }
+  runReport();
+}
+
+function clearReportTags(){
+  activeReportTags = [];
+  runReport();
+}
+
+// ================= 4. IMPORTADOR INTELIGENTE DE PLANILHA =================
+function handleFileSelect(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const text = evt.target.result;
+    parseCSV(text);
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function parseCSV(text){
+  const lines = text.split(/\r\n|\n/).filter(l => l.trim().length > 0);
+  if(lines.length < 2){
+    toast('Planilha vazia ou formato inválido.');
+    return;
+  }
+
+  // Detecta se o delimitador é vírgula ou ponto e vírgula
+  const separator = lines[0].includes(';') ? ';' : ',';
+  const headers = lines[0].split(separator).map(h => h.replace(/"/g,'').trim());
+
+  importedRawData = {
+    headers,
+    rows: lines.slice(1).map(l => l.split(separator).map(c => c.replace(/"/g,'').trim()))
+  };
+
+  // Preenche os selects de mapeamento
+  ['mapColStreet', 'mapColNumber', 'mapColName', 'mapColBirth', 'mapColTags'].forEach(id => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = `<option value="">-- Ignorar / Não possui --</option>` + headers.map((h, idx) => `<option value="${idx}">${h}</option>`).join('');
+  });
+
+  // Auto-detecção inteligente de colunas
+  headers.forEach((h, idx) => {
+    const low = h.toLowerCase();
+    if(low.includes('rua') || low.includes('logradouro') || low.includes('end')) document.getElementById('mapColStreet').value = idx;
+    if(low.includes('num') || low.includes('casa') || low.includes('nº')) document.getElementById('mapColNumber').value = idx;
+    if(low.includes('nome') || low.includes('paciente') || low.includes('cidadao')) document.getElementById('mapColName').value = idx;
+    if(low.includes('nasc') || low.includes('dn') || low.includes('data')) document.getElementById('mapColBirth').value = idx;
+    if(low.includes('doen') || low.includes('tag') || low.includes('comorb') || low.includes('obs')) document.getElementById('mapColTags').value = idx;
+  });
+
+  document.getElementById('mapperBox').style.display = 'block';
+  toast('Planilha carregada! Confirme as colunas.');
+}
+
+function executeImport(){
+  if(!importedRawData) return;
+
+  const colStreet = document.getElementById('mapColStreet').value;
+  const colNumber = document.getElementById('mapColNumber').value;
+  const colName = document.getElementById('mapColName').value;
+  const colBirth = document.getElementById('mapColBirth').value;
+  const colTags = document.getElementById('mapColTags').value;
+
+  if(colStreet === '' || colNumber === '' || colName === ''){
+    alert('As colunas de Rua, Número e Nome são obrigatórias!');
+    return;
+  }
+
+  let countAdded = 0;
+
+  importedRawData.rows.forEach(r => {
+    const streetName = r[colStreet]?.trim();
+    const houseNum = r[colNumber]?.trim();
+    const resName = r[colName]?.trim();
+    const birth = colBirth !== '' ? r[colBirth]?.trim() : '';
+    const rawTags = colTags !== '' ? (r[colTags] || '').toUpperCase() : '';
+
+    if(!streetName || !houseNum || !resName) return;
+
+    // Achar ou criar a rua
+    let street = db.streets.find(s => s.name.toLowerCase() === streetName.toLowerCase());
+    if(!street){
+      street = { id: 'st_' + Date.now() + Math.random().toString(36).slice(2,5), areaId: db.areas[0].id, name: streetName, houses: [] };
+      db.streets.push(street);
+    }
+
+    // Achar ou criar a casa
+    let house = street.houses.find(h => h.number.toLowerCase() === houseNum.toLowerCase());
+    if(!house){
+      house = { id: 'h_' + Date.now() + Math.random().toString(36).slice(2,5), number: houseNum, complement: '', residents: [] };
+      street.houses.push(house);
+    }
+
+    // Identificar Tags automaticamente pelas palavras da planilha
+    const tags = [];
+    if(rawTags.includes('HAS') || rawTags.includes('HIPER')) tags.push('Hipertenso');
+    if(rawTags.includes('DM') || rawTags.includes('DIAB')) tags.push('Diabético');
+    if(rawTags.includes('GEST')) tags.push('Gestante');
+    if(rawTags.includes('BOLSA') || rawTags.includes('BF')) tags.push('Bolsa Família');
+    if(rawTags.includes('IDOS') || rawTags.includes('60')) tags.push('Idoso');
+    if(rawTags.includes('CRIAN') || rawTags.includes('BEBE')) tags.push('Criança');
+
+    house.residents.push({
+      id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
+      name: resName,
+      birthDate: birth,
+      tags,
+      dpp: '',
+      cns: ''
+    });
+    countAdded++;
+  });
+
+  persist();
+  document.getElementById('mapperBox').style.display = 'none';
+  document.getElementById('importFileInput').value = '';
+  toast(`✓ Sucesso! ${countAdded} pessoas importadas para o aplicativo!`);
+  navTo('visita');
+}
+
+// EXPORTADOR CSV (EXCEL)
+function exportDataToCSV(){
+  const filter = document.getElementById('exportGroupFilter').value;
+  const headers = ['Data Visita', 'Rua', 'Numero', 'Situacao', 'Cidadaos Atendidos', 'Observacoes'];
+
+  const rows = [];
+  db.visits.forEach(v => {
+    const street = db.streets.find(s => s.id === v.streetId)?.name || '';
+    const house = db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '';
+
+    // Nomes atendidos
+    const attendedNames = (v.attendees || []).map(a => {
+      const res = findResident(a.residentId);
+      return res ? res.name : '';
+    }).filter(Boolean).join(' | ');
+
+    rows.push([
+      v.date,
+      street,
+      house,
+      v.outcome,
+      attendedNames,
+      (v.notes || '').replace(/[\n\r;]/g, ' ')
+    ]);
+  });
+
+  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `UBS_Paris4_Visitas_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('Planilha exportada!');
+}
+
+// AUXILIARES
+function findResident(id){
+  for(let s of db.streets){
+    for(let h of s.houses){
+      const r = (h.residents || []).find(x => x.id === id);
+      if(r) return r;
+    }
+  }
+  return null;
 }
 
 function getTagClass(t){
@@ -689,463 +1200,69 @@ function getTagClass(t){
   return '';
 }
 
-// FORMULÁRIO DINÂMICO DE VISITA (O CRACHÁ DE MARINGÁ EM AÇÃO)
-function prepareVisit(resId, houseId, streetId, areaId){
-  const res = findResident(resId);
-  const street = db.streets.find(s => s.id === streetId);
-  const house = street?.houses.find(h => h.id === houseId);
-  if(!res) return;
-
-  document.getElementById('formVisit').reset();
-  document.getElementById('vResidentId').value = res.id;
-  document.getElementById('vHouseId').value = houseId;
-  document.getElementById('vStreetId').value = streetId;
-  document.getElementById('vAreaId').value = areaId;
-  document.getElementById('vDate').value = new Date().toISOString().slice(0,10);
-  document.getElementById('vResidentName').textContent = res.name;
-  document.getElementById('vResidentAddr').textContent = `📍 ${street.name}, Nº ${house.number}`;
-  document.getElementById('vResidentTags').innerHTML = res.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('');
-
-  // Carregar os checklists de acordo com as comorbidades do paciente
-  buildDynamicChecklist(res);
-
-  navTo('visita');
-}
-
-function buildDynamicChecklist(res){
-  const container = document.getElementById('dynamicChecklistContainer');
-  let html = '';
-
-  // 1. Checklist de Hipertensão
-  if(res.tags.includes('Hipertenso')){
-    html += `
-      <div class="checklist-box">
-        <div class="checklist-title">🩺 Acompanhamento de Hipertensão</div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Aferição de Pressão (PA)</label>
-            <input type="text" id="chkPA" placeholder="Ex.: 120x80">
-          </div>
-          <div class="field">
-            <label>Peso / Altura aferidos?</label>
-            <select id="chkPesoAlturaHAS"><option value="Não">Não</option><option value="Sim">Sim</option></select>
-          </div>
-        </div>
-        <label class="check-item"><input type="checkbox" id="chkConsultaHAS"> Consulta médica/enfermeiro nos últimos 6 meses</label>
-      </div>
-    `;
-  }
-
-  // 2. Checklist de Diabetes
-  if(res.tags.includes('Diabético')){
-    html += `
-      <div class="checklist-box">
-        <div class="checklist-title">🩸 Acompanhamento de Diabetes</div>
-        <div class="grid-2">
-          <div class="field">
-            <label>Glicemia (mg/dL)</label>
-            <input type="number" id="chkGlicemia" placeholder="Ex.: 110">
-          </div>
-          <div class="field">
-            <label>Avaliação dos Pés feita?</label>
-            <select id="chkPesDM"><option value="Não">Não</option><option value="Sim">Sim</option></select>
-          </div>
-        </div>
-        <label class="check-item"><input type="checkbox" id="chkHbA1c"> Exame de Hemoglobina Glicada solicitado/feito (&lt;12 meses)</label>
-      </div>
-    `;
-  }
-
-  // 3. Checklist de Gestante
-  if(res.tags.includes('Gestante')){
-    html += `
-      <div class="checklist-box">
-        <div class="checklist-title">🤰 Acompanhamento de Gestação & Pré-Natal</div>
-        <label class="check-item"><input type="checkbox" id="chkGestVacina"> Vacina dTpa tomada (após 20ª semana)</label>
-        <label class="check-item"><input type="checkbox" id="chkGestTestes"> Testes Rápidos realizados (HIV, Sífilis, Hepatites)</label>
-        <label class="check-item"><input type="checkbox" id="chkGestOdonto"> Consulta Odontológica realizada</label>
-        <label class="check-item"><input type="checkbox" id="chkGest7Consultas"> Pré-natal em dia (Consultas com médico/enfermeiro)</label>
-      </div>
-    `;
-  }
-
-  // 4. Checklist Criança
-  if(res.tags.includes('Criança')){
-    html += `
-      <div class="checklist-box">
-        <div class="checklist-title">👶 Desenvolvimento Infantil (&lt; 2 anos)</div>
-        <label class="check-item"><input type="checkbox" id="chkVacinaCrianca"> Carteira de Vacinação em Dia (Pólio, Penta, Pneumo, Tríplice)</label>
-        <label class="check-item"><input type="checkbox" id="chkCrescCrianca"> Peso e Altura acompanhados na UBS</label>
-      </div>
-    `;
-  }
-
-  // 5. Checklist Idoso
-  if(res.tags.includes('Idoso')){
-    html += `
-      <div class="checklist-box">
-        <div class="checklist-title">🧓 Atenção à Pessoa Idosa</div>
-        <label class="check-item"><input type="checkbox" id="chkGripeIdoso"> Vacina contra Gripe / Influenza tomada (&lt; 12 meses)</label>
-        <div class="field" style="margin-top:6px">
-          <label>Pontuação / Classificação IVCF-20 (Opcional):</label>
-          <input type="text" id="chkIvcf" placeholder="Ex.: Frágil (15 pts) ou Robusto">
-        </div>
-      </div>
-    `;
-  }
-
-  container.innerHTML = html;
-}
-
-function saveVisit(e){
-  e.preventDefault();
-  const residentId = document.getElementById('vResidentId').value;
-  const visit = {
-    id: 'v_' + Date.now(),
-    residentId,
-    houseId: document.getElementById('vHouseId').value,
-    streetId: document.getElementById('vStreetId').value,
-    areaId: document.getElementById('vAreaId').value,
-    date: document.getElementById('vDate').value,
-    outcome: document.getElementById('vOutcome').value,
-    notes: document.getElementById('vNotes').value.trim(),
-    checklist: {
-      pa: document.getElementById('chkPA')?.value || '',
-      glicemia: document.getElementById('chkGlicemia')?.value || '',
-      hasConsulta6m: document.getElementById('chkConsultaHAS')?.checked || false,
-      dmHbA1c: document.getElementById('chkHbA1c')?.checked || false,
-      gestVacina: document.getElementById('chkGestVacina')?.checked || false,
-      criancaVacina: document.getElementById('chkVacinaCrianca')?.checked || false,
-      idosoGripe: document.getElementById('chkGripeIdoso')?.checked || false
-    }
-  };
-
-  db.visits.push(visit);
+function quickAddStreet(){
+  const name = prompt('Nome da nova rua:');
+  if(!name) return;
+  db.streets.push({ id: 'st_' + Date.now(), areaId: db.areas[0].id, name: name.trim(), houses: [] });
   persist();
-  toast('✓ Visita salva com sucesso!');
-  navTo('agenda');
+  updateVisitStreets();
 }
 
-// TERRITÓRIO: GERENCIAMENTO DE RUAS, CASAS E CIDADÃOS
-function renderTerritory(){
-  const areaSelect = document.getElementById('territoryAreaFilter');
-  if(!areaSelect.innerHTML){
-    areaSelect.innerHTML = `<option value="">Todas as Microáreas</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
-  }
-  const areaId = areaSelect.value;
-  const streets = db.streets.filter(s => !areaId || s.areaId === areaId);
-  const container = document.getElementById('territoryList');
-
-  if(!streets.length){
-    container.innerHTML = '<p style="text-align:center;color:var(--muted)">Nenhuma rua cadastrada.</p>';
-    return;
-  }
-
-  container.innerHTML = streets.map(st => `
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <strong style="font-size:15px">📍 ${st.name}</strong>
-          <small style="display:block;color:var(--muted)">${st.houses.length} domicílio(s) cadastrados</small>
-        </div>
-        <button class="btn btn-sm btn-soft" onclick="openAddHouseModal('${st.id}')">＋ Imóvel</button>
-      </div>
-
-      <div>
-        ${st.houses.map(h => `
-          <div style="border-top:1px solid #edf4f1;padding:10px 0">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <strong>Nº ${h.number} ${h.complement ? `<span style="font-weight:normal;color:var(--muted)">(${h.complement})</span>` : ''}</strong>
-              <button class="btn btn-sm btn-soft" onclick="openAddResidentModal('${st.id}','${h.id}')">＋ Cidadão</button>
-            </div>
-            <div style="margin-top:6px">
-              ${(h.residents || []).map(r => `
-                <div style="background:#f7faf8;border-radius:8px;padding:6px 10px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center">
-                  <div>
-                    <span style="font-size:13px;font-weight:800">${r.name}</span>
-                    <div class="tags-cloud" style="margin:2px 0">
-                      ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
-                    </div>
-                  </div>
-                  <button class="btn btn-sm btn-primary" onclick="prepareVisit('${r.id}','${h.id}','${st.id}','${st.areaId}')">Visitar</button>
-                </div>
-              `).join('') || '<small style="color:var(--muted)">Nenhum morador cadastrado.</small>'}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `).join('');
+function quickAddHouse(){
+  const streetId = document.getElementById('visStreetSelect').value;
+  if(!streetId){ alert('Selecione uma rua primeiro!'); return; }
+  const num = prompt('Número da casa:');
+  if(!num) return;
+  const comp = prompt('Complemento (opcional):') || '';
+  const street = db.streets.find(s => s.id === streetId);
+  street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), complement: comp.trim(), residents: [] });
+  persist();
+  updateVisitHouses();
 }
 
-// CADASTRO DE MORADOR
-function openAddResidentModal(streetId, houseId){
+function openAddResidentModalCurrentHouse(){
   document.getElementById('formResident').reset();
-  document.getElementById('resId').value = '';
-  document.getElementById('resStreetId').value = streetId;
-  document.getElementById('resHouseId').value = houseId;
-  document.querySelectorAll('#residentTagSelector .tag').forEach(t => t.classList.remove('active'));
-  document.getElementById('gestanteFields').style.display = 'none';
+  document.querySelectorAll('#modalTagSelector .tag').forEach(t => t.classList.remove('active'));
+  document.getElementById('modalGestanteExtra').style.display = 'none';
   showModal('modalResident');
 }
 
-function toggleResidentTag(el){
+function toggleModalTag(el){
   el.classList.toggle('active');
-  const isGestante = Array.from(document.querySelectorAll('#residentTagSelector .tag.active')).some(t => t.dataset.tag === 'Gestante');
-  document.getElementById('gestanteFields').style.display = isGestante ? 'block' : 'none';
+  const isG = Array.from(document.querySelectorAll('#modalTagSelector .tag.active')).some(t => t.dataset.tag === 'Gestante');
+  document.getElementById('modalGestanteExtra').style.display = isG ? 'block' : 'none';
 }
 
-function autoTagAge(){
-  const b = document.getElementById('resBirth').value;
+function autoTagAgeModal(){
+  const b = document.getElementById('mResBirth').value;
   if(!b) return;
-  const age = Math.floor((new Date() - new Date(b)) / (1000 * 60 * 60 * 24 * 365.25));
-  if(age >= 60){
-    const tag = document.querySelector('#residentTagSelector .tag[data-tag="Idoso"]');
-    if(tag) tag.classList.add('active');
-  } else if(age < 2){
-    const tag = document.querySelector('#residentTagSelector .tag[data-tag="Criança"]');
-    if(tag) tag.classList.add('active');
-  }
+  const age = Math.floor((new Date() - new Date(b)) / (1000*60*60*24*365.25));
+  if(age >= 60) document.querySelector('#modalTagSelector .tag[data-tag="Idoso"]')?.classList.add('active');
+  if(age < 2) document.querySelector('#modalTagSelector .tag[data-tag="Criança"]')?.classList.add('active');
 }
 
 function saveResident(e){
   e.preventDefault();
-  const streetId = document.getElementById('resStreetId').value;
-  const houseId = document.getElementById('resHouseId').value;
+  const streetId = document.getElementById('visStreetSelect').value;
+  const houseId = document.getElementById('visHouseSelect').value;
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
   if(!house) return;
 
-  const selectedTags = Array.from(document.querySelectorAll('#residentTagSelector .tag.active')).map(t => t.dataset.tag);
-
-  const res = {
+  const tags = Array.from(document.querySelectorAll('#modalTagSelector .tag.active')).map(t => t.dataset.tag);
+  house.residents.push({
     id: 'r_' + Date.now(),
-    name: document.getElementById('resName').value.trim(),
-    birthDate: document.getElementById('resBirth').value,
-    cns: document.getElementById('resCns').value.trim(),
-    tags: selectedTags,
-    dpp: document.getElementById('resDpp').value
-  };
+    name: document.getElementById('mResName').value.trim(),
+    birthDate: document.getElementById('mResBirth').value,
+    cns: document.getElementById('mResCns').value.trim(),
+    tags,
+    dpp: document.getElementById('mResDpp').value
+  });
 
-  if(!house.residents) house.residents = [];
-  house.residents.push(res);
   persist();
   closeModal('modalResident');
-  renderTerritory();
-  toast('Cidadão cadastrado!');
-}
-
-function openAddHouseModal(streetId){
-  document.getElementById('formHouse').reset();
-  document.getElementById('hStreetId').value = streetId;
-  showModal('modalHouse');
-}
-
-function saveHouse(e){
-  e.preventDefault();
-  const streetId = document.getElementById('hStreetId').value;
-  const street = db.streets.find(s => s.id === streetId);
-  if(!street) return;
-
-  street.houses.push({
-    id: 'h_' + Date.now(),
-    number: document.getElementById('hNumber').value.trim(),
-    complement: document.getElementById('hComp').value.trim(),
-    residents: []
-  });
-  persist();
-  closeModal('modalHouse');
-  renderTerritory();
-  toast('Imóvel adicionado!');
-}
-
-function openAddStreetModal(){
-  const name = prompt('Nome da nova rua:');
-  if(!name) return;
-  db.streets.push({
-    id: 'st_' + Date.now(),
-    areaId: db.areas[0].id,
-    name: name.trim(),
-    houses: []
-  });
-  persist();
-  renderTerritory();
-  toast('Rua cadastrada!');
-}
-
-// RELATÓRIO DO GESTOR (A MÁGICA DE FIM DE MÊS)
-function applyReportPreset(){
-  const p = document.getElementById('reportPeriodPreset').value;
-  const custom = document.getElementById('reportCustomDates');
-  custom.style.display = p === 'custom' ? 'grid' : 'none';
-  calculateReport();
-}
-
-function calculateReport(){
-  const preset = document.getElementById('reportPeriodPreset').value;
-  let start = '', end = '';
-  const now = new Date();
-
-  if(preset === 'thisMonth'){
-    start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
-  } else if(preset === 'lastMonth'){
-    start = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().slice(0,10);
-  } else if(preset === 'ano'){
-    start = new Date(now.getFullYear(), 0, 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), 11, 31).toISOString().slice(0,10);
-  } else if(preset === 'custom'){
-    start = document.getElementById('repStartDate').value;
-    end = document.getElementById('repEndDate').value;
-  } else {
-    // Quadrimestre e-SUS padrão
-    const m = now.getMonth();
-    const qStart = m < 4 ? 0 : m < 8 ? 4 : 8;
-    start = new Date(now.getFullYear(), qStart, 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), qStart + 4, 0).toISOString().slice(0,10);
-  }
-
-  // Filtrar visitas no período
-  const periodVisits = db.visits.filter(v => (!start || v.date >= start) && (!end || v.date <= end));
-  const visitedResidentIds = new Set(periodVisits.filter(v => v.outcome === 'Visita realizada').map(v => v.residentId));
-
-  // Contagens totais de cadastros
-  let totHabitantes = 0, totHAS = 0, totDM = 0, totGest = 0, totIdoso = 0, totCrianca = 0, totBF = 0;
-  let visHAS = 0, visDM = 0, visGest = 0, visIdoso = 0, visCrianca = 0, visBF = 0;
-
-  db.streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        totHabitantes++;
-        const visited = visitedResidentIds.has(r.id);
-        if(r.tags.includes('Hipertenso')) { totHAS++; if(visited) visHAS++; }
-        if(r.tags.includes('Diabético')) { totDM++; if(visited) visDM++; }
-        if(r.tags.includes('Gestante')) { totGest++; if(visited) visGest++; }
-        if(r.tags.includes('Idoso')) { totIdoso++; if(visited) visIdoso++; }
-        if(r.tags.includes('Criança')) { totCrianca++; if(visited) visCrianca++; }
-        if(r.tags.includes('Bolsa Família')) { totBF++; if(visited) visBF++; }
-      });
-    });
-  });
-
-  const percent = (v, t) => t > 0 ? Math.round((v / t) * 100) + '%' : '0%';
-
-  document.getElementById('reportResults').innerHTML = `
-    <div style="font-size:13px;color:var(--muted);margin-bottom:10px">
-      📅 Período: <strong>${start.split('-').reverse().join('/')}</strong> até <strong>${end.split('-').reverse().join('/')}</strong>
-    </div>
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead>
-        <tr style="background:#f1f7f4;text-align:left">
-          <th style="padding:8px">Grupo / Indicador</th>
-          <th style="padding:8px;text-align:center">Cadastrados</th>
-          <th style="padding:8px;text-align:center">Visitados</th>
-          <th style="padding:8px;text-align:center">Cobertura</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px"><strong>População Total</strong></td>
-          <td style="padding:8px;text-align:center">${totHabitantes}</td>
-          <td style="padding:8px;text-align:center">${visitedResidentIds.size}</td>
-          <td style="padding:8px;text-align:center"><strong>${percent(visitedResidentIds.size, totHabitantes)}</strong></td>
-        </tr>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px">🩺 Hipertensão (HAS)</td>
-          <td style="padding:8px;text-align:center">${totHAS}</td>
-          <td style="padding:8px;text-align:center">${visHAS}</td>
-          <td style="padding:8px;text-align:center">${percent(visHAS, totHAS)}</td>
-        </tr>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px">🩸 Diabetes (DM)</td>
-          <td style="padding:8px;text-align:center">${totDM}</td>
-          <td style="padding:8px;text-align:center">${visDM}</td>
-          <td style="padding:8px;text-align:center">${percent(visDM, totDM)}</td>
-        </tr>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px">🤰 Gestantes</td>
-          <td style="padding:8px;text-align:center">${totGest}</td>
-          <td style="padding:8px;text-align:center">${visGest}</td>
-          <td style="padding:8px;text-align:center">${percent(visGest, totGest)}</td>
-        </tr>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px">🧓 Idosos (60+ anos)</td>
-          <td style="padding:8px;text-align:center">${totIdoso}</td>
-          <td style="padding:8px;text-align:center">${visIdoso}</td>
-          <td style="padding:8px;text-align:center">${percent(visIdoso, totIdoso)}</td>
-        </tr>
-        <tr style="border-bottom:1px solid #edf3f0">
-          <td style="padding:8px">👶 Crianças (&lt; 2 anos)</td>
-          <td style="padding:8px;text-align:center">${totCrianca}</td>
-          <td style="padding:8px;text-align:center">${visCrianca}</td>
-          <td style="padding:8px;text-align:center">${percent(visCrianca, totCrianca)}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px">🤝 Bolsa Família</td>
-          <td style="padding:8px;text-align:center">${totBF}</td>
-          <td style="padding:8px;text-align:center">${visBF}</td>
-          <td style="padding:8px;text-align:center">${percent(visBF, totBF)}</td>
-        </tr>
-      </tbody>
-    </table>
-  `;
-}
-
-// EXPORTAÇÃO PERSONALIZADA (GERAR PLANILHA SOB DEMANDA)
-function downloadCustomSpreadsheet(){
-  const filterType = document.getElementById('exportFilterType').value;
-  const headers = ['Data Visita', 'Cidadão', 'Data Nasc.', 'Rua', 'Número', 'Condições / Tags', 'Desfecho', 'PA', 'Glicemia', 'Observações'];
-
-  let rows = [];
-
-  db.visits.forEach(v => {
-    const res = findResident(v.residentId);
-    if(!res) return;
-
-    // Filtro por tipo
-    if(filterType !== 'all' && !res.tags.includes(filterType)) return;
-
-    const street = db.streets.find(s => s.id === v.streetId)?.name || '';
-    const house = db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '';
-
-    rows.push([
-      v.date,
-      res.name,
-      res.birthDate || '',
-      street,
-      house,
-      res.tags.join(', '),
-      v.outcome,
-      v.checklist?.pa || '',
-      v.checklist?.glicemia || '',
-      (v.notes || '').replace(/[\n\r;]/g, ' ')
-    ]);
-  });
-
-  if(!rows.length){
-    toast('Nenhum registro encontrado para este filtro.');
-    return;
-  }
-
-  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `UBS_Paris4_${filterType}_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-  toast('Planilha gerada com sucesso!');
-}
-
-// UTILITÁRIOS
-function findResident(id){
-  for(let s of db.streets){
-    for(let h of s.houses){
-      const r = (h.residents || []).find(x => x.id === id);
-      if(r) return r;
-    }
-  }
-  return null;
+  renderFamilyMembers();
+  toast('Morador adicionado!');
 }
 
 function showModal(id){ document.getElementById(id).classList.add('open'); }
@@ -1155,21 +1272,20 @@ function downloadBackup(){
   const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `backup_ubs_paris4_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `backup_ubs_paris4.json`;
   a.click();
 }
 
-function resetDefaults(){
+function resetToDemo(){
   if(!confirm('Restaurar dados de teste padrão?')) return;
-  db = defaultDB;
+  db = initialDB;
   persist();
-  closeModal('modalBackup');
-  navTo('inicio');
+  setupVisitScreen();
   toast('Dados restaurados.');
 }
 
 window.addEventListener('load', () => {
-  renderHome();
+  setupVisitScreen();
   renderAgenda();
 });
 </script>
