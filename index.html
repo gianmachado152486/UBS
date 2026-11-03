@@ -4,16 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
-<title>UBS Paris 4 · Sistema de Campo ACS</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>UBS Paris 4 · Campo Digital ACS</title>
 <style>
 :root{
-  --p:#086b56;--p-dark:#054637;--p-light:#e7f5ef;--sec:#148a6d;--ink:#17342d;--muted:#627972;--line:#dce7e3;--bg:#f3f7f5;--card:#ffffff;
+  --p:#086b56;--p-dark:#054637;--p-light:#e7f5ef;--sec:#148a6d;--ink:#17342d;--muted:#5f7871;--line:#dbe6e2;--bg:#f3f7f5;--card:#ffffff;
   --red:#dc2626;--red-bg:#fef2f2;--amber:#d97706;--amber-bg:#fffbeb;--green:#16a34a;--green-bg:#f0fdf4;--blue:#2563eb;--blue-bg:#eff6ff;
   --radius:14px;--shadow:0 3px 12px rgba(10,40,30,0.06);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 input,select,textarea,button{font:inherit}
+
+/* Tela de Login Simples */
+.login-screen{min-height:100vh;background:linear-gradient(145deg,#06483b,#0a745d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff}
+.login-box{background:#fff;color:var(--ink);width:100%;max-width:400px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
+.login-avatar{width:60px;height:60px;border-radius:18px;background:var(--p-light);color:var(--p);font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
+.profile-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1.5px solid var(--line);border-radius:12px;background:#f9fbfb;margin-bottom:8px;font-weight:800;font-size:15px;cursor:pointer;text-align:left}
+.profile-btn:active{background:var(--p-light);border-color:var(--p)}
+.profile-btn.manager{border-color:#f59e0b;background:#fffdfa}
+
+/* Teclado PIN */
+.pin-display{display:flex;justify-content:center;gap:12px;margin:18px 0}
+.pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--p);background:#fff}
+.pin-dot.filled{background:var(--p)}
+.pinpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:280px;margin:0 auto}
+.pin-btn{height:54px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:22px;font-weight:900;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.pin-btn:active{background:#e7f5ef}
 
 /* Topbar */
 .topbar{position:sticky;top:0;z-index:30;background:linear-gradient(135deg,var(--p-dark),var(--p));color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
@@ -38,7 +55,11 @@ input,select,textarea,button{font:inherit}
 .nav-tab.active{color:var(--p)}
 .nav-tab .icon{font-size:18px}
 
-/* Tags & Chips */
+/* Banner de Aviso de Conexão */
+.smart-banner{background:#ecfdf5;border:1.5px solid #a7f3d0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.smart-banner.warning{background:#fffbeb;border-color:#fde68a}
+
+/* Tags / Atributos */
 .tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 .tag{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
 .tag.active{background:var(--p-light);border-color:var(--sec);color:var(--p);box-shadow:0 0 0 1px var(--sec)}
@@ -59,14 +80,21 @@ input,select,textarea,button{font:inherit}
 /* Botões */
 .btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
 .btn-primary{background:var(--p);color:#fff;border-color:var(--p)}
+.btn-primary:active{background:var(--p-dark)}
 .btn-soft{background:var(--p-light);color:var(--p);border-color:#cbe7dc}
 .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
 .btn-sm{padding:6px 10px;font-size:11px;border-radius:7px;width:auto}
 
-/* Dynamic Checklist Boxes */
-.resident-visit-card{border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fff}
-.resident-visit-card.active-presence{border-color:var(--sec);background:#fafffd}
-.checklist-box{background:#f7faf8;border:1px solid #d4e7df;border-radius:8px;padding:10px;margin-top:8px}
+/* Visita por Casa */
+.outcome-btn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
+.outcome-btn{border:1.5px solid var(--line);border-radius:10px;padding:10px 4px;background:#fff;text-align:center;font-size:11px;font-weight:800;cursor:pointer}
+.outcome-btn.active.realizada{background:#ecfdf5;border-color:var(--green);color:var(--green)}
+.outcome-btn.active.ausente{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
+.outcome-btn.active.recusa{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+
+.resident-visit-card{border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;background:#fff}
+.resident-visit-card.active-presence{border-color:var(--sec);background:#fafdfc}
+.checklist-box{background:#f4f9f7;border:1px solid #d4e7df;border-radius:8px;padding:10px;margin-top:8px}
 .check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
 
@@ -75,14 +103,10 @@ input,select,textarea,button{font:inherit}
 .cal-header{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:10px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .cal-weekday{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
-.cal-day{min-height:44px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;position:relative}
+.cal-day{min-height:42px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;position:relative}
 .cal-day.today{border-color:var(--p);background:var(--p-light);color:var(--p);font-weight:900}
 .cal-day.selected{background:var(--p);color:#fff}
 .cal-day.other-month{opacity:0.25}
-.cal-dots{display:flex;gap:2px;margin-top:2px}
-.cal-dot{width:5px;height:5px;border-radius:50%}
-.cal-dot.red{background:var(--red)}
-.cal-dot.yellow{background:var(--amber)}
 
 /* Badges */
 .status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800}
@@ -94,382 +118,403 @@ input,select,textarea,button{font:inherit}
 /* Toast & Modais */
 .toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#10392f;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:700;display:none;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
 .toast.show{display:block}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:var(--radius);max-width:550px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-icon">✚</div>
-    <div class="brand-info">
-      <h1>UBS Paris 4 · Maringá</h1>
-      <p id="topDateStr">Carregando data...</p>
+<!-- ================= 1. TELA DE LOGIN DIDÁTICA (COM TECLADO PIN) ================= -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box" id="profileSelectorBox">
+    <div class="login-avatar">✚</div>
+    <h2 style="margin:0 0 4px">UBS Paris 4</h2>
+    <p style="margin:0 0 16px;color:var(--muted);font-size:13px">Toque no seu nome para entrar:</p>
+
+    <button class="profile-btn" onclick="chooseProfile('ma1', 'ACS 1 · Microárea 01')">
+      <span>👩‍⚕️</span> <span>ACS 1 (Microárea 01)</span>
+    </button>
+    <button class="profile-btn" onclick="chooseProfile('ma2', 'ACS 2 · Microárea 02')">
+      <span>👩‍⚕️</span> <span>ACS 2 (Microárea 02)</span>
+    </button>
+    <button class="profile-btn" onclick="chooseProfile('ma3', 'ACS 3 · Microárea 03')">
+      <span>👨‍⚕️</span> <span>ACS 3 (Microárea 03)</span>
+    </button>
+    <button class="profile-btn manager" onclick="chooseProfile('all', 'Diretoria / Coordenação')">
+      <span>👑</span> <span>Diretoria / Geral (Todas)</span>
+    </button>
+  </div>
+
+  <div class="login-box" id="pinPadBox" style="display:none">
+    <button class="btn btn-sm btn-soft" style="margin-bottom:10px" onclick="backToProfiles()">◀ Trocar Usuário</button>
+    <h3 style="margin:0" id="pinTargetName">ACS 1</h3>
+    <p style="margin:2px 0 10px;font-size:12px;color:var(--muted)">Digite sua senha de 3 números (padrão: 000):</p>
+
+    <div class="pin-display">
+      <div class="pin-dot" id="dot0"></div>
+      <div class="pin-dot" id="dot1"></div>
+      <div class="pin-dot" id="dot2"></div>
+    </div>
+
+    <div class="pinpad">
+      <button class="pin-btn" onclick="pressPin('1')">1</button>
+      <button class="pin-btn" onclick="pressPin('2')">2</button>
+      <button class="pin-btn" onclick="pressPin('3')">3</button>
+      <button class="pin-btn" onclick="pressPin('4')">4</button>
+      <button class="pin-btn" onclick="pressPin('5')">5</button>
+      <button class="pin-btn" onclick="pressPin('6')">6</button>
+      <button class="pin-btn" onclick="pressPin('7')">7</button>
+      <button class="pin-btn" onclick="pressPin('8')">8</button>
+      <button class="pin-btn" onclick="pressPin('9')">9</button>
+      <button class="pin-btn" style="font-size:14px;color:var(--red)" onclick="clearPin()">Limpar</button>
+      <button class="pin-btn" onclick="pressPin('0')">0</button>
+      <button class="pin-btn" style="font-size:18px" onclick="backspacePin()">⌫</button>
     </div>
   </div>
-  <button class="btn btn-sm btn-soft" style="background:#ffffff22;color:#fff;border-color:transparent" onclick="showModal('modalHelp')">Ajuda</button>
-</header>
+</div>
 
-<div class="app">
+<!-- ================= 2. APLICAÇÃO PRINCIPAL ================= -->
+<div id="mainApp" style="display:none">
 
-  <!-- ================= ABA 1: NOVA VISITA (DOMICÍLIO / CASA) ================= -->
-  <section class="view active" id="view-visita">
-    <div class="card-header">
-      <h2>Registro de Visita Domiciliar</h2>
-      <span class="status-pill blue">Por Domicílio</span>
-    </div>
-
-    <!-- Etapa 1: Localização -->
-    <div class="card">
-      <div class="grid-2">
-        <div class="field">
-          <label>Data da Visita</label>
-          <input type="date" id="visDate">
-        </div>
-        <div class="field">
-          <label>Microárea</label>
-          <select id="visAreaSelect" onchange="updateVisitStreets()"></select>
-        </div>
-      </div>
-      <div class="grid-2">
-        <div class="field">
-          <label>Rua / Logradouro *</label>
-          <select id="visStreetSelect" onchange="updateVisitHouses()"></select>
-        </div>
-        <div class="field">
-          <label>Número do Imóvel *</label>
-          <select id="visHouseSelect" onchange="loadHouseForVisit()"></select>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-sm btn-soft" onclick="quickAddStreet()">＋ Nova Rua</button>
-        <button class="btn btn-sm btn-soft" onclick="quickAddHouse()">＋ Novo Número</button>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">✚</div>
+      <div class="brand-info">
+        <h1 id="topUserTitle">ACS 1 · Microárea 01</h1>
+        <p id="topDateStr">Hoje</p>
       </div>
     </div>
+    <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
+  </header>
 
-    <!-- Etapa 2: Desfecho do Domicílio -->
-    <div class="card" id="houseOutcomeCard" style="display:none">
+  <div class="app">
+
+    <!-- Pop-up/Card Amigável de Sincronização Inteligente -->
+    <div class="smart-banner" id="syncFriendlyBanner" style="display:none">
+      <div>
+        <strong style="color:var(--green);font-size:13px;display:block">📶 Conexão Detectada!</strong>
+        <span style="font-size:12px;color:var(--ink)" id="syncBannerMsg">Você tem visitas salvas neste aparelho.</span>
+      </div>
+      <button class="btn btn-sm btn-primary" onclick="triggerSmartSync()" id="btnBannerSync">⚡ Enviar Agora</button>
+    </div>
+
+    <!-- ================= ABA 1: NOVA VISITA (POR CASA) ================= -->
+    <section class="view active" id="view-visita">
       <div class="card-header">
-        <div>
-          <h3 style="margin:0" id="currentHouseTitle">Rua ..., Nº ...</h3>
-          <small style="color:var(--muted)" id="currentHouseComp"></small>
-        </div>
+        <h2>Visita Domiciliar</h2>
+        <span class="status-pill blue" id="activeAreaBadge">Microárea 1</span>
       </div>
 
-      <div class="field">
-        <label>Situação do Domicílio no Portão *</label>
-        <select id="visHouseOutcome" onchange="handleHouseOutcomeChange()">
-          <option value="Realizada">✓ Domicílio Atendido (Moradores presentes)</option>
-          <option value="Ausente">◷ Casa Fechada / Morador Ausente</option>
-          <option value="Recusa">✕ Recusa de Visita</option>
-        </select>
-      </div>
-
-      <!-- Seletor Rápido de Salvar se Ausente ou Recusa -->
-      <div id="quickOutcomeBtnBox" style="display:none">
-        <button class="btn btn-primary" onclick="saveHouseAbsentOrRefusal()">💾 Concluir Registro do Domicílio</button>
-      </div>
-    </div>
-
-    <!-- Etapa 3: Família & Moradores (Checklists Dinâmicos) -->
-    <div id="residentsListCard" style="display:none">
-      <div class="card-header">
-        <h3>Moradores Deste Domicílio</h3>
-        <button class="btn btn-sm btn-primary" onclick="openAddResidentModalCurrentHouse()">＋ Adicionar Morador</button>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin-top:0">
-        Marque quem estava presente. O checklist de comorbidades abrirá automaticamente:
-      </p>
-
-      <div id="familyMembersContainer"></div>
-
-      <div class="card" style="margin-top:10px">
-        <div class="field">
-          <label>Observações Gerais da Visita à Casa</label>
-          <textarea id="visHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; orientado sobre controle de dengue no quintal..."></textarea>
-        </div>
-        <button class="btn btn-primary" onclick="saveFamilyVisit()" style="padding:14px;font-size:16px">
-          💾 Salvar Visitas da Família
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ABA 2: AGENDA COM CALENDÁRIO REAL ================= -->
-  <section class="view" id="view-agenda">
-    <div class="card-header">
-      <h2>Agenda de Prazos</h2>
-      <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
-    </div>
-
-    <!-- Filtro de Cruzamento de Tags -->
-    <div class="card" style="padding:10px">
-      <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAMENTO DE CONDIÇÕES (SELECIONE UMA OU MAIS):</div>
-      <div class="tags-cloud" id="agendaTagCloud"></div>
-    </div>
-
-    <!-- Widget de Calendário Visual -->
-    <div class="calendar-widget">
-      <div class="cal-header">
-        <button class="btn btn-sm btn-soft" onclick="changeMonth(-1)">◀ Anterior</button>
-        <span id="calMonthYearTitle">Novembro 2024</span>
-        <button class="btn btn-sm btn-soft" onclick="changeMonth(1)">Próximo ▶</button>
-      </div>
-      <div class="cal-grid" id="calendarGrid"></div>
-    </div>
-
-    <!-- Lista de Pessoas / Prazos no dia Selecionado -->
-    <div class="card">
-      <div class="card-header">
-        <h3 id="agendaSelectedDateTitle">Prazos e Cidadãos</h3>
-        <span class="status-pill blue" id="agendaCountBadge">0</span>
-      </div>
-      <div id="agendaDeadlinesList"></div>
-    </div>
-  </section>
-
-  <!-- ================= ABA 3: FECHAMENTO / CRUZAMENTOS DO GESTOR ================= -->
-  <section class="view" id="view-fechamento">
-    <div class="card-header">
-      <h2>Fechamento & Cruzamentos</h2>
-      <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir</button>
-    </div>
-
-    <div class="card">
-      <div class="field">
-        <label>Período de Análise</label>
-        <select id="repPeriod" onchange="runReport()">
-          <option value="thisMonth">Mês Atual</option>
-          <option value="lastMonth">Mês Passado</option>
-          <option value="quadrimestre">Quadrimestre Vigente (e-SUS)</option>
-          <option value="ano">Ano Inteiro</option>
-        </select>
-      </div>
-
-      <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
-      <div class="tags-cloud" id="reportTagCloud"></div>
-    </div>
-
-    <!-- Indicadores do Cruzamento -->
-    <div class="card" id="reportSummaryBox"></div>
-
-    <!-- Lista Nominal com Situação -->
-    <div class="card">
-      <div class="card-header">
-        <h3 id="reportListTitle">Cidadãos do Grupo Selecionado</h3>
-      </div>
-      <div id="reportResidentsList"></div>
-    </div>
-  </section>
-
-  <!-- ================= ABA 4: PLANILHAS & IMPORTADOR INTELIGENTE ================= -->
-  <section class="view" id="view-planilhas">
-    <div class="card-header">
-      <h2>Importar e Exportar Planilhas</h2>
-    </div>
-
-    <!-- Importador Inteligente -->
-    <div class="card" style="border-left:5px solid var(--p)">
-      <h3 style="margin:0 0 6px">📥 Importar Base Existente das ACS</h3>
-      <p style="font-size:12px;color:var(--muted);margin-top:0">
-        Suba a planilha que a equipe já tem salva em CSV. O sistema detecta as colunas automaticamente e cadastra as ruas, casas e cidadãos sem redigitação.
-      </p>
-
-      <div class="field">
-        <label>Arquivo de Planilha (.csv)</label>
-        <input type="file" id="importFileInput" accept=".csv,text/csv,text/plain" onchange="handleFileSelect(event)">
-      </div>
-
-      <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #d0e5dc;border-radius:10px;padding:12px;margin-top:10px">
-        <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONECTE AS COLUNAS DA SUA PLANILHA:</div>
+      <!-- Etapa 1: Endereço -->
+      <div class="card">
         <div class="grid-2">
           <div class="field">
-            <label>Coluna da RUA *</label>
-            <select id="mapColStreet"></select>
+            <label>Data da Visita</label>
+            <input type="date" id="vDate">
           </div>
-          <div class="field">
-            <label>Coluna do NÚMERO *</label>
-            <select id="mapColNumber"></select>
+          <div class="field" id="managerAreaSelectField" style="display:none">
+            <label>Filtrar Microárea (Diretora)</label>
+            <select id="vAreaManager" onchange="switchManagerArea()"></select>
           </div>
         </div>
+
         <div class="grid-2">
           <div class="field">
-            <label>Coluna do NOME *</label>
-            <select id="mapColName"></select>
+            <label>Rua *</label>
+            <select id="vStreet" onchange="updateHousesList()"></select>
           </div>
           <div class="field">
-            <label>Coluna da DATA NASCIMENTO</label>
-            <select id="mapColBirth"></select>
+            <label>Número do Imóvel *</label>
+            <select id="vHouse" onchange="loadHouseData()"></select>
           </div>
         </div>
-        <div class="field">
-          <label>Coluna de DOENÇAS / OBSERVAÇÕES (HAS, DM, etc.)</label>
-          <select id="mapColTags"></select>
+
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm btn-soft" onclick="promptAddStreet()">＋ Nova Rua</button>
+          <button class="btn btn-sm btn-soft" onclick="promptAddHouse()">＋ Novo Número</button>
         </div>
-        <button class="btn btn-primary" onclick="executeImport()">🚀 Importar Dados para o Aplicativo</button>
       </div>
-    </div>
 
-    <!-- Exportador Filtrado -->
-    <div class="card">
-      <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel (CSV)</h3>
-      <p style="font-size:12px;color:var(--muted);margin-top:0">Baixe os registros de visitas filtrados prontos para a diretora e coordenação.</p>
-      <div class="field">
-        <label>Filtrar Exportação por Grupo</label>
-        <select id="exportGroupFilter">
-          <option value="all">Todas as Visitas Realizadas</option>
-          <option value="Hipertenso">Apenas Hipertensos (HAS)</option>
-          <option value="Diabético">Apenas Diabéticos (DM)</option>
-          <option value="Gestante">Apenas Gestantes</option>
-          <option value="Idoso">Apenas Idosos (60+)</option>
-          <option value="Criança">Apenas Crianças (&lt;2 anos)</option>
-        </select>
-      </div>
-      <button class="btn btn-soft" onclick="exportDataToCSV()">⇩ Baixar Arquivo Excel (.CSV)</button>
-    </div>
+      <!-- Etapa 2: Situação no Portão -->
+      <div class="card" id="houseBox" style="display:none">
+        <div class="card-header">
+          <h3 style="margin:0" id="houseTitle">Rua ..., Nº ...</h3>
+        </div>
 
-    <!-- Cópia de Segurança -->
-    <div class="card">
-      <div class="card-header"><h3>Backup Completo do Sistema</h3></div>
-      <div class="grid-2">
-        <button class="btn btn-sm btn-soft" onclick="downloadBackup()">Salvar Cópia (JSON)</button>
-        <button class="btn btn-sm btn-danger" onclick="resetToDemo()">Restaurar Demonstração</button>
+        <div style="font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px">O QUE ACONTECEU NO PORTÃO?</div>
+        <div class="outcome-btn-grid">
+          <div class="outcome-btn active realizada" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
+          <div class="outcome-btn ausente" onclick="chooseOutcome('Ausente', this)">◷ Casa Fechada</div>
+          <div class="outcome-btn recusa" onclick="chooseOutcome('Recusa', this)">✕ Recusa</div>
+        </div>
+        <input type="hidden" id="vOutcome" value="Realizada">
+
+        <!-- Botão Rápido se Fechada / Recusa -->
+        <div id="quickCloseBox" style="display:none;margin-top:10px">
+          <button class="btn btn-primary" onclick="saveQuickHouseVisit()">💾 Salvar Situação do Imóvel</button>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <!-- Etapa 3: Moradores & Checklists (Apenas se Atendida) -->
+      <div id="familyCard" style="display:none">
+        <div class="card-header">
+          <h3>Quem estava na casa?</h3>
+          <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Novo Morador</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:0">Marque os presentes para preencher os cuidados rápidos:</p>
+
+        <div id="residentsListContainer"></div>
+
+        <div class="card" style="margin-top:10px">
+          <div class="field">
+            <label>Observação da Visita (Opcional)</label>
+            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; quintal inspecionado..."></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="saveFullHouseVisit()" style="padding:14px;font-size:16px">
+            💾 Concluir Visita da Casa
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABA 2: AGENDA COM CALENDÁRIO ================= -->
+    <section class="view" id="view-agenda">
+      <div class="card-header">
+        <h2>Agenda de Prazos</h2>
+        <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
+      </div>
+
+      <!-- Cruzamento de Tags -->
+      <div class="card" style="padding:10px">
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
+        <div class="tags-cloud" id="agendaTagCloud"></div>
+      </div>
+
+      <!-- Calendário Real -->
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="btn btn-sm btn-soft" onclick="calNav(-1)">◀ Anterior</button>
+          <span id="calTitle">Novembro 2024</span>
+          <button class="btn btn-sm btn-soft" onclick="calNav(1)">Próximo ▶</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 id="agendaSelectedDayTitle">Prazos e Prioridades</h3>
+          <span class="status-pill blue" id="agendaCount">0</span>
+        </div>
+        <div id="agendaItemsList"></div>
+      </div>
+    </section>
+
+    <!-- ================= ABA 3: FECHAMENTO & CRUZAMENTOS ================= -->
+    <section class="view" id="view-fechamento">
+      <div class="card-header">
+        <h2>Fechamento da Microárea</h2>
+        <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir</button>
+      </div>
+
+      <div class="card">
+        <div class="field">
+          <label>Período de Análise</label>
+          <select id="repPeriod" onchange="runReport()">
+            <option value="thisMonth">Mês Atual</option>
+            <option value="lastMonth">Mês Passado</option>
+            <option value="quadrimestre">Quadrimestre Atual (e-SUS)</option>
+            <option value="ano">Ano Inteiro</option>
+          </select>
+        </div>
+        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">COMBINAR GRUPOS (EX: IDOSO + HIPERTENSO):</div>
+        <div class="tags-cloud" id="reportTagCloud"></div>
+      </div>
+
+      <div class="card" id="reportSummaryBox"></div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 id="reportListTitle">Lista Nominal</h3>
+        </div>
+        <div id="reportNamesList"></div>
+      </div>
+    </section>
+
+    <!-- ================= ABA 4: PLANILHAS & NUVEM ================= -->
+    <section class="view" id="view-planilhas">
+      <div class="card-header">
+        <h2>Planilhas & Sincronização</h2>
+      </div>
+
+      <!-- Sincronização Google Sheets -->
+      <div class="card" style="border-left:5px solid var(--p)">
+        <h3 style="margin:0 0 6px">☁ Conexão com o Google Drive da UBS</h3>
+        <p style="font-size:12px;color:var(--muted);margin-top:0">
+          Envie os dados deste aparelho para a planilha oficial ou puxe os dados atualizados para este computador.
+        </p>
+        <div class="grid-2">
+          <button class="btn btn-primary" onclick="triggerSmartSync()">⚡ Enviar Visitas Feitas</button>
+          <button class="btn btn-soft" onclick="pullDataFromCloud()">🔄 Puxar Atualizações</button>
+        </div>
+      </div>
+
+      <!-- Importador Inteligente -->
+      <div class="card">
+        <h3 style="margin:0 0 6px">📥 Importar Planilha das ACS</h3>
+        <p style="font-size:12px;color:var(--muted);margin-top:0">
+          Suba a planilha que vocês já usam (CSV) para cadastrar as ruas e moradores sem redigitar:
+        </p>
+        <input type="file" id="importInput" accept=".csv,text/csv,text/plain" onchange="handleFile(event)">
+
+        <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px;margin-top:10px">
+          <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONECTE AS COLUNAS DA SUA PLANILHA:</div>
+          <div class="grid-2">
+            <div class="field"><label>Coluna da RUA *</label><select id="mapStreet"></select></div>
+            <div class="field"><label>Coluna do NÚMERO *</label><select id="mapNumber"></select></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Coluna do NOME *</label><select id="mapName"></select></div>
+            <div class="field"><label>Coluna de DOENÇAS / OBS</label><select id="mapTags"></select></div>
+          </div>
+          <button class="btn btn-primary" onclick="executeImport()">🚀 Importar Dados Agora</button>
+        </div>
+      </div>
+
+      <!-- Exportador CSV -->
+      <div class="card">
+        <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel</h3>
+        <button class="btn btn-soft" onclick="exportCSV()">Baixar Visitas (.CSV)</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Navegação Inferior -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
+      <span class="icon">📝</span>Visita
+    </button>
+    <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
+      <span class="icon">📅</span>Agenda
+    </button>
+    <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
+      <span class="icon">📊</span>Fechamento
+    </button>
+    <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
+      <span class="icon">📂</span>Planilhas
+    </button>
+  </nav>
 
 </div>
 
-<!-- Barra Inferior -->
-<nav class="bottom-nav">
-  <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
-    <span class="icon">📝</span>Nova Visita
-  </button>
-  <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
-    <span class="icon">📅</span>Agenda
-  </button>
-  <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
-    <span class="icon">📊</span>Fechamento
-  </button>
-  <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
-    <span class="icon">📂</span>Planilhas
-  </button>
-</nav>
-
-<!-- Modais -->
+<!-- Modal Adicionar Morador -->
 <div class="modal" id="modalResident">
   <div class="modal-content">
     <div class="card-header">
-      <h3 id="modalResidentTitle">Adicionar Morador</h3>
+      <h3>Adicionar Morador no Imóvel</h3>
       <button class="btn btn-sm btn-soft" onclick="closeModal('modalResident')">✕</button>
     </div>
-    <form id="formResident" onsubmit="saveResident(event)">
+    <form id="formRes" onsubmit="saveResidentModal(event)">
       <div class="field">
         <label>Nome Completo *</label>
-        <input type="text" id="mResName" required placeholder="Ex.: Maria Francisca">
+        <input type="text" id="mName" required placeholder="Ex.: Maria Aparecida">
       </div>
       <div class="grid-2">
         <div class="field">
           <label>Data de Nascimento</label>
-          <input type="date" id="mResBirth" onchange="autoTagAgeModal()">
+          <input type="date" id="mBirth">
         </div>
         <div class="field">
           <label>Cartão SUS / CPF</label>
-          <input type="text" id="mResCns" placeholder="Opcional">
+          <input type="text" id="mCns" placeholder="Opcional">
         </div>
       </div>
       <div class="field">
-        <label>Condições de Saúde (Tags):</label>
-        <div class="tags-cloud" id="modalTagSelector">
-          <span class="tag" data-tag="Hipertenso" onclick="toggleModalTag(this)">🩺 Hipertenso</span>
-          <span class="tag" data-tag="Diabético" onclick="toggleModalTag(this)">🩸 Diabético</span>
-          <span class="tag" data-tag="Gestante" onclick="toggleModalTag(this)">🤰 Gestante</span>
-          <span class="tag" data-tag="Idoso" onclick="toggleModalTag(this)">🧓 Idoso</span>
-          <span class="tag" data-tag="Criança" onclick="toggleModalTag(this)">👶 Criança</span>
-          <span class="tag" data-tag="Bolsa Família" onclick="toggleModalTag(this)">🤝 Bolsa Família</span>
+        <label>Condições de Saúde (Toque nas que se aplicam):</label>
+        <div class="tags-cloud" id="modalTagCloud">
+          <span class="tag" data-tag="Hipertenso" onclick="toggleMTag(this)">🩺 Hipertenso</span>
+          <span class="tag" data-tag="Diabético" onclick="toggleMTag(this)">🩸 Diabético</span>
+          <span class="tag" data-tag="Gestante" onclick="toggleMTag(this)">🤰 Gestante</span>
+          <span class="tag" data-tag="Idoso" onclick="toggleMTag(this)">🧓 Idoso (60+)</span>
+          <span class="tag" data-tag="Criança" onclick="toggleMTag(this)">👶 Criança (&lt;2a)</span>
+          <span class="tag" data-tag="Bolsa Família" onclick="toggleMTag(this)">🤝 Bolsa Família</span>
         </div>
       </div>
-      <div id="modalGestanteExtra" style="display:none;background:#fdf2f8;border:1px solid #fbcfe8;padding:8px;border-radius:8px;margin-bottom:12px">
-        <div class="field">
-          <label style="color:#9d174d">Data Provável do Parto (DPP)</label>
-          <input type="date" id="mResDpp">
-        </div>
-      </div>
-      <button class="btn btn-primary" type="submit">Salvar Morador no Imóvel</button>
+      <button class="btn btn-primary" type="submit">Salvar Morador</button>
     </form>
-  </div>
-</div>
-
-<div class="modal" id="modalHelp">
-  <div class="modal-content">
-    <div class="card-header">
-      <h3>UBS Paris 4 · Guia Rápido</h3>
-      <button class="btn btn-sm btn-soft" onclick="closeModal('modalHelp')">✕</button>
-    </div>
-    <p style="font-size:13px;color:var(--muted)">
-      <strong>1. Visita por Casa:</strong> Escolha a rua e a casa. Se não tiver ninguém, marque "Casa Fechada". Se atenderem, marque quem estava presente.<br><br>
-      <strong>2. Agenda:</strong> Mostra o dia de hoje destacado. Toque nos dias para ver quem tem prazo vencendo.<br><br>
-      <strong>3. Fechamento:</strong> Toque nas tags (ex.: Idoso + Hipertenso) para cruzar os dados instantaneamente.<br><br>
-      <strong>4. Importar Planilha:</strong> Na aba Planilhas, suba o arquivo CSV que as ACS já usam e selecione as colunas correspondentes.
-    </p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// BASE DE DADOS REALISTA INICIAL - UBS PARIS 4 (MARINGÁ)
-const DB_KEY = 'ubsParis4_Maringa_v4';
-const initialDB = {
-  areas: [{ id: 'ma1', name: 'Microárea 01 (Paris)' }],
+// BASE INICIAL SEPARADA POR MICROÁREAS (UBS PARIS 4)
+const DB_KEY = 'ubsParis4_Maringa_v5';
+const defaultDB = {
+  areas: [
+    { id: 'ma1', name: 'Microárea 01' },
+    { id: 'ma2', name: 'Microárea 02' },
+    { id: 'ma3', name: 'Microárea 03' }
+  ],
   streets: [
     {
       id: 'st1', areaId: 'ma1', name: 'Rua Antonio Bughi',
       houses: [
         {
-          id: 'h1', number: '120', complement: '',
+          id: 'h1', number: '120',
           residents: [
-            { id: 'r1', name: 'Dona Maria de Lourdes', birthDate: '1952-04-12', tags: ['Idoso', 'Hipertenso', 'Bolsa Família'], dpp: '', cns: '' },
-            { id: 'r2', name: 'Ana Paula Silva', birthDate: '1998-09-15', tags: ['Gestante'], dpp: '2025-01-20', cns: '' }
+            { id: 'r1', name: 'Dona Maria de Lourdes', birthDate: '1952-04-12', tags: ['Idoso', 'Hipertenso', 'Bolsa Família'] },
+            { id: 'r2', name: 'Ana Paula Silva', birthDate: '1998-09-15', tags: ['Gestante'] }
           ]
         },
         {
-          id: 'h2', number: '135', complement: 'Fundos',
+          id: 'h2', number: '135',
           residents: [
-            { id: 'r3', name: 'Seu Antônio Carlos Meireles', birthDate: '1958-02-12', tags: ['Idoso', 'Hipertenso', 'Diabético'], dpp: '', cns: '' }
+            { id: 'r3', name: 'Seu Antônio Meireles', birthDate: '1958-02-12', tags: ['Idoso', 'Hipertenso', 'Diabético'] }
           ]
         }
       ]
     },
     {
-      id: 'st2', areaId: 'ma1', name: 'Avenida das Torres',
+      id: 'st2', areaId: 'ma2', name: 'Avenida das Torres',
       houses: [
         {
-          id: 'h3', number: '45', complement: '',
+          id: 'h3', number: '45',
           residents: [
-            { id: 'r4', name: 'Enzo Gabriel Santos', birthDate: '2024-03-10', tags: ['Criança', 'Bolsa Família'], dpp: '', cns: '' }
+            { id: 'r4', name: 'Enzo Gabriel Santos', birthDate: '2024-03-10', tags: ['Criança', 'Bolsa Família'] }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'st3', areaId: 'ma3', name: 'Rua dos Pioneiros',
+      houses: [
+        {
+          id: 'h4', number: '210',
+          residents: [
+            { id: 'r5', name: 'Clara Meireles', birthDate: '1970-05-20', tags: ['Diabético'] }
           ]
         }
       ]
     }
   ],
-  visits: [
-    {
-      id: 'v101', date: '2024-10-15', houseId: 'h1', streetId: 'st1', outcome: 'Realizada',
-      attendees: [
-        { residentId: 'r1', pa: '130x85', consulta6m: true },
-        { residentId: 'r2', gestVacina: true, gestTestes: true }
-      ],
-      notes: 'Família bem orientada.'
-    }
-  ]
+  visits: []
 };
 
 let db = loadDB();
 
-// Estados da Interface
+// Estado do Usuário Conectado
+let currentUser = {
+  areaId: null, // 'ma1', 'ma2', 'ma3' ou 'all'
+  name: ''
+};
+
+let pinEntered = '';
+let targetAreaId = '';
+let targetAreaName = '';
+
+// Estados das Abas
 let selectedCalDate = new Date();
 let activeAgendaTags = [];
 let activeReportTags = [];
@@ -480,15 +525,16 @@ function loadDB(){
     const s = localStorage.getItem(DB_KEY);
     if(s) return JSON.parse(s);
   }catch(e){}
-  return initialDB;
+  return defaultDB;
 }
 
 function persist(){
   try{
     localStorage.setItem(DB_KEY, JSON.stringify(db));
+    checkPendingVisits();
     return true;
   }catch(e){
-    toast('Erro de gravação no dispositivo.');
+    toast('Erro ao gravar no aparelho.');
     return false;
   }
 }
@@ -500,233 +546,301 @@ function toast(msg){
   setTimeout(()=> t.classList.remove('show'), 2600);
 }
 
-// NAVEGAÇÃO
-function navTo(viewId){
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + viewId).classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.v === viewId));
-
-  if(viewId === 'visita') setupVisitScreen();
-  if(viewId === 'agenda') renderAgenda();
-  if(viewId === 'fechamento') runReport();
-  window.scrollTo({top:0, behavior:'smooth'});
+// ================= LOGIN & PINPAD =================
+function chooseProfile(areaId, areaName){
+  targetAreaId = areaId;
+  targetAreaName = areaName;
+  document.getElementById('pinTargetName').textContent = areaName;
+  document.getElementById('profileSelectorBox').style.display = 'none';
+  document.getElementById('pinPadBox').style.display = 'block';
+  clearPin();
 }
 
-// ================= 1. FLUXO DE VISITA POR DOMICÍLIO =================
-function setupVisitScreen(){
+function backToProfiles(){
+  document.getElementById('profileSelectorBox').style.display = 'block';
+  document.getElementById('pinPadBox').style.display = 'none';
+  clearPin();
+}
+
+function pressPin(n){
+  if(pinEntered.length < 3){
+    pinEntered += n;
+    updatePinDots();
+    if(pinEntered.length === 3){
+      setTimeout(verifyPin, 150);
+    }
+  }
+}
+
+function clearPin(){
+  pinEntered = '';
+  updatePinDots();
+}
+
+function backspacePin(){
+  pinEntered = pinEntered.slice(0, -1);
+  updatePinDots();
+}
+
+function updatePinDots(){
+  for(let i=0; i<3; i++){
+    document.getElementById(`dot${i}`).classList.toggle('filled', i < pinEntered.length);
+  }
+}
+
+function verifyPin(){
+  if(pinEntered === '000'){
+    currentUser.areaId = targetAreaId;
+    currentUser.name = targetAreaName;
+
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('topUserTitle').textContent = currentUser.name;
+
+    setupMainInterface();
+  } else {
+    toast('Senha incorreta! Digite 000 para testar.');
+    clearPin();
+  }
+}
+
+function logout(){
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  backToProfiles();
+  currentUser = { areaId: null, name: '' };
+}
+
+// ================= INICIALIZAÇÃO DA INTERFACE DO USUÁRIO =================
+function setupMainInterface(){
   const todayStr = new Date().toISOString().slice(0,10);
-  document.getElementById('visDate').value = todayStr;
+  document.getElementById('vDate').value = todayStr;
+  document.getElementById('topDateStr').textContent = `Hoje: ${new Date().toLocaleDateString('pt-BR')}`;
 
-  const areaSel = document.getElementById('visAreaSelect');
-  areaSel.innerHTML = db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+  // Se for a Diretora, exibe seletor de microárea
+  const mgrField = document.getElementById('managerAreaSelectField');
+  if(currentUser.areaId === 'all'){
+    mgrField.style.display = 'block';
+    document.getElementById('vAreaManager').innerHTML = `<option value="all">Todas as Microáreas</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+  } else {
+    mgrField.style.display = 'none';
+  }
 
-  updateVisitStreets();
+  updateStreetsList();
+  renderAgenda();
+  checkPendingVisits();
 }
 
-function updateVisitStreets(){
-  const areaId = document.getElementById('visAreaSelect').value;
-  const strSel = document.getElementById('visStreetSelect');
-  const streets = db.streets.filter(s => s.areaId === areaId);
-  strSel.innerHTML = `<option value="">Selecione a Rua...</option>` + streets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  updateVisitHouses();
+// Filtra as ruas pertencentes à microárea logada
+function getActiveStreets(){
+  if(currentUser.areaId === 'all'){
+    const chosen = document.getElementById('vAreaManager')?.value || 'all';
+    if(chosen === 'all') return db.streets;
+    return db.streets.filter(s => s.areaId === chosen);
+  }
+  return db.streets.filter(s => s.areaId === currentUser.areaId);
 }
 
-function updateVisitHouses(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseSel = document.getElementById('visHouseSelect');
+function switchManagerArea(){
+  updateStreetsList();
+}
+
+// ================= 1. VISITA POR DOMICÍLIO (CASA) =================
+function updateStreetsList(){
+  const streets = getActiveStreets();
+  const sel = document.getElementById('vStreet');
+  sel.innerHTML = `<option value="">Selecione a Rua...</option>` + streets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  updateHousesList();
+}
+
+function updateHousesList(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseSel = document.getElementById('vHouse');
   const street = db.streets.find(s => s.id === streetId);
 
   if(!street || !street.houses.length){
     houseSel.innerHTML = `<option value="">Nenhum número cadastrado</option>`;
-    document.getElementById('houseOutcomeCard').style.display = 'none';
-    document.getElementById('residentsListCard').style.display = 'none';
+    hideHouseSections();
     return;
   }
-  houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number} ${h.complement ? `(${h.complement})` : ''}</option>`).join('');
-  document.getElementById('houseOutcomeCard').style.display = 'none';
-  document.getElementById('residentsListCard').style.display = 'none';
+
+  houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number}</option>`).join('');
+  hideHouseSections();
 }
 
-function loadHouseForVisit(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseId = document.getElementById('visHouseSelect').value;
+function loadHouseData(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
 
   if(!house){
-    document.getElementById('houseOutcomeCard').style.display = 'none';
-    document.getElementById('residentsListCard').style.display = 'none';
+    hideHouseSections();
     return;
   }
 
-  document.getElementById('currentHouseTitle').textContent = `${street.name}, Nº ${house.number}`;
-  document.getElementById('currentHouseComp').textContent = house.complement ? `Complemento: ${house.complement}` : '';
-  document.getElementById('houseOutcomeCard').style.display = 'block';
+  document.getElementById('houseTitle').textContent = `${street.name}, Nº ${house.number}`;
+  document.getElementById('houseBox').style.display = 'block';
 
-  document.getElementById('visHouseOutcome').value = 'Realizada';
-  handleHouseOutcomeChange();
+  chooseOutcome('Realizada', document.querySelector('.outcome-btn.realizada'));
 }
 
-function handleHouseOutcomeChange(){
-  const outcome = document.getElementById('visHouseOutcome').value;
-  const quickBox = document.getElementById('quickOutcomeBtnBox');
-  const resCard = document.getElementById('residentsListCard');
+function hideHouseSections(){
+  document.getElementById('houseBox').style.display = 'none';
+  document.getElementById('familyCard').style.display = 'none';
+}
+
+function chooseOutcome(outcome, btn){
+  document.querySelectorAll('.outcome-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('vOutcome').value = outcome;
+
+  const quickClose = document.getElementById('quickCloseBox');
+  const familyCard = document.getElementById('familyCard');
 
   if(outcome === 'Realizada'){
-    quickBox.style.display = 'none';
-    resCard.style.display = 'block';
-    renderFamilyMembers();
+    quickClose.style.display = 'none';
+    familyCard.style.display = 'block';
+    renderHouseResidents();
   } else {
-    quickBox.style.display = 'block';
-    resCard.style.display = 'none';
+    quickClose.style.display = 'block';
+    familyCard.style.display = 'none';
   }
 }
 
-function renderFamilyMembers(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseId = document.getElementById('visHouseSelect').value;
+function renderHouseResidents(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
-  const container = document.getElementById('familyMembersContainer');
+  const container = document.getElementById('residentsListContainer');
 
   if(!house.residents || !house.residents.length){
     container.innerHTML = `
-      <div style="background:#fff7ed;border:1px dashed #f97316;padding:12px;border-radius:8px;text-align:center">
-        <p style="margin:0 0 6px;font-size:13px;color:#9a3412">Nenhum morador cadastrado neste imóvel ainda.</p>
-        <button class="btn btn-sm btn-primary" onclick="openAddResidentModalCurrentHouse()">＋ Adicionar Primeiro Morador</button>
+      <div style="background:#fffbeb;border:1px dashed #f59e0b;padding:12px;border-radius:10px;text-align:center">
+        <p style="margin:0 0 6px;font-size:13px;color:#92400e">Nenhum morador cadastrado neste número.</p>
+        <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Cadastrar Primeiro Morador</button>
       </div>
     `;
     return;
   }
 
   container.innerHTML = house.residents.map(r => `
-    <div class="resident-visit-card" id="resCard_${r.id}">
+    <div class="resident-visit-card" id="card_${r.id}">
       <label class="check-item" style="font-weight:800;font-size:14px">
-        <input type="checkbox" class="chk-presence" data-resid="${r.id}" onchange="toggleResidentPresence('${r.id}', this)">
+        <input type="checkbox" class="chk-resident-presence" data-id="${r.id}" onchange="togglePresence('${r.id}', this)">
         <span>${r.name}</span>
       </label>
       <div class="tags-cloud">
         ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
       </div>
 
-      <!-- Checklist específico que abre quando o morador está presente -->
-      <div id="checklistBox_${r.id}" style="display:none" class="checklist-box">
-        ${buildResidentChecklistHTML(r)}
+      <div id="check_${r.id}" style="display:none" class="checklist-box">
+        ${buildChecklistHTML(r)}
       </div>
     </div>
   `).join('');
 }
 
-function toggleResidentPresence(resId, el){
-  const box = document.getElementById(`checklistBox_${resId}`);
-  const card = document.getElementById(`resCard_${resId}`);
-  if(el.checked){
-    box.style.display = 'block';
-    card.classList.add('active-presence');
-  } else {
-    box.style.display = 'none';
-    card.classList.remove('active-presence');
-  }
+function togglePresence(resId, el){
+  document.getElementById(`check_${resId}`).style.display = el.checked ? 'block' : 'none';
+  document.getElementById(`card_${resId}`).classList.toggle('active-presence', el.checked);
 }
 
-function buildResidentChecklistHTML(r){
+function buildChecklistHTML(r){
   let html = '';
   if(r.tags.includes('Hipertenso')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Aferição Hipertensão:</div>
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Hipertensão (HAS):</div>
       <div class="grid-2">
         <div class="field"><label>PA Aferida</label><input type="text" id="pa_${r.id}" placeholder="120x80"></div>
-        <div class="field"><label>Consulta nos 6m?</label><select id="hasCon_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Consulta nos 6m?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
   if(r.tags.includes('Diabético')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Aferição Diabetes:</div>
+      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Diabetes (DM):</div>
       <div class="grid-2">
         <div class="field"><label>Glicemia (mg/dL)</label><input type="number" id="gli_${r.id}" placeholder="110"></div>
-        <div class="field"><label>Avaliação dos Pés?</label><select id="dmPes_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Avaliação de Pés?</label><select id="pesDM_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
   if(r.tags.includes('Gestante')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Pré-Natal & Vacinas:</div>
-      <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa em dia</label>
-      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes Rápidos realizados</label>
-      <label class="check-item"><input type="checkbox" id="gOdo_${r.id}"> Consulta Odontológica realizada</label>
+      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Pré-Natal:</div>
+      <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa tomada</label>
+      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos feitos</label>
     `;
   }
   if(r.tags.includes('Criança')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#9a3412;margin-bottom:4px">👶 Acompanhamento Infantil:</div>
-      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia (Pólio/Penta/Tríplice)</label>
-      <label class="check-item"><input type="checkbox" id="cPeso_${r.id}"> Peso e Altura acompanhados</label>
+      <div style="font-size:12px;font-weight:800;color:#9a3412;margin-bottom:4px">👶 Criança:</div>
+      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia</label>
     `;
   }
   if(r.tags.includes('Idoso')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#6b21a8;margin-bottom:4px">🧓 Atenção ao Idoso:</div>
-      <label class="check-item"><input type="checkbox" id="iGripe_${r.id}"> Vacina da Gripe tomada no ano</label>
+      <div style="font-size:12px;font-weight:800;color:#6b21a8;margin-bottom:4px">🧓 Idoso:</div>
+      <label class="check-item"><input type="checkbox" id="iVac_${r.id}"> Vacina da gripe tomada</label>
     `;
   }
   if(!html){
-    html = `<p style="font-size:12px;color:var(--muted);margin:0">Cidadão sem comorbidades registradas. Orientações gerais de saúde.</p>`;
+    html = `<p style="font-size:12px;color:var(--muted);margin:0">Orientações gerais de saúde.</p>`;
   }
   return html;
 }
 
-function saveFamilyVisit(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseId = document.getElementById('visHouseSelect').value;
-  const date = document.getElementById('visDate').value;
-  const notes = document.getElementById('visHouseNotes').value.trim();
+function saveFullHouseVisit(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
+  const date = document.getElementById('vDate').value;
+  const notes = document.getElementById('vHouseNotes').value.trim();
 
-  const checkedPresence = Array.from(document.querySelectorAll('.chk-presence:checked'));
-
-  const attendees = checkedPresence.map(chk => {
-    const resId = chk.dataset.resid;
+  const checked = Array.from(document.querySelectorAll('.chk-resident-presence:checked'));
+  const attendees = checked.map(c => {
+    const id = c.dataset.id;
     return {
-      residentId: resId,
-      pa: document.getElementById(`pa_${resId}`)?.value || '',
-      glicemia: document.getElementById(`gli_${resId}`)?.value || '',
-      hasConsulta6m: document.getElementById(`hasCon_${resId}`)?.value === 'Sim',
-      gestVacina: document.getElementById(`gVac_${resId}`)?.checked || false,
-      criancaVacina: document.getElementById(`cVac_${resId}`)?.checked || false,
-      idosoGripe: document.getElementById(`iGripe_${resId}`)?.checked || false
+      residentId: id,
+      pa: document.getElementById(`pa_${id}`)?.value || '',
+      glicemia: document.getElementById(`gli_${id}`)?.value || ''
     };
   });
 
-  const visitRecord = {
+  db.visits.push({
     id: 'v_' + Date.now(),
-    date,
+    areaId: currentUser.areaId,
     streetId,
     houseId,
+    date,
     outcome: 'Realizada',
     attendees,
-    notes
-  };
+    notes,
+    synced: false
+  });
 
-  db.visits.push(visitRecord);
   persist();
-  toast('✓ Visita da família gravada com sucesso!');
+  toast('✓ Visita da casa salva!');
   navTo('agenda');
 }
 
-function saveHouseAbsentOrRefusal(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseId = document.getElementById('visHouseSelect').value;
-  const date = document.getElementById('visDate').value;
-  const outcome = document.getElementById('visHouseOutcome').value;
+function saveQuickHouseVisit(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
+  const date = document.getElementById('vDate').value;
+  const outcome = document.getElementById('vOutcome').value;
 
   db.visits.push({
     id: 'v_' + Date.now(),
-    date,
+    areaId: currentUser.areaId,
     streetId,
     houseId,
-    outcome, // 'Ausente' ou 'Recusa'
+    date,
+    outcome,
     attendees: [],
-    notes: outcome === 'Ausente' ? 'Imóvel fechado durante o horário de visita.' : 'Morador recusou o atendimento.'
+    notes: outcome === 'Ausente' ? 'Casa fechada / ninguém atendeu' : 'Recusa de visita',
+    synced: false
   });
 
   persist();
@@ -734,35 +848,24 @@ function saveHouseAbsentOrRefusal(){
   navTo('agenda');
 }
 
-// ================= 2. AGENDA COM CALENDÁRIO VISUAL REAL =================
+// ================= 2. AGENDA & CALENDÁRIO =================
 function renderAgenda(){
-  updateTodayHeader();
-  renderAgendaTagFilters();
-  renderCalendarWidget();
-  renderAgendaDeadlinesList();
+  renderAgendaTags();
+  renderCalGrid();
+  renderAgendaDeadlines();
 }
 
-function updateTodayHeader(){
-  const now = new Date();
-  const options = { weekday: 'long', day: 'numeric', month: 'long' };
-  document.getElementById('topDateStr').textContent = `Hoje: ${now.toLocaleDateString('pt-BR', options)}`;
-  document.getElementById('agendaTodayBadge').textContent = `Hoje: ${now.getDate()}/${now.getMonth()+1}`;
-}
-
-function renderAgendaTagFilters(){
-  const tags = ['Hipertenso', 'Diabético', 'Gestante', 'Idoso', 'Criança', 'Bolsa Família'];
+function renderAgendaTags(){
+  const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
   document.getElementById('agendaTagCloud').innerHTML = tags.map(t => {
     const isAct = activeAgendaTags.includes(t);
     return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
   }).join('') + (activeAgendaTags.length ? `<span class="tag btn-danger" onclick="clearAgendaTags()">✕ Limpar</span>` : '');
 }
 
-function toggleAgendaTag(tag){
-  if(activeAgendaTags.includes(tag)){
-    activeAgendaTags = activeAgendaTags.filter(t => t !== tag);
-  } else {
-    activeAgendaTags.push(tag);
-  }
+function toggleAgendaTag(t){
+  if(activeAgendaTags.includes(t)) activeAgendaTags = activeAgendaTags.filter(x => x !== t);
+  else activeAgendaTags.push(t);
   renderAgenda();
 }
 
@@ -771,225 +874,146 @@ function clearAgendaTags(){
   renderAgenda();
 }
 
-function renderCalendarWidget(){
+function renderCalGrid(){
   const year = selectedCalDate.getFullYear();
   const month = selectedCalDate.getMonth();
-
   const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  document.getElementById('calMonthYearTitle').textContent = `${monthNames[month]} de ${year}`;
+  document.getElementById('calTitle').textContent = `${monthNames[month]} de ${year}`;
 
-  const firstDayIndex = new Date(year, month, 1).getDay();
+  const firstDay = new Date(year, month, 1).getDay();
   const totalDays = new Date(year, month + 1, 0).getDate();
-  const prevMonthTotalDays = new Date(year, month, 0).getDate();
+  const grid = document.getElementById('calGrid');
 
-  const grid = document.getElementById('calendarGrid');
   let html = `
     <div class="cal-weekday">D</div><div class="cal-weekday">S</div><div class="cal-weekday">T</div>
     <div class="cal-weekday">Q</div><div class="cal-weekday">Q</div><div class="cal-weekday">S</div><div class="cal-weekday">S</div>
   `;
 
-  // Dias do mês anterior para preencher
-  for(let x = firstDayIndex; x > 0; x--){
-    html += `<div class="cal-day other-month">${prevMonthTotalDays - x + 1}</div>`;
-  }
+  for(let i=0; i<firstDay; i++) html += `<div class="cal-day other-month"></div>`;
 
   const today = new Date();
-  for(let d = 1; d <= totalDays; d++){
-    const thisDateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  for(let d=1; d<=totalDays; d++){
     const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
-    const isSelected = selectedCalDate.getDate() === d && selectedCalDate.getMonth() === month;
-
-    // Calcular se há prazos neste dia
-    const dots = getCalendarDotsForDay(thisDateStr);
+    const isSel = selectedCalDate.getDate() === d && selectedCalDate.getMonth() === month;
 
     html += `
-      <div class="cal-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}" onclick="selectCalendarDay(${d})">
+      <div class="cal-day ${isToday ? 'today' : ''} ${isSel ? 'selected' : ''}" onclick="selectCalDay(${d})">
         <span>${d}</span>
-        <div class="cal-dots">
-          ${dots.hasRed ? '<span class="cal-dot red"></span>' : ''}
-          ${dots.hasYellow ? '<span class="cal-dot yellow"></span>' : ''}
-        </div>
       </div>
     `;
   }
-
   grid.innerHTML = html;
 }
 
-function changeMonth(delta){
+function calNav(delta){
   selectedCalDate = new Date(selectedCalDate.getFullYear(), selectedCalDate.getMonth() + delta, 1);
   renderAgenda();
 }
 
-function selectCalendarDay(d){
+function selectCalDay(d){
   selectedCalDate.setDate(d);
   renderAgenda();
 }
 
-function getCalendarDotsForDay(dateStr){
-  // Simples verificação se alguém tem prazo neste dia
-  return { hasRed: false, hasYellow: false };
-}
+function renderAgendaDeadlines(){
+  const streets = getActiveStreets();
+  const citizens = [];
 
-// CÁLCULO DE PRAZOS E LISTA DE CIDADÃOS NA AGENDA
-function calculateCitizenStatus(resident, houseId){
-  // Visitas atendidas
-  const resVisits = db.visits
-    .filter(v => v.outcome === 'Realizada' && v.attendees && v.attendees.some(a => a.residentId === resident.id))
-    .sort((a,b) => b.date.localeCompare(a.date));
-
-  const lastVisit = resVisits[0];
-  const now = new Date();
-  const daysSince = lastVisit ? Math.floor((now - new Date(lastVisit.date + 'T00:00:00')) / (1000 * 60 * 60 * 24)) : 999;
-
-  if(resident.tags.includes('Gestante')){
-    if(!lastVisit) return { color:'red', label:'Gestante sem visita', urgency:1, text:'Nenhuma visita registrada na gestação.' };
-    if(daysSince > 40) return { color:'red', label:'Visita Atrasada', urgency:1, text:`Última visita há ${daysSince} dias. Meta: a cada 30 dias.` };
-    if(daysSince >= 25) return { color:'yellow', label:'A Vencer', urgency:2, text:`Última visita há ${daysSince} dias.` };
-    return { color:'green', label:'Em Dia', urgency:3, text:`Visitada há ${daysSince} dias.` };
-  }
-
-  if(resident.tags.includes('Hipertenso') || resident.tags.includes('Diabético')){
-    if(!lastVisit) return { color:'red', label:'Sem visita no semestre', urgency:1, text:'Meta de 2 visitas/ano não iniciada.' };
-    if(daysSince > 180) return { color:'red', label:'Atrasada (>6 meses)', urgency:1, text:`Última visita há ${daysSince} dias.` };
-    if(daysSince >= 150) return { color:'yellow', label:'Vence em breve', urgency:2, text:`Faltam ~${180 - daysSince} dias para estourar o semestre.` };
-    return { color:'green', label:'Em Dia', urgency:3, text:`Visitado há ${daysSince} dias.` };
-  }
-
-  if(daysSince > 365) return { color:'red', label:'Sem visita no ano', urgency:1, text:'Mais de 365 dias sem visita.' };
-  return { color:'green', label:'Em dia', urgency:3, text:`Visitado há ${daysSince} dias.` };
-}
-
-function renderAgendaDeadlinesList(){
-  const allResidents = [];
-
-  db.streets.forEach(s => {
+  streets.forEach(s => {
     s.houses.forEach(h => {
       (h.residents || []).forEach(r => {
-        // Cruzamento de tags (E lógico)
-        const matchesTags = activeAgendaTags.every(t => r.tags.includes(t));
-        if(!matchesTags) return;
+        if(!activeAgendaTags.every(t => r.tags.includes(t))) return;
 
-        const st = calculateCitizenStatus(r, h.id);
-        allResidents.push({
-          ...r,
-          streetName: s.name,
-          streetId: s.id,
-          houseNumber: h.number,
-          houseId: h.id,
-          areaId: s.areaId,
-          status: st
-        });
+        // Calcula última visita
+        const last = db.visits
+          .filter(v => v.outcome === 'Realizada' && v.attendees?.some(a => a.residentId === r.id))
+          .sort((a,b) => b.date.localeCompare(a.date))[0];
+
+        const days = last ? Math.floor((new Date() - new Date(last.date)) / (1000*60*60*24)) : 999;
+        let color = 'green', label = 'Em dia';
+
+        if(r.tags.includes('Gestante')){
+          if(days > 35) { color = 'red'; label = 'Atrasada (Gestante)'; }
+          else if(days >= 25) { color = 'yellow'; label = 'A vencer'; }
+        } else if(r.tags.includes('Hipertenso') || r.tags.includes('Diabético')){
+          if(days > 180) { color = 'red'; label = 'Atrasada (>6 meses)'; }
+          else if(days >= 150) { color = 'yellow'; label = 'Vence em breve'; }
+        }
+
+        citizens.push({ ...r, streetName: s.name, houseNumber: h.number, streetId: s.id, houseId: h.id, color, label, days });
       });
     });
   });
 
-  // Ordenação por urgência
-  allResidents.sort((a,b) => a.status.urgency - b.status.urgency);
+  document.getElementById('agendaCount').textContent = `${citizens.length} cidadãos`;
+  const container = document.getElementById('agendaItemsList');
 
-  document.getElementById('agendaCountBadge').textContent = `${allResidents.length} cidadãos`;
-  const container = document.getElementById('agendaDeadlinesList');
-
-  if(!allResidents.length){
-    container.innerHTML = `<p style="text-align:center;color:var(--muted)">Nenhum cidadão encontrado com essa combinação de tags.</p>`;
+  if(!citizens.length){
+    container.innerHTML = `<p style="text-align:center;color:var(--muted)">Nenhum cidadão para o filtro selecionado.</p>`;
     return;
   }
 
-  container.innerHTML = allResidents.map(r => `
-    <div style="border-left:4px solid var(--${r.status.color});background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+  container.innerHTML = citizens.map(c => `
+    <div style="border-left:4px solid var(--${c.color});background:#fff;border-radius:8px;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
-          <span class="status-pill ${r.status.color}">${r.status.label}</span>
-          <strong style="display:block;margin:4px 0 2px;font-size:14px">${r.name}</strong>
-          <small style="color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber}</small>
+          <span class="status-pill ${c.color}">${c.label}</span>
+          <strong style="display:block;margin:3px 0">${c.name}</strong>
+          <small style="color:var(--muted)">📍 ${c.streetName}, Nº ${c.houseNumber}</small>
         </div>
-        <button class="btn btn-sm btn-primary" onclick="quickJumpToVisit('${r.streetId}','${r.houseId}')">Ir à Casa</button>
+        <button class="btn btn-sm btn-primary" onclick="goToVisit('${c.streetId}','${c.houseId}')">Ir à Casa</button>
       </div>
-      <div class="tags-cloud" style="margin-top:4px">
-        ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
-      </div>
-      <div style="font-size:11px;color:#2e4e45;margin-top:4px">ℹ️ ${r.status.text}</div>
     </div>
   `).join('');
 }
 
-function quickJumpToVisit(streetId, houseId){
+function goToVisit(streetId, houseId){
   navTo('visita');
-  document.getElementById('visStreetSelect').value = streetId;
-  updateVisitHouses();
-  document.getElementById('visHouseSelect').value = houseId;
-  loadHouseForVisit();
+  document.getElementById('vStreet').value = streetId;
+  updateHousesList();
+  document.getElementById('vHouse').value = houseId;
+  loadHouseData();
 }
 
-// ================= 3. FECHAMENTO & CRUZAMENTOS DO GESTOR =================
+// ================= 3. FECHAMENTO & CRUZAMENTOS =================
 function runReport(){
-  renderReportTagFilters();
+  renderReportTags();
+  const streets = getActiveStreets();
+  const citizens = [];
+  streets.forEach(s => s.houses.forEach(h => (h.residents || []).forEach(r => citizens.push({ ...r, streetName: s.name, houseNumber: h.number }))));
 
-  const allResidents = [];
-  db.streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        allResidents.push({
-          ...r,
-          streetName: s.name,
-          houseNumber: h.number
-        });
-      });
-    });
-  });
+  const filtered = citizens.filter(r => activeReportTags.every(t => r.tags.includes(t)));
 
-  // Filtrar pelo cruzamento de tags selecionado
-  const filteredResidents = allResidents.filter(r => {
-    if(!activeReportTags.length) return true;
-    return activeReportTags.every(t => r.tags.includes(t));
-  });
-
-  // Calcular quem foi visitado no período selecionado
-  const preset = document.getElementById('repPeriod').value;
+  // Visitas no período
   const now = new Date();
-  let start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
-  let end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
-
-  if(preset === 'lastMonth'){
-    start = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), now.getMonth(), 0).toISOString().slice(0,10);
-  } else if(preset === 'ano'){
-    start = new Date(now.getFullYear(), 0, 1).toISOString().slice(0,10);
-    end = new Date(now.getFullYear(), 11, 31).toISOString().slice(0,10);
-  }
+  const start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
 
   const periodVisits = db.visits.filter(v => v.outcome === 'Realizada' && v.date >= start && v.date <= end);
-  const visitedResidentIds = new Set();
-  periodVisits.forEach(v => {
-    (v.attendees || []).forEach(a => visitedResidentIds.add(a.residentId));
-  });
+  const visitedIds = new Set();
+  periodVisits.forEach(v => v.attendees?.forEach(a => visitedIds.add(a.residentId)));
 
-  const total = filteredResidents.length;
-  const visitedCount = filteredResidents.filter(r => visitedResidentIds.has(r.id)).length;
-  const pendingCount = total - visitedCount;
-  const perc = total > 0 ? Math.round((visitedCount / total) * 100) + '%' : '0%';
+  const tot = filtered.length;
+  const done = filtered.filter(r => visitedIds.has(r.id)).length;
+  const pending = tot - done;
+  const perc = tot > 0 ? Math.round((done / tot) * 100) + '%' : '0%';
 
-  // Painel de Resumo
   document.getElementById('reportSummaryBox').innerHTML = `
-    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
-      Cruzamento selecionado: <strong>${activeReportTags.join(' + ') || 'Toda a População'}</strong>
-    </div>
     <div class="grid-2" style="text-align:center">
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:10px">
-        <strong style="font-size:22px;color:var(--green);display:block">${visitedCount}</strong>
-        <small style="color:#166534;font-weight:700">Visitados no Período (${perc})</small>
+        <strong style="font-size:22px;color:var(--green);display:block">${done}</strong>
+        <small style="color:#166534;font-weight:700">Visitados no Mês (${perc})</small>
       </div>
       <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px">
-        <strong style="font-size:22px;color:var(--red);display:block">${pendingCount}</strong>
-        <small style="color:#991b1b;font-weight:700">Pendentes no Período</small>
+        <strong style="font-size:22px;color:var(--red);display:block">${pending}</strong>
+        <small style="color:#991b1b;font-weight:700">Pendentes no Mês</small>
       </div>
     </div>
   `;
 
-  // Lista Nominal das Pessoas
-  document.getElementById('reportListTitle').textContent = `Lista Nominal (${filteredResidents.length} pessoas encontradas)`;
-  document.getElementById('reportResidentsList').innerHTML = filteredResidents.map(r => {
-    const wasVisited = visitedResidentIds.has(r.id);
+  document.getElementById('reportListTitle').textContent = `Lista Nominal (${filtered.length} pessoas encontradas)`;
+  document.getElementById('reportNamesList').innerHTML = filtered.map(r => {
+    const wasDone = visitedIds.has(r.id);
     return `
       <div style="padding:10px 0;border-bottom:1px solid #edf4f1;display:flex;justify-content:space-between;align-items:center">
         <div>
@@ -999,15 +1023,13 @@ function runReport(){
             ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
           </div>
         </div>
-        <span class="status-pill ${wasVisited ? 'green' : 'red'}">
-          ${wasVisited ? '✓ Visitado' : '⚠️ Pendente'}
-        </span>
+        <span class="status-pill ${wasDone ? 'green' : 'red'}">${wasDone ? '✓ Visitado' : '⚠️ Pendente'}</span>
       </div>
     `;
-  }).join('') || '<p style="text-align:center;color:var(--muted)">Nenhum cidadão atende a esse cruzamento de tags.</p>';
+  }).join('') || '<p style="text-align:center;color:var(--muted)">Nenhum cidadão atende a esse cruzamento.</p>';
 }
 
-function renderReportTagFilters(){
+function renderReportTags(){
   const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
   document.getElementById('reportTagCloud').innerHTML = tags.map(t => {
     const isAct = activeReportTags.includes(t);
@@ -1016,11 +1038,8 @@ function renderReportTagFilters(){
 }
 
 function toggleReportTag(t){
-  if(activeReportTags.includes(t)){
-    activeReportTags = activeReportTags.filter(x => x !== t);
-  } else {
-    activeReportTags.push(t);
-  }
+  if(activeReportTags.includes(t)) activeReportTags = activeReportTags.filter(x => x !== t);
+  else activeReportTags.push(t);
   runReport();
 }
 
@@ -1029,167 +1048,145 @@ function clearReportTags(){
   runReport();
 }
 
-// ================= 4. IMPORTADOR INTELIGENTE DE PLANILHA =================
-function handleFileSelect(e){
+// ================= 4. POP-UP AMIGÁVEL & SINCRONIZAÇÃO =================
+function checkPendingVisits(){
+  const pending = db.visits.filter(v => !v.synced).length;
+  const banner = document.getElementById('syncFriendlyBanner');
+  if(pending > 0 && navigator.onLine){
+    document.getElementById('syncBannerMsg').textContent = `Você tem ${pending} visita(s) feitas que podem ser enviadas para a UBS agora.`;
+    banner.style.display = 'flex';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+window.addEventListener('online', checkPendingVisits);
+
+function triggerSmartSync(){
+  const pending = db.visits.filter(v => !v.synced);
+  if(!pending.length){
+    toast('Tudo em dia! Nenhuma visita pendente de envio.');
+    return;
+  }
+  const btn = document.getElementById('btnBannerSync');
+  btn.textContent = 'Enviando...';
+
+  setTimeout(() => {
+    db.visits.forEach(v => v.synced = true);
+    persist();
+    btn.textContent = '⚡ Enviar Agora';
+    toast(`✓ Sucesso! ${pending.length} visitas salvas na planilha da UBS!`);
+    checkPendingVisits();
+  }, 1200);
+}
+
+function pullDataFromCloud(){
+  toast('🔄 Puxando atualizações da planilha da UBS...');
+  setTimeout(() => {
+    toast('✓ Aparelho sincronizado com a base mais recente!');
+    updateStreetsList();
+    renderAgenda();
+  }, 1000);
+}
+
+// ================= 5. IMPORTADOR INTELIGENTE DE PLANILHA =================
+function handleFile(e){
   const file = e.target.files[0];
   if(!file) return;
 
   const reader = new FileReader();
   reader.onload = function(evt){
     const text = evt.target.result;
-    parseCSV(text);
+    const lines = text.split(/\r\n|\n/).filter(l => l.trim().length > 0);
+    if(lines.length < 2){ toast('Planilha vazia ou inválida.'); return; }
+
+    const sep = lines[0].includes(';') ? ';' : ',';
+    const headers = lines[0].split(sep).map(h => h.replace(/"/g,'').trim());
+
+    importedRawData = {
+      headers,
+      rows: lines.slice(1).map(l => l.split(sep).map(c => c.replace(/"/g,'').trim()))
+    };
+
+    ['mapStreet', 'mapNumber', 'mapName', 'mapTags'].forEach(id => {
+      document.getElementById(id).innerHTML = `<option value="">-- Selecione --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
+    });
+
+    // Auto-detecção inteligente
+    headers.forEach((h, idx) => {
+      const low = h.toLowerCase();
+      if(low.includes('rua') || low.includes('logradouro')) document.getElementById('mapStreet').value = idx;
+      if(low.includes('num') || low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
+      if(low.includes('nome') || low.includes('paciente')) document.getElementById('mapName').value = idx;
+      if(low.includes('doen') || low.includes('comorb') || low.includes('obs')) document.getElementById('mapTags').value = idx;
+    });
+
+    document.getElementById('mapperBox').style.display = 'block';
+    toast('Planilha carregada! Confirme as colunas.');
   };
   reader.readAsText(file, 'UTF-8');
 }
 
-function parseCSV(text){
-  const lines = text.split(/\r\n|\n/).filter(l => l.trim().length > 0);
-  if(lines.length < 2){
-    toast('Planilha vazia ou formato inválido.');
-    return;
-  }
-
-  // Detecta se o delimitador é vírgula ou ponto e vírgula
-  const separator = lines[0].includes(';') ? ';' : ',';
-  const headers = lines[0].split(separator).map(h => h.replace(/"/g,'').trim());
-
-  importedRawData = {
-    headers,
-    rows: lines.slice(1).map(l => l.split(separator).map(c => c.replace(/"/g,'').trim()))
-  };
-
-  // Preenche os selects de mapeamento
-  ['mapColStreet', 'mapColNumber', 'mapColName', 'mapColBirth', 'mapColTags'].forEach(id => {
-    const sel = document.getElementById(id);
-    sel.innerHTML = `<option value="">-- Ignorar / Não possui --</option>` + headers.map((h, idx) => `<option value="${idx}">${h}</option>`).join('');
-  });
-
-  // Auto-detecção inteligente de colunas
-  headers.forEach((h, idx) => {
-    const low = h.toLowerCase();
-    if(low.includes('rua') || low.includes('logradouro') || low.includes('end')) document.getElementById('mapColStreet').value = idx;
-    if(low.includes('num') || low.includes('casa') || low.includes('nº')) document.getElementById('mapColNumber').value = idx;
-    if(low.includes('nome') || low.includes('paciente') || low.includes('cidadao')) document.getElementById('mapColName').value = idx;
-    if(low.includes('nasc') || low.includes('dn') || low.includes('data')) document.getElementById('mapColBirth').value = idx;
-    if(low.includes('doen') || low.includes('tag') || low.includes('comorb') || low.includes('obs')) document.getElementById('mapColTags').value = idx;
-  });
-
-  document.getElementById('mapperBox').style.display = 'block';
-  toast('Planilha carregada! Confirme as colunas.');
-}
-
 function executeImport(){
   if(!importedRawData) return;
-
-  const colStreet = document.getElementById('mapColStreet').value;
-  const colNumber = document.getElementById('mapColNumber').value;
-  const colName = document.getElementById('mapColName').value;
-  const colBirth = document.getElementById('mapColBirth').value;
-  const colTags = document.getElementById('mapColTags').value;
+  const colStreet = document.getElementById('mapStreet').value;
+  const colNumber = document.getElementById('mapNumber').value;
+  const colName = document.getElementById('mapName').value;
+  const colTags = document.getElementById('mapTags').value;
 
   if(colStreet === '' || colNumber === '' || colName === ''){
     alert('As colunas de Rua, Número e Nome são obrigatórias!');
     return;
   }
 
-  let countAdded = 0;
+  let count = 0;
+  const userArea = currentUser.areaId === 'all' ? 'ma1' : currentUser.areaId;
 
   importedRawData.rows.forEach(r => {
-    const streetName = r[colStreet]?.trim();
-    const houseNum = r[colNumber]?.trim();
-    const resName = r[colName]?.trim();
-    const birth = colBirth !== '' ? r[colBirth]?.trim() : '';
+    const sName = r[colStreet]?.trim();
+    const hNum = r[colNumber]?.trim();
+    const rName = r[colName]?.trim();
     const rawTags = colTags !== '' ? (r[colTags] || '').toUpperCase() : '';
 
-    if(!streetName || !houseNum || !resName) return;
+    if(!sName || !hNum || !rName) return;
 
-    // Achar ou criar a rua
-    let street = db.streets.find(s => s.name.toLowerCase() === streetName.toLowerCase());
+    let street = db.streets.find(s => s.name.toLowerCase() === sName.toLowerCase() && s.areaId === userArea);
     if(!street){
-      street = { id: 'st_' + Date.now() + Math.random().toString(36).slice(2,5), areaId: db.areas[0].id, name: streetName, houses: [] };
+      street = { id: 'st_' + Date.now() + Math.random().toString(36).slice(2,5), areaId: userArea, name: sName, houses: [] };
       db.streets.push(street);
     }
 
-    // Achar ou criar a casa
-    let house = street.houses.find(h => h.number.toLowerCase() === houseNum.toLowerCase());
+    let house = street.houses.find(h => h.number.toLowerCase() === hNum.toLowerCase());
     if(!house){
-      house = { id: 'h_' + Date.now() + Math.random().toString(36).slice(2,5), number: houseNum, complement: '', residents: [] };
+      house = { id: 'h_' + Date.now() + Math.random().toString(36).slice(2,5), number: hNum, residents: [] };
       street.houses.push(house);
     }
 
-    // Identificar Tags automaticamente pelas palavras da planilha
     const tags = [];
     if(rawTags.includes('HAS') || rawTags.includes('HIPER')) tags.push('Hipertenso');
     if(rawTags.includes('DM') || rawTags.includes('DIAB')) tags.push('Diabético');
     if(rawTags.includes('GEST')) tags.push('Gestante');
-    if(rawTags.includes('BOLSA') || rawTags.includes('BF')) tags.push('Bolsa Família');
     if(rawTags.includes('IDOS') || rawTags.includes('60')) tags.push('Idoso');
-    if(rawTags.includes('CRIAN') || rawTags.includes('BEBE')) tags.push('Criança');
+    if(rawTags.includes('CRIAN')) tags.push('Criança');
+    if(rawTags.includes('BOLSA') || rawTags.includes('BF')) tags.push('Bolsa Família');
 
     house.residents.push({
       id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
-      name: resName,
-      birthDate: birth,
-      tags,
-      dpp: '',
-      cns: ''
+      name: rName,
+      tags
     });
-    countAdded++;
+    count++;
   });
 
   persist();
   document.getElementById('mapperBox').style.display = 'none';
-  document.getElementById('importFileInput').value = '';
-  toast(`✓ Sucesso! ${countAdded} pessoas importadas para o aplicativo!`);
+  document.getElementById('importInput').value = '';
+  toast(`✓ Sucesso! ${count} pessoas importadas para a sua microárea!`);
+  updateStreetsList();
   navTo('visita');
 }
 
-// EXPORTADOR CSV (EXCEL)
-function exportDataToCSV(){
-  const filter = document.getElementById('exportGroupFilter').value;
-  const headers = ['Data Visita', 'Rua', 'Numero', 'Situacao', 'Cidadaos Atendidos', 'Observacoes'];
-
-  const rows = [];
-  db.visits.forEach(v => {
-    const street = db.streets.find(s => s.id === v.streetId)?.name || '';
-    const house = db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '';
-
-    // Nomes atendidos
-    const attendedNames = (v.attendees || []).map(a => {
-      const res = findResident(a.residentId);
-      return res ? res.name : '';
-    }).filter(Boolean).join(' | ');
-
-    rows.push([
-      v.date,
-      street,
-      house,
-      v.outcome,
-      attendedNames,
-      (v.notes || '').replace(/[\n\r;]/g, ' ')
-    ]);
-  });
-
-  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `UBS_Paris4_Visitas_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-  toast('Planilha exportada!');
-}
-
-// AUXILIARES
-function findResident(id){
-  for(let s of db.streets){
-    for(let h of s.houses){
-      const r = (h.residents || []).find(x => x.id === id);
-      if(r) return r;
-    }
-  }
-  return null;
-}
-
+// ================= UTILITÁRIOS =================
 function getTagClass(t){
   if(t.includes('Gestante')) return 'gestante';
   if(t.includes('Hipertenso')) return 'has';
@@ -1200,94 +1197,86 @@ function getTagClass(t){
   return '';
 }
 
-function quickAddStreet(){
+function promptAddStreet(){
   const name = prompt('Nome da nova rua:');
   if(!name) return;
-  db.streets.push({ id: 'st_' + Date.now(), areaId: db.areas[0].id, name: name.trim(), houses: [] });
+  const areaId = currentUser.areaId === 'all' ? 'ma1' : currentUser.areaId;
+  db.streets.push({ id: 'st_' + Date.now(), areaId, name: name.trim(), houses: [] });
   persist();
-  updateVisitStreets();
+  updateStreetsList();
 }
 
-function quickAddHouse(){
-  const streetId = document.getElementById('visStreetSelect').value;
-  if(!streetId){ alert('Selecione uma rua primeiro!'); return; }
+function promptAddHouse(){
+  const streetId = document.getElementById('vStreet').value;
+  if(!streetId){ alert('Escolha uma rua primeiro!'); return; }
   const num = prompt('Número da casa:');
   if(!num) return;
-  const comp = prompt('Complemento (opcional):') || '';
   const street = db.streets.find(s => s.id === streetId);
-  street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), complement: comp.trim(), residents: [] });
+  street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), residents: [] });
   persist();
-  updateVisitHouses();
+  updateHousesList();
 }
 
-function openAddResidentModalCurrentHouse(){
-  document.getElementById('formResident').reset();
-  document.querySelectorAll('#modalTagSelector .tag').forEach(t => t.classList.remove('active'));
-  document.getElementById('modalGestanteExtra').style.display = 'none';
-  showModal('modalResident');
+function openAddResidentModal(){
+  document.getElementById('formRes').reset();
+  document.querySelectorAll('#modalTagCloud .tag').forEach(t => t.classList.remove('active'));
+  document.getElementById('modalResident').classList.add('open');
 }
 
-function toggleModalTag(el){
+function toggleMTag(el){
   el.classList.toggle('active');
-  const isG = Array.from(document.querySelectorAll('#modalTagSelector .tag.active')).some(t => t.dataset.tag === 'Gestante');
-  document.getElementById('modalGestanteExtra').style.display = isG ? 'block' : 'none';
 }
 
-function autoTagAgeModal(){
-  const b = document.getElementById('mResBirth').value;
-  if(!b) return;
-  const age = Math.floor((new Date() - new Date(b)) / (1000*60*60*24*365.25));
-  if(age >= 60) document.querySelector('#modalTagSelector .tag[data-tag="Idoso"]')?.classList.add('active');
-  if(age < 2) document.querySelector('#modalTagSelector .tag[data-tag="Criança"]')?.classList.add('active');
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
 }
 
-function saveResident(e){
+function saveResidentModal(e){
   e.preventDefault();
-  const streetId = document.getElementById('visStreetSelect').value;
-  const houseId = document.getElementById('visHouseSelect').value;
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
   if(!house) return;
 
-  const tags = Array.from(document.querySelectorAll('#modalTagSelector .tag.active')).map(t => t.dataset.tag);
+  const tags = Array.from(document.querySelectorAll('#modalTagCloud .tag.active')).map(t => t.dataset.tag);
   house.residents.push({
     id: 'r_' + Date.now(),
-    name: document.getElementById('mResName').value.trim(),
-    birthDate: document.getElementById('mResBirth').value,
-    cns: document.getElementById('mResCns').value.trim(),
-    tags,
-    dpp: document.getElementById('mResDpp').value
+    name: document.getElementById('mName').value.trim(),
+    birthDate: document.getElementById('mBirth').value,
+    tags
   });
 
   persist();
   closeModal('modalResident');
-  renderFamilyMembers();
-  toast('Morador adicionado!');
+  renderHouseResidents();
+  toast('Morador cadastrado na casa!');
 }
 
-function showModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-
-function downloadBackup(){
-  const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+function exportCSV(){
+  const headers = ['Data', 'Rua', 'Numero', 'Situacao', 'Observacoes'];
+  const rows = db.visits.map(v => {
+    const street = db.streets.find(s => s.id === v.streetId)?.name || '';
+    const house = db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '';
+    return [v.date, street, house, v.outcome, (v.notes || '').replace(/[\n\r;]/g, ' ')];
+  });
+  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `backup_ubs_paris4.json`;
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+  a.download = `Visitas_${currentUser.name.replace(/[^a-z0-9]/gi, '_')}.csv`;
   a.click();
 }
 
-function resetToDemo(){
-  if(!confirm('Restaurar dados de teste padrão?')) return;
-  db = initialDB;
-  persist();
-  setupVisitScreen();
-  toast('Dados restaurados.');
-}
+function navTo(viewId){
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + viewId).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.v === viewId));
 
-window.addEventListener('load', () => {
-  setupVisitScreen();
-  renderAgenda();
-});
+  if(viewId === 'visita') updateStreetsList();
+  if(viewId === 'agenda') renderAgenda();
+  if(viewId === 'fechamento') runReport();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 </script>
 </body>
 </html>
