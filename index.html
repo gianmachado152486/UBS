@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>UBS Paris 4 · Campo Digital ACS</title>
+<title>UBS Paris · Campo Digital ACS</title>
 <style>
 :root{
   --p:#086b56;--p-dark:#054637;--p-light:#e7f5ef;--sec:#148a6d;--ink:#17342d;--muted:#5f7871;--line:#dbe6e2;--bg:#f3f7f5;--card:#ffffff;
@@ -122,29 +122,28 @@ input,select,textarea,button{font:inherit}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:var(--radius);max-width:550px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
 
-/* ================= CSS DO TOUR INTERATIVO ================= */
-.tour-overlay{position:fixed;inset:0;background:rgba(7,36,29,0.75);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
-.tour-overlay.open{display:flex}
-.tour-card{background:#ffffff;border-radius:18px;max-width:440px;width:100%;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,0.4);border:2px solid var(--p)}
-.tour-badge{display:inline-block;padding:3px 10px;border-radius:20px;background:var(--p-light);color:var(--p);font-size:11px;font-weight:900;text-transform:uppercase;margin-bottom:8px}
-.tour-card h3{margin:0 0 8px;font-size:18px;color:var(--ink)}
-.tour-card p{font-size:13px;color:#35534b;line-height:1.45;margin:0 0 16px}
-.tour-actions{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.tour-dots{display:flex;gap:6px}
-.tour-dot{width:8px;height:8px;border-radius:50%;background:#cbd5e1}
-.tour-dot.active{background:var(--p);width:18px;border-radius:10px}
+/* ================= CSS DO TUTORIAL GUIADO "MÃO NA MASSA" ================= */
+.tour-spotlight{outline:3px solid #f59e0b !important;box-shadow:0 0 18px #f59e0b88 !important;animation:pulseSpotlight 1.3s infinite}
+@keyframes pulseSpotlight{0%,100%{outline-color:#f59e0b}50%{outline-color:#10b981}}
+
+.guided-tour-bar{position:fixed;bottom:65px;left:50%;transform:translateX(-50%);max-width:540px;width:calc(100% - 24px);background:#10392f;color:#fff;border-radius:16px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,0.35);z-index:200;border:2px solid #34d399;display:none}
+.guided-tour-bar.open{display:block}
+.guided-step-badge{background:#34d399;color:#064e3b;font-size:10px;font-weight:900;text-transform:uppercase;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:6px}
+.guided-tour-bar h4{margin:0 0 4px;font-size:15px;color:#f0fdf4}
+.guided-tour-bar p{margin:0 0 12px;font-size:13px;color:#d1fae5;line-height:1.4}
+.guided-tour-footer{display:flex;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
 
-<!-- ================= 1. TELA DE LOGIN DIDÁTICA (PINPAD) ================= -->
+<!-- ================= 1. TELA DE LOGIN ================= -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box" id="profileSelectorBox">
     <div class="login-avatar">✚</div>
     <h2 style="margin:0 0 4px">UBS Paris 4</h2>
     <p style="margin:0 0 16px;color:var(--muted);font-size:13px">Toque no seu nome para entrar:</p>
 
-    <button class="profile-btn" onclick="chooseProfile('ma1', 'ACS 1 · Microárea 01')">
+    <button class="profile-btn" id="btnTourLoginACS1" onclick="chooseProfile('ma1', 'ACS 1 · Microárea 01')">
       <span>👩‍⚕️</span> <span>ACS 1 (Microárea 01)</span>
     </button>
     <button class="profile-btn" onclick="chooseProfile('ma2', 'ACS 2 · Microárea 02')">
@@ -180,7 +179,7 @@ input,select,textarea,button{font:inherit}
       <button class="pin-btn" onclick="pressPin('8')">8</button>
       <button class="pin-btn" onclick="pressPin('9')">9</button>
       <button class="pin-btn" style="font-size:14px;color:var(--red)" onclick="clearPin()">Limpar</button>
-      <button class="pin-btn" onclick="pressPin('0')">0</button>
+      <button class="pin-btn" id="btnTourZero" onclick="pressPin('0')">0</button>
       <button class="pin-btn" style="font-size:18px" onclick="backspacePin()">⌫</button>
     </div>
   </div>
@@ -198,14 +197,13 @@ input,select,textarea,button{font:inherit}
       </div>
     </div>
     <div class="top-actions">
-      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="startTour(true)">❓ Como Usar</button>
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="startHandsOnTour()">❓ Aprenda a Usar</button>
       <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
     </div>
   </header>
 
   <div class="app">
 
-    <!-- Pop-up/Card Amigável de Sincronização Inteligente -->
     <div class="smart-banner" id="syncFriendlyBanner" style="display:none">
       <div>
         <strong style="color:var(--green);font-size:13px;display:block">📶 Conexão Detectada!</strong>
@@ -214,15 +212,14 @@ input,select,textarea,button{font:inherit}
       <button class="btn btn-sm btn-primary" onclick="triggerSmartSync()" id="btnBannerSync">⚡ Enviar Agora</button>
     </div>
 
-    <!-- ================= ABA 1: NOVA VISITA (POR CASA) ================= -->
+    <!-- ABA 1: VISITA POR CASA -->
     <section class="view active" id="view-visita">
       <div class="card-header">
         <h2>Visita Domiciliar</h2>
         <span class="status-pill blue" id="activeAreaBadge">Microárea 1</span>
       </div>
 
-      <!-- Etapa 1: Endereço -->
-      <div class="card">
+      <div class="card" id="tourCardAddress">
         <div class="grid-2">
           <div class="field">
             <label>Data da Visita</label>
@@ -251,15 +248,15 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- Etapa 2: Situação no Portão -->
+      <!-- Situação no Portão -->
       <div class="card" id="houseBox" style="display:none">
         <div class="card-header">
-          <h3 style="margin:0" id="houseTitle">Rua ..., Nº ...</h3>
+          <h3 style="margin:0" id="houseTitle">Rua Antonio Bughi, Nº 120</h3>
         </div>
 
         <div style="font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px">O QUE ACONTECEU NO PORTÃO?</div>
-        <div class="outcome-btn-grid">
-          <div class="outcome-btn active realizada" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
+        <div class="outcome-btn-grid" id="tourGateOutcomeBox">
+          <div class="outcome-btn active realizada" id="tourBtnAtendida" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
           <div class="outcome-btn ausente" onclick="chooseOutcome('Ausente', this)">◷ Casa Fechada</div>
           <div class="outcome-btn recusa" onclick="chooseOutcome('Recusa', this)">✕ Recusa</div>
         </div>
@@ -270,7 +267,7 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- Etapa 3: Moradores & Checklists (Apenas se Atendida) -->
+      <!-- Moradores & Checklists -->
       <div id="familyCard" style="display:none">
         <div class="card-header">
           <h3>Quem estava na casa?</h3>
@@ -292,14 +289,14 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 2: AGENDA COM CALENDÁRIO ================= -->
+    <!-- ABA 2: AGENDA COM CALENDÁRIO -->
     <section class="view" id="view-agenda">
       <div class="card-header">
         <h2>Agenda de Prazos</h2>
         <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
       </div>
 
-      <div class="card" style="padding:10px">
+      <div class="card" id="tourAgendaTagsBox" style="padding:10px">
         <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
         <div class="tags-cloud" id="agendaTagCloud"></div>
       </div>
@@ -322,7 +319,7 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 3: FECHAMENTO & CRUZAMENTOS ================= -->
+    <!-- ABA 3: FECHAMENTO & CRUZAMENTOS -->
     <section class="view" id="view-fechamento">
       <div class="card-header">
         <h2>Fechamento da Microárea</h2>
@@ -353,16 +350,16 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 4: PLANILHAS & NUVEM ================= -->
+    <!-- ABA 4: PLANILHAS & NUVEM -->
     <section class="view" id="view-planilhas">
       <div class="card-header">
         <h2>Planilhas & Sincronização</h2>
       </div>
 
-      <div class="card" style="border-left:5px solid var(--p)">
-        <h3 style="margin:0 0 6px">☁ Conexão com o Google Drive da UBS</h3>
+      <div class="card" style="border-left:5px solid var(--p)" id="tourCardCloud">
+        <h3 style="margin:0 0 6px">☁ Conexão com a Planilha da UBS</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
-          Envie os dados deste aparelho para a planilha oficial ou puxe os dados atualizados para este computador.
+          Envie os dados deste aparelho para a planilha oficial da diretoria sem digitar nada de novo:
         </p>
         <div class="grid-2">
           <button class="btn btn-primary" onclick="triggerSmartSync()">⚡ Enviar Visitas Feitas</button>
@@ -401,16 +398,16 @@ input,select,textarea,button{font:inherit}
 
   <!-- Navegação Inferior -->
   <nav class="bottom-nav">
-    <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
+    <button class="nav-tab active" id="tabVisita" data-v="visita" onclick="navTo('visita')">
       <span class="icon">📝</span>Visita
     </button>
-    <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
+    <button class="nav-tab" id="tabAgenda" data-v="agenda" onclick="navTo('agenda')">
       <span class="icon">📅</span>Agenda
     </button>
-    <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
+    <button class="nav-tab" id="tabFechamento" data-v="fechamento" onclick="navTo('fechamento')">
       <span class="icon">📊</span>Fechamento
     </button>
-    <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
+    <button class="nav-tab" id="tabPlanilhas" data-v="planilhas" onclick="navTo('planilhas')">
       <span class="icon">📂</span>Planilhas
     </button>
   </nav>
@@ -455,53 +452,23 @@ input,select,textarea,button{font:inherit}
   </div>
 </div>
 
-<!-- ================= 3. POP-UP DE BOAS-VINDAS & TOUR GUIADO ================= -->
-<div class="tour-overlay" id="tourWelcomeModal">
-  <div class="tour-card" style="text-align:center">
-    <div style="font-size:36px;margin-bottom:8px">👋</div>
-    <h3>Bem-vinda à UBS Paris 4!</h3>
-    <p>
-      Este é o novo sistema digital para facilitar as visitas domiciliares das ACS, sem precisar anotar no caderno nem redigitar no fim do mês.<br><br>
-      <strong>Gostaria de fazer um tour rápido de 1 minuto para ver como funciona?</strong>
-    </p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <button class="btn btn-primary" onclick="acceptWelcomeTour()">Sim, Fazer Tour!</button>
-      <button class="btn btn-soft" onclick="dismissWelcomeTour()">Já sei usar / Pular</button>
-    </div>
-  </div>
-</div>
-
-<div class="tour-overlay" id="tourModal">
-  <div class="tour-card">
-    <span class="tour-badge" id="tourStepBadge">Passo 1 de 5</span>
-    <h3 id="tourStepTitle">Título do Passo</h3>
-    <p id="tourStepText">Explicação prática...</p>
-
-    <div class="tour-actions">
-      <div class="tour-dots">
-        <span class="tour-dot" id="tdot0"></span>
-        <span class="tour-dot" id="tdot1"></span>
-        <span class="tour-dot" id="tdot2"></span>
-        <span class="tour-dot" id="tdot3"></span>
-        <span class="tour-dot" id="tdot4"></span>
-      </div>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-sm btn-soft" id="tourBtnPrev" onclick="tourPrev()">◀ Anterior</button>
-        <button class="btn btn-sm btn-primary" id="tourBtnNext" onclick="tourNext()">Próximo ▶</button>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:12px">
-      <button class="btn btn-sm" style="border:0;color:var(--muted);font-size:11px" onclick="finishTour()">Pular Tutorial ✕</button>
-    </div>
+<!-- ================= BARRA DO TUTORIAL PRÁTICO GUIADO ================= -->
+<div class="guided-tour-bar" id="guidedTourBar">
+  <span class="guided-step-badge" id="gStepBadge">Passo 1 de 6</span>
+  <h4 id="gStepTitle">Título da Ação</h4>
+  <p id="gStepDesc">Instrução prática do que fazer...</p>
+  <div class="guided-tour-footer">
+    <button class="btn btn-sm btn-danger" style="width:auto;padding:5px 10px;font-size:11px" onclick="cancelGuidedTour()">Pular Tutorial ✕</button>
+    <button class="btn btn-sm btn-soft" id="gBtnNextManual" style="width:auto;padding:6px 14px;background:#34d399;color:#064e3b;font-weight:900" onclick="advanceTourStep()">Próximo Passo ▶</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// BASE INICIAL SEPARADA POR MICROÁREAS (UBS PARIS 4)
-const DB_KEY = 'ubsParis4_Maringa_v6';
-const TOUR_KEY = 'ubsParis4_tour_seen';
+// BASE DE DADOS
+const DB_KEY = 'ubsParis4_Maringa_v7';
+const HANDSON_TOUR_KEY = 'ubsParis4_handsontour_done';
 
 const defaultDB = {
   areas: [
@@ -595,6 +562,11 @@ function chooseProfile(areaId, areaName){
   document.getElementById('profileSelectorBox').style.display = 'none';
   document.getElementById('pinPadBox').style.display = 'block';
   clearPin();
+
+  if(tourActive && tourCurrentStep === 1){
+    tourCurrentStep = 2;
+    renderGuidedTourStep();
+  }
 }
 
 function backToProfiles(){
@@ -637,6 +609,11 @@ function verifyPin(){
     document.getElementById('topUserTitle').textContent = currentUser.name;
 
     setupMainInterface();
+
+    if(tourActive && tourCurrentStep === 2){
+      tourCurrentStep = 3;
+      renderGuidedTourStep();
+    }
   } else {
     toast('Senha incorreta! Digite 000 para testar.');
     clearPin();
@@ -687,6 +664,11 @@ function updateStreetsList(){
   const streets = getActiveStreets();
   const sel = document.getElementById('vStreet');
   sel.innerHTML = `<option value="">Selecione a Rua...</option>` + streets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  
+  // Demonstração da Rua 1 pronta
+  if(streets.length > 0){
+    sel.value = streets[0].id;
+  }
   updateHousesList();
 }
 
@@ -702,7 +684,12 @@ function updateHousesList(){
   }
 
   houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number}</option>`).join('');
-  hideHouseSections();
+  
+  // Casa 1 pronta para o tutorial
+  if(street.houses.length > 0){
+    houseSel.value = street.houses[0].id;
+    loadHouseData();
+  }
 }
 
 function loadHouseData(){
@@ -739,6 +726,11 @@ function chooseOutcome(outcome, btn){
     quickClose.style.display = 'none';
     familyCard.style.display = 'block';
     renderHouseResidents();
+
+    if(tourActive && tourCurrentStep === 3){
+      tourCurrentStep = 4;
+      renderGuidedTourStep();
+    }
   } else {
     quickClose.style.display = 'block';
     familyCard.style.display = 'none';
@@ -764,7 +756,7 @@ function renderHouseResidents(){
 
   container.innerHTML = house.residents.map(r => `
     <div class="resident-visit-card" id="card_${r.id}">
-      <label class="check-item" style="font-weight:800;font-size:14px">
+      <label class="check-item" style="font-weight:800;font-size:14px" id="chkLabel_${r.id}">
         <input type="checkbox" class="chk-resident-presence" data-id="${r.id}" onchange="togglePresence('${r.id}', this)">
         <span>${r.name}</span>
       </label>
@@ -782,6 +774,11 @@ function renderHouseResidents(){
 function togglePresence(resId, el){
   document.getElementById(`check_${resId}`).style.display = el.checked ? 'block' : 'none';
   document.getElementById(`card_${resId}`).classList.toggle('active-presence', el.checked);
+
+  if(tourActive && tourCurrentStep === 4 && resId === 'r1' && el.checked){
+    tourCurrentStep = 5;
+    renderGuidedTourStep();
+  }
 }
 
 function buildChecklistHTML(r){
@@ -896,7 +893,7 @@ function renderAgendaTags(){
   const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
   document.getElementById('agendaTagCloud').innerHTML = tags.map(t => {
     const isAct = activeAgendaTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
+    return `<span class="tag ${isAct ? 'active' : ''}" id="tagAgenda_${t}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
   }).join('') + (activeAgendaTags.length ? `<span class="tag btn-danger" onclick="clearAgendaTags()">✕ Limpar</span>` : '');
 }
 
@@ -904,6 +901,11 @@ function toggleAgendaTag(t){
   if(activeAgendaTags.includes(t)) activeAgendaTags = activeAgendaTags.filter(x => x !== t);
   else activeAgendaTags.push(t);
   renderAgenda();
+
+  if(tourActive && tourCurrentStep === 6 && (t === 'Idoso' || t === 'Hipertenso')){
+    // Dá feedback visual e aguarda
+    toast(`Filtro ativado: ${activeAgendaTags.join(' + ')}`);
+  }
 }
 
 function clearAgendaTags(){
@@ -1068,7 +1070,7 @@ function renderReportTags(){
   const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
   document.getElementById('reportTagCloud').innerHTML = tags.map(t => {
     const isAct = activeReportTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleReportTag('${t}')">${t}</span>`;
+    return `<span class="tag ${isAct ? 'active' : ''}" id="tagReport_${t}" onclick="toggleReportTag('${t}')">${t}</span>`;
   }).join('') + (activeReportTags.length ? `<span class="tag btn-danger" onclick="clearReportTags()">✕ Limpar</span>` : '');
 }
 
@@ -1220,105 +1222,158 @@ function executeImport(){
   navTo('visita');
 }
 
-// ================= 6. TOUR GUIADO INTERATIVO =================
-const tourSteps = [
+// ================= 6. MOTOR DO TUTORIAL PRÁTICO GUIADO ("MÃO NA MASSA") =================
+let tourActive = false;
+let tourCurrentStep = 1;
+
+const guidedSteps = [
   {
-    title: "1. Login Seguro & Separação das ACS",
-    text: "Cada ACS entra no seu nome com a senha 000. O sistema separa rigorosamente os dados: você só mexe na sua microárea, garantindo o sigilo dos moradores. A diretora tem acesso mestre para ver todas juntas.",
-    view: null
+    step: 1,
+    title: "Passo 1: Escolha seu perfil",
+    desc: "👉 Toque no card piscante <strong>ACS 1 (Microárea 01)</strong> para começar.",
+    targetId: "btnTourLoginACS1"
   },
   {
-    title: "2. Visita no Portão (Por Casa)",
-    text: "No portão da casa, escolha a Rua e o Número. Se ninguém atender, toque em 'Casa Fechada' e a visita salva em 3 segundos. Se atenderem, marque quem estava presente e o checklist médico (PA, Vacinas, etc.) abre sozinho!",
-    view: "visita"
+    step: 2,
+    title: "Passo 2: Digite sua senha",
+    desc: "👉 Toque 3 vezes no número <strong>0</strong> (senha padrão: 000).",
+    targetId: "btnTourZero"
   },
   {
-    title: "3. Agenda com Calendário & Semáforo",
-    text: "O calendário acompanha o dia de hoje automaticamente. O semáforo avisa: 🔴 Vermelho (visita atrasada), 🟡 Amarelo (perto de vencer) e 🟢 Verde (em dia). Você pode tocar nas tags no topo para cruzar (ex: ver quem é Idoso + Hipertenso).",
-    view: "agenda"
+    step: 3,
+    title: "Passo 3: No portão da casa",
+    desc: "👉 Você está na Rua Antonio Bughi, Nº 120. Imagine que os moradores atenderam: toque no botão verde <strong>✓ Atendida</strong>.",
+    targetId: "tourBtnAtendida"
   },
   {
-    title: "4. Fechamento Automático do Mês",
-    text: "Chega de perder dias contando papéis! Escolha o mês e o app cospe os números prontos e a lista com o nome de quem já foi visitado e de quem ainda está pendente.",
-    view: "fechamento"
+    step: 4,
+    title: "Passo 4: A Mágica do Checklist",
+    desc: "👉 Veja os moradores deste domicílio. Toque na caixinha ao lado de <strong>Dona Maria de Lourdes</strong>.",
+    targetId: "card_r1"
   },
   {
-    title: "5. Sincronização & Planilhas",
-    text: "O app funciona sem internet na rua. Quando você chegar no Wi-Fi da UBS, aperte 'Enviar Visitas' e tudo vai direto para a planilha da diretora. Você também pode subir sua planilha antiga aqui para não precisar redigitar nada!",
-    view: "planilhas"
+    step: 5,
+    title: "Passo 5: Cuidado Direcionado",
+    desc: "🎉 <strong>Viu como abriu a caixinha de Pressão Arterial?</strong> Como ela é Hipertensa, o app já abre os campos de PA na hora! Agora toque no botão <strong>📅 Agenda</strong> no rodapé.",
+    targetId: "tabAgenda"
+  },
+  {
+    step: 6,
+    title: "Passo 6: Agenda com Semáforo",
+    desc: "👉 Este é o seu calendário! O semáforo avisa quem está atrasado (🔴) ou em dia (🟢). Toque nas tags <strong>Idoso</strong> e <strong>Hipertenso</strong> no topo para ver o cruzamento de condições.",
+    targetId: "tourAgendaTagsBox"
+  },
+  {
+    step: 7,
+    title: "Passo 7: Fechamento sem dor de cabeça",
+    desc: "👉 Agora toque em <strong>📊 Fechamento</strong> no rodapé.",
+    targetId: "tabFechamento"
+  },
+  {
+    step: 8,
+    title: "Passo 8: Contagem Automática",
+    desc: "🎉 <strong>Chega de contar papel no fim do mês!</strong> O sistema dá o cálculo pronto para o e-SUS e a lista nominal de quem foi ou não visitado. Toque em <strong>Finalizar</strong> para começar a usar!",
+    targetId: null
   }
 ];
 
-let currentTourIndex = 0;
-
-function checkAutoTour(){
-  const seen = localStorage.getItem(TOUR_KEY);
+function checkAutoHandsOnTour(){
+  const seen = localStorage.getItem(HANDSON_TOUR_KEY);
   if(!seen){
-    document.getElementById('tourWelcomeModal').classList.add('open');
+    startHandsOnTour();
   }
 }
 
-function acceptWelcomeTour(){
-  document.getElementById('tourWelcomeModal').classList.remove('open');
-  startTour(false);
-}
-
-function dismissWelcomeTour(){
-  document.getElementById('tourWelcomeModal').classList.remove('open');
-  localStorage.setItem(TOUR_KEY, 'true');
-}
-
-function startTour(fromHeader = false){
-  currentTourIndex = 0;
-  // Se ainda não estiver logado, faz um login rápido demonstrativo na Microárea 1 para poder mostrar as telas
-  if(!currentUser.areaId){
-    currentUser.areaId = 'ma1';
-    currentUser.name = 'ACS 1 (Microárea 01)';
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('mainApp').style.display = 'block';
-    setupMainInterface();
+function startHandsOnTour(){
+  tourActive = true;
+  tourCurrentStep = 1;
+  // Se já estiver logado, faz logout para ensinar desde a entrada
+  if(currentUser.areaId){
+    logout();
   }
-  document.getElementById('tourModal').classList.add('open');
-  renderTourStep();
+  document.getElementById('guidedTourBar').classList.add('open');
+  renderGuidedTourStep();
 }
 
-function renderTourStep(){
-  const step = tourSteps[currentTourIndex];
-  document.getElementById('tourStepBadge').textContent = `Passo ${currentTourIndex + 1} de ${tourSteps.length}`;
-  document.getElementById('tourStepTitle').textContent = step.title;
-  document.getElementById('tourStepText').textContent = step.text;
-
-  for(let i=0; i<tourSteps.length; i++){
-    document.getElementById(`tdot${i}`).classList.toggle('active', i === currentTourIndex);
+function renderGuidedTourStep(){
+  clearTourSpotlights();
+  const stepData = guidedSteps.find(s => s.step === tourCurrentStep);
+  if(!stepData){
+    finishGuidedTour();
+    return;
   }
 
-  document.getElementById('tourBtnPrev').style.visibility = currentTourIndex === 0 ? 'hidden' : 'visible';
-  document.getElementById('tourBtnNext').textContent = currentTourIndex === tourSteps.length - 1 ? 'Concluir ✓' : 'Próximo ▶';
+  document.getElementById('gStepBadge').textContent = `Passo ${stepData.step} de ${guidedSteps.length}`;
+  document.getElementById('gStepTitle').textContent = stepData.title;
+  document.getElementById('gStepDesc').innerHTML = stepData.desc;
 
-  if(step.view) navTo(step.view);
+  if(stepData.targetId){
+    const el = document.getElementById(stepData.targetId);
+    if(el) {
+      el.classList.add('tour-spotlight');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  document.getElementById('gBtnNextManual').textContent = tourCurrentStep === guidedSteps.length ? 'Finalizar 🎉' : 'Próximo ▶';
 }
 
-function tourNext(){
-  if(currentTourIndex < tourSteps.length - 1){
-    currentTourIndex++;
-    renderTourStep();
-  } else {
-    finishTour();
+function advanceTourStep(){
+  if(tourCurrentStep === 1){
+    chooseProfile('ma1', 'ACS 1 · Microárea 01');
+    return;
+  }
+  if(tourCurrentStep === 2){
+    pressPin('0'); pressPin('0'); pressPin('0');
+    return;
+  }
+  if(tourCurrentStep === 3){
+    chooseOutcome('Realizada', document.querySelector('.outcome-btn.realizada'));
+    return;
+  }
+  if(tourCurrentStep === 4){
+    const chk = document.querySelector('.chk-resident-presence[data-id="r1"]');
+    if(chk) { chk.checked = true; togglePresence('r1', chk); }
+    tourCurrentStep = 5;
+    renderGuidedTourStep();
+    return;
+  }
+  if(tourCurrentStep === 5){
+    navTo('agenda');
+    tourCurrentStep = 6;
+    renderGuidedTourStep();
+    return;
+  }
+  if(tourCurrentStep === 6){
+    navTo('fechamento');
+    tourCurrentStep = 7;
+    renderGuidedTourStep();
+    return;
+  }
+  if(tourCurrentStep === 7){
+    tourCurrentStep = 8;
+    renderGuidedTourStep();
+    return;
+  }
+  if(tourCurrentStep === 8){
+    finishGuidedTour();
   }
 }
 
-function tourPrev(){
-  if(currentTourIndex > 0){
-    currentTourIndex--;
-    renderTourStep();
-  }
+function clearTourSpotlights(){
+  document.querySelectorAll('.tour-spotlight').forEach(el => el.classList.remove('tour-spotlight'));
 }
 
-function finishTour(){
-  document.getElementById('tourModal').classList.remove('open');
-  localStorage.setItem(TOUR_KEY, 'true');
-  toast('✓ Tutorial concluído! Toque em "Como Usar" a qualquer momento para rever.');
-  navTo('visita');
+function cancelGuidedTour(){
+  finishGuidedTour();
+}
+
+function finishGuidedTour(){
+  tourActive = false;
+  clearTourSpotlights();
+  document.getElementById('guidedTourBar').classList.remove('open');
+  localStorage.setItem(HANDSON_TOUR_KEY, 'true');
+  toast('🎉 Você concluiu o treinamento prático! Use o app livremente.');
 }
 
 // ================= UTILITÁRIOS =================
@@ -1406,10 +1461,20 @@ function navTo(viewId){
   if(viewId === 'agenda') renderAgenda();
   if(viewId === 'fechamento') runReport();
   window.scrollTo({top:0, behavior:'smooth'});
+
+  if(tourActive){
+    if(tourCurrentStep === 5 && viewId === 'agenda') {
+      tourCurrentStep = 6;
+      renderGuidedTourStep();
+    } else if(tourCurrentStep === 6 && viewId === 'fechamento'){
+      tourCurrentStep = 7;
+      renderGuidedTourStep();
+    }
+  }
 }
 
 window.addEventListener('load', () => {
-  checkAutoTour();
+  checkAutoHandsOnTour();
 });
 </script>
 </body>
