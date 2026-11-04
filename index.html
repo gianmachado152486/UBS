@@ -16,7 +16,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 input,select,textarea,button{font:inherit}
 
-/* Tela de Login Simples */
+/* Tela de Login */
 .login-screen{min-height:100vh;background:linear-gradient(145deg,#06483b,#0a745d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff}
 .login-box{background:#fff;color:var(--ink);width:100%;max-width:400px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
 .login-avatar{width:60px;height:60px;border-radius:18px;background:var(--p-light);color:var(--p);font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
@@ -38,6 +38,7 @@ input,select,textarea,button{font:inherit}
 .brand-icon{width:36px;height:36px;border-radius:10px;background:#ffffff22;display:grid;place-items:center;font-size:18px;font-weight:900}
 .brand-info h1{margin:0;font-size:15px;font-weight:800}
 .brand-info p{margin:0;font-size:11px;color:#c9eee3}
+.top-actions{display:flex;align-items:center;gap:6px}
 
 /* Layout */
 .app{max-width:760px;margin:0 auto;padding-bottom:85px;min-height:100vh}
@@ -57,7 +58,6 @@ input,select,textarea,button{font:inherit}
 
 /* Banner de Aviso de Conexão */
 .smart-banner{background:#ecfdf5;border:1.5px solid #a7f3d0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.smart-banner.warning{background:#fffbeb;border-color:#fde68a}
 
 /* Tags / Atributos */
 .tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
@@ -121,11 +121,23 @@ input,select,textarea,button{font:inherit}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:var(--radius);max-width:550px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
+
+/* ================= CSS DO TOUR INTERATIVO ================= */
+.tour-overlay{position:fixed;inset:0;background:rgba(7,36,29,0.75);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.tour-overlay.open{display:flex}
+.tour-card{background:#ffffff;border-radius:18px;max-width:440px;width:100%;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,0.4);border:2px solid var(--p)}
+.tour-badge{display:inline-block;padding:3px 10px;border-radius:20px;background:var(--p-light);color:var(--p);font-size:11px;font-weight:900;text-transform:uppercase;margin-bottom:8px}
+.tour-card h3{margin:0 0 8px;font-size:18px;color:var(--ink)}
+.tour-card p{font-size:13px;color:#35534b;line-height:1.45;margin:0 0 16px}
+.tour-actions{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tour-dots{display:flex;gap:6px}
+.tour-dot{width:8px;height:8px;border-radius:50%;background:#cbd5e1}
+.tour-dot.active{background:var(--p);width:18px;border-radius:10px}
 </style>
 </head>
 <body>
 
-<!-- ================= 1. TELA DE LOGIN DIDÁTICA (COM TECLADO PIN) ================= -->
+<!-- ================= 1. TELA DE LOGIN DIDÁTICA (PINPAD) ================= -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box" id="profileSelectorBox">
     <div class="login-avatar">✚</div>
@@ -185,7 +197,10 @@ input,select,textarea,button{font:inherit}
         <p id="topDateStr">Hoje</p>
       </div>
     </div>
-    <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
+    <div class="top-actions">
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="startTour(true)">❓ Como Usar</button>
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
+    </div>
   </header>
 
   <div class="app">
@@ -250,7 +265,6 @@ input,select,textarea,button{font:inherit}
         </div>
         <input type="hidden" id="vOutcome" value="Realizada">
 
-        <!-- Botão Rápido se Fechada / Recusa -->
         <div id="quickCloseBox" style="display:none;margin-top:10px">
           <button class="btn btn-primary" onclick="saveQuickHouseVisit()">💾 Salvar Situação do Imóvel</button>
         </div>
@@ -285,13 +299,11 @@ input,select,textarea,button{font:inherit}
         <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
       </div>
 
-      <!-- Cruzamento de Tags -->
       <div class="card" style="padding:10px">
         <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
         <div class="tags-cloud" id="agendaTagCloud"></div>
       </div>
 
-      <!-- Calendário Real -->
       <div class="calendar-widget">
         <div class="cal-header">
           <button class="btn btn-sm btn-soft" onclick="calNav(-1)">◀ Anterior</button>
@@ -347,7 +359,6 @@ input,select,textarea,button{font:inherit}
         <h2>Planilhas & Sincronização</h2>
       </div>
 
-      <!-- Sincronização Google Sheets -->
       <div class="card" style="border-left:5px solid var(--p)">
         <h3 style="margin:0 0 6px">☁ Conexão com o Google Drive da UBS</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
@@ -359,7 +370,6 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- Importador Inteligente -->
       <div class="card">
         <h3 style="margin:0 0 6px">📥 Importar Planilha das ACS</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
@@ -381,7 +391,6 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- Exportador CSV -->
       <div class="card">
         <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel</h3>
         <button class="btn btn-soft" onclick="exportCSV()">Baixar Visitas (.CSV)</button>
@@ -446,11 +455,54 @@ input,select,textarea,button{font:inherit}
   </div>
 </div>
 
+<!-- ================= 3. POP-UP DE BOAS-VINDAS & TOUR GUIADO ================= -->
+<div class="tour-overlay" id="tourWelcomeModal">
+  <div class="tour-card" style="text-align:center">
+    <div style="font-size:36px;margin-bottom:8px">👋</div>
+    <h3>Bem-vinda à UBS Paris 4!</h3>
+    <p>
+      Este é o novo sistema digital para facilitar as visitas domiciliares das ACS, sem precisar anotar no caderno nem redigitar no fim do mês.<br><br>
+      <strong>Gostaria de fazer um tour rápido de 1 minuto para ver como funciona?</strong>
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn btn-primary" onclick="acceptWelcomeTour()">Sim, Fazer Tour!</button>
+      <button class="btn btn-soft" onclick="dismissWelcomeTour()">Já sei usar / Pular</button>
+    </div>
+  </div>
+</div>
+
+<div class="tour-overlay" id="tourModal">
+  <div class="tour-card">
+    <span class="tour-badge" id="tourStepBadge">Passo 1 de 5</span>
+    <h3 id="tourStepTitle">Título do Passo</h3>
+    <p id="tourStepText">Explicação prática...</p>
+
+    <div class="tour-actions">
+      <div class="tour-dots">
+        <span class="tour-dot" id="tdot0"></span>
+        <span class="tour-dot" id="tdot1"></span>
+        <span class="tour-dot" id="tdot2"></span>
+        <span class="tour-dot" id="tdot3"></span>
+        <span class="tour-dot" id="tdot4"></span>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm btn-soft" id="tourBtnPrev" onclick="tourPrev()">◀ Anterior</button>
+        <button class="btn btn-sm btn-primary" id="tourBtnNext" onclick="tourNext()">Próximo ▶</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn btn-sm" style="border:0;color:var(--muted);font-size:11px" onclick="finishTour()">Pular Tutorial ✕</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // BASE INICIAL SEPARADA POR MICROÁREAS (UBS PARIS 4)
-const DB_KEY = 'ubsParis4_Maringa_v5';
+const DB_KEY = 'ubsParis4_Maringa_v6';
+const TOUR_KEY = 'ubsParis4_tour_seen';
+
 const defaultDB = {
   areas: [
     { id: 'ma1', name: 'Microárea 01' },
@@ -503,21 +555,10 @@ const defaultDB = {
 };
 
 let db = loadDB();
-
-// Estado do Usuário Conectado
-let currentUser = {
-  areaId: null, // 'ma1', 'ma2', 'ma3' ou 'all'
-  name: ''
-};
-
-let pinEntered = '';
-let targetAreaId = '';
-let targetAreaName = '';
-
-// Estados das Abas
+let currentUser = { areaId: null, name: '' };
+let pinEntered = '', targetAreaId = '', targetAreaName = '';
 let selectedCalDate = new Date();
-let activeAgendaTags = [];
-let activeReportTags = [];
+let activeAgendaTags = [], activeReportTags = [];
 let importedRawData = null;
 
 function loadDB(){
@@ -566,9 +607,7 @@ function pressPin(n){
   if(pinEntered.length < 3){
     pinEntered += n;
     updatePinDots();
-    if(pinEntered.length === 3){
-      setTimeout(verifyPin, 150);
-    }
+    if(pinEntered.length === 3) setTimeout(verifyPin, 150);
   }
 }
 
@@ -611,13 +650,12 @@ function logout(){
   currentUser = { areaId: null, name: '' };
 }
 
-// ================= INICIALIZAÇÃO DA INTERFACE DO USUÁRIO =================
+// ================= INICIALIZAÇÃO DA INTERFACE =================
 function setupMainInterface(){
   const todayStr = new Date().toISOString().slice(0,10);
   document.getElementById('vDate').value = todayStr;
   document.getElementById('topDateStr').textContent = `Hoje: ${new Date().toLocaleDateString('pt-BR')}`;
 
-  // Se for a Diretora, exibe seletor de microárea
   const mgrField = document.getElementById('managerAreaSelectField');
   if(currentUser.areaId === 'all'){
     mgrField.style.display = 'block';
@@ -631,7 +669,6 @@ function setupMainInterface(){
   checkPendingVisits();
 }
 
-// Filtra as ruas pertencentes à microárea logada
 function getActiveStreets(){
   if(currentUser.areaId === 'all'){
     const chosen = document.getElementById('vAreaManager')?.value || 'all';
@@ -924,7 +961,6 @@ function renderAgendaDeadlines(){
       (h.residents || []).forEach(r => {
         if(!activeAgendaTags.every(t => r.tags.includes(t))) return;
 
-        // Calcula última visita
         const last = db.visits
           .filter(v => v.outcome === 'Realizada' && v.attendees?.some(a => a.residentId === r.id))
           .sort((a,b) => b.date.localeCompare(a.date))[0];
@@ -984,7 +1020,6 @@ function runReport(){
 
   const filtered = citizens.filter(r => activeReportTags.every(t => r.tags.includes(t)));
 
-  // Visitas no período
   const now = new Date();
   const start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
   const end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
@@ -1048,7 +1083,7 @@ function clearReportTags(){
   runReport();
 }
 
-// ================= 4. POP-UP AMIGÁVEL & SINCRONIZAÇÃO =================
+// ================= 4. SINCRONIZAÇÃO AMIGÁVEL =================
 function checkPendingVisits(){
   const pending = db.visits.filter(v => !v.synced).length;
   const banner = document.getElementById('syncFriendlyBanner');
@@ -1089,7 +1124,7 @@ function pullDataFromCloud(){
   }, 1000);
 }
 
-// ================= 5. IMPORTADOR INTELIGENTE DE PLANILHA =================
+// ================= 5. IMPORTADOR DE PLANILHAS =================
 function handleFile(e){
   const file = e.target.files[0];
   if(!file) return;
@@ -1112,7 +1147,6 @@ function handleFile(e){
       document.getElementById(id).innerHTML = `<option value="">-- Selecione --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
     });
 
-    // Auto-detecção inteligente
     headers.forEach((h, idx) => {
       const low = h.toLowerCase();
       if(low.includes('rua') || low.includes('logradouro')) document.getElementById('mapStreet').value = idx;
@@ -1186,6 +1220,107 @@ function executeImport(){
   navTo('visita');
 }
 
+// ================= 6. TOUR GUIADO INTERATIVO =================
+const tourSteps = [
+  {
+    title: "1. Login Seguro & Separação das ACS",
+    text: "Cada ACS entra no seu nome com a senha 000. O sistema separa rigorosamente os dados: você só mexe na sua microárea, garantindo o sigilo dos moradores. A diretora tem acesso mestre para ver todas juntas.",
+    view: null
+  },
+  {
+    title: "2. Visita no Portão (Por Casa)",
+    text: "No portão da casa, escolha a Rua e o Número. Se ninguém atender, toque em 'Casa Fechada' e a visita salva em 3 segundos. Se atenderem, marque quem estava presente e o checklist médico (PA, Vacinas, etc.) abre sozinho!",
+    view: "visita"
+  },
+  {
+    title: "3. Agenda com Calendário & Semáforo",
+    text: "O calendário acompanha o dia de hoje automaticamente. O semáforo avisa: 🔴 Vermelho (visita atrasada), 🟡 Amarelo (perto de vencer) e 🟢 Verde (em dia). Você pode tocar nas tags no topo para cruzar (ex: ver quem é Idoso + Hipertenso).",
+    view: "agenda"
+  },
+  {
+    title: "4. Fechamento Automático do Mês",
+    text: "Chega de perder dias contando papéis! Escolha o mês e o app cospe os números prontos e a lista com o nome de quem já foi visitado e de quem ainda está pendente.",
+    view: "fechamento"
+  },
+  {
+    title: "5. Sincronização & Planilhas",
+    text: "O app funciona sem internet na rua. Quando você chegar no Wi-Fi da UBS, aperte 'Enviar Visitas' e tudo vai direto para a planilha da diretora. Você também pode subir sua planilha antiga aqui para não precisar redigitar nada!",
+    view: "planilhas"
+  }
+];
+
+let currentTourIndex = 0;
+
+function checkAutoTour(){
+  const seen = localStorage.getItem(TOUR_KEY);
+  if(!seen){
+    document.getElementById('tourWelcomeModal').classList.add('open');
+  }
+}
+
+function acceptWelcomeTour(){
+  document.getElementById('tourWelcomeModal').classList.remove('open');
+  startTour(false);
+}
+
+function dismissWelcomeTour(){
+  document.getElementById('tourWelcomeModal').classList.remove('open');
+  localStorage.setItem(TOUR_KEY, 'true');
+}
+
+function startTour(fromHeader = false){
+  currentTourIndex = 0;
+  // Se ainda não estiver logado, faz um login rápido demonstrativo na Microárea 1 para poder mostrar as telas
+  if(!currentUser.areaId){
+    currentUser.areaId = 'ma1';
+    currentUser.name = 'ACS 1 (Microárea 01)';
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    setupMainInterface();
+  }
+  document.getElementById('tourModal').classList.add('open');
+  renderTourStep();
+}
+
+function renderTourStep(){
+  const step = tourSteps[currentTourIndex];
+  document.getElementById('tourStepBadge').textContent = `Passo ${currentTourIndex + 1} de ${tourSteps.length}`;
+  document.getElementById('tourStepTitle').textContent = step.title;
+  document.getElementById('tourStepText').textContent = step.text;
+
+  for(let i=0; i<tourSteps.length; i++){
+    document.getElementById(`tdot${i}`).classList.toggle('active', i === currentTourIndex);
+  }
+
+  document.getElementById('tourBtnPrev').style.visibility = currentTourIndex === 0 ? 'hidden' : 'visible';
+  document.getElementById('tourBtnNext').textContent = currentTourIndex === tourSteps.length - 1 ? 'Concluir ✓' : 'Próximo ▶';
+
+  if(step.view) navTo(step.view);
+}
+
+function tourNext(){
+  if(currentTourIndex < tourSteps.length - 1){
+    currentTourIndex++;
+    renderTourStep();
+  } else {
+    finishTour();
+  }
+}
+
+function tourPrev(){
+  if(currentTourIndex > 0){
+    currentTourIndex--;
+    renderTourStep();
+  }
+}
+
+function finishTour(){
+  document.getElementById('tourModal').classList.remove('open');
+  localStorage.setItem(TOUR_KEY, 'true');
+  toast('✓ Tutorial concluído! Toque em "Como Usar" a qualquer momento para rever.');
+  navTo('visita');
+}
+
 // ================= UTILITÁRIOS =================
 function getTagClass(t){
   if(t.includes('Gestante')) return 'gestante';
@@ -1223,13 +1358,8 @@ function openAddResidentModal(){
   document.getElementById('modalResident').classList.add('open');
 }
 
-function toggleMTag(el){
-  el.classList.toggle('active');
-}
-
-function closeModal(id){
-  document.getElementById(id).classList.remove('open');
-}
+function toggleMTag(el){ el.classList.toggle('active'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
 function saveResidentModal(e){
   e.preventDefault();
@@ -1277,6 +1407,10 @@ function navTo(viewId){
   if(viewId === 'fechamento') runReport();
   window.scrollTo({top:0, behavior:'smooth'});
 }
+
+window.addEventListener('load', () => {
+  checkAutoTour();
+});
 </script>
 </body>
 </html>
