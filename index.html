@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <title>UBS Paris · Campo Digital ACS</title>
 <style>
 :root{
@@ -18,9 +17,10 @@ input,select,textarea,button{font:inherit}
 
 /* Tela de Login */
 .login-screen{min-height:100vh;background:linear-gradient(145deg,#06483b,#0a745d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff}
-.login-box{background:#fff;color:var(--ink);width:100%;max-width:400px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
+.login-box{background:#fff;color:var(--ink);width:100%;max-width:440px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
 .login-avatar{width:60px;height:60px;border-radius:18px;background:var(--p-light);color:var(--p);font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
-.profile-btn{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1.5px solid var(--line);border-radius:12px;background:#f9fbfb;margin-bottom:8px;font-weight:800;font-size:15px;cursor:pointer;text-align:left}
+.section-label{font-size:11px;font-weight:900;text-transform:uppercase;color:var(--muted);letter-spacing:0.05em;text-align:left;margin:12px 0 6px}
+.profile-btn{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#f9fbfb;margin-bottom:6px;font-weight:800;font-size:14px;cursor:pointer;text-align:left}
 .profile-btn:active{background:var(--p-light);border-color:var(--p)}
 .profile-btn.manager{border-color:#f59e0b;background:#fffdfa}
 
@@ -41,7 +41,7 @@ input,select,textarea,button{font:inherit}
 .top-actions{display:flex;align-items:center;gap:6px}
 
 /* Layout */
-.app{max-width:760px;margin:0 auto;padding-bottom:85px;min-height:100vh}
+.app{max-width:780px;margin:0 auto;padding-bottom:85px;min-height:100vh}
 .view{display:none;padding:16px}
 .view.active{display:block}
 
@@ -56,8 +56,9 @@ input,select,textarea,button{font:inherit}
 .nav-tab.active{color:var(--p)}
 .nav-tab .icon{font-size:18px}
 
-/* Banner de Aviso de Conexão */
+/* Banners */
 .smart-banner{background:#ecfdf5;border:1.5px solid #a7f3d0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.changelog-box{background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:14px;margin-bottom:14px}
 
 /* Tags / Atributos */
 .tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
@@ -69,6 +70,8 @@ input,select,textarea,button{font:inherit}
 .tag.dm{background:#e0f2fe;border-color:#bae6fd;color:#075985}
 .tag.idoso{background:#f3e8ff;border-color:#e9d5ff;color:#6b21a8}
 .tag.crianca{background:#ffedd5;border-color:#fed7aa;color:#9a3412}
+.tag.teen{background:#f1f5f9;border-color:#cbd5e1;color:#475569}
+.tag.psa{background:#ede9fe;border-color:#ddd6fe;color:#5b21b6}
 
 /* Formulários */
 .field{margin-bottom:12px}
@@ -76,6 +79,7 @@ input,select,textarea,button{font:inherit}
 .field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:10px;background:#fff;color:var(--ink);outline:none;font-size:14px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(8,107,86,0.12)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
 /* Botões */
 .btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
@@ -92,8 +96,10 @@ input,select,textarea,button{font:inherit}
 .outcome-btn.active.ausente{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
 .outcome-btn.active.recusa{background:var(--red-bg);border-color:var(--red);color:var(--red)}
 
-.resident-visit-card{border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;background:#fff}
-.resident-visit-card.active-presence{border-color:var(--sec);background:#fafdfc}
+.resident-card{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff;position:relative}
+.resident-card.active-presence{border-color:var(--sec);background:#fafdfc}
+.card-actions{display:flex;gap:6px;margin-top:8px}
+
 .checklist-box{background:#f4f9f7;border:1px solid #d4e7df;border-radius:8px;padding:10px;margin-top:8px}
 .check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
@@ -120,47 +126,47 @@ input,select,textarea,button{font:inherit}
 .toast.show{display:block}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
-.modal-content{background:#fff;border-radius:var(--radius);max-width:550px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
-
-/* ================= CSS DO TUTORIAL GUIADO "MÃO NA MASSA" ================= */
-.tour-spotlight{outline:3px solid #f59e0b !important;box-shadow:0 0 18px #f59e0b88 !important;animation:pulseSpotlight 1.3s infinite}
-@keyframes pulseSpotlight{0%,100%{outline-color:#f59e0b}50%{outline-color:#10b981}}
-
-.guided-tour-bar{position:fixed;bottom:65px;left:50%;transform:translateX(-50%);max-width:540px;width:calc(100% - 24px);background:#10392f;color:#fff;border-radius:16px;padding:16px;box-shadow:0 12px 40px rgba(0,0,0,0.35);z-index:200;border:2px solid #34d399;display:none}
-.guided-tour-bar.open{display:block}
-.guided-step-badge{background:#34d399;color:#064e3b;font-size:10px;font-weight:900;text-transform:uppercase;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:6px}
-.guided-tour-bar h4{margin:0 0 4px;font-size:15px;color:#f0fdf4}
-.guided-tour-bar p{margin:0 0 12px;font-size:13px;color:#d1fae5;line-height:1.4}
-.guided-tour-footer{display:flex;justify-content:space-between;align-items:center}
+.modal-content{background:#fff;border-radius:var(--radius);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
 </style>
 </head>
 <body>
 
-<!-- ================= 1. TELA DE LOGIN ================= -->
+<!-- ================= 1. TELA DE LOGIN NEUTRA ================= -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box" id="profileSelectorBox">
     <div class="login-avatar">✚</div>
-    <h2 style="margin:0 0 4px">UBS Paris 4</h2>
-    <p style="margin:0 0 16px;color:var(--muted);font-size:13px">Toque no seu nome para entrar:</p>
+    <h2 style="margin:0 0 2px">UBS Paris</h2>
+    <p style="margin:0 0 14px;color:var(--muted);font-size:12px">Protótipo Demonstrativo de Campo</p>
 
-    <button class="profile-btn" id="btnTourLoginACS1" onclick="chooseProfile('ma1', 'ACS 1 · Microárea 01')">
-      <span>👩‍⚕️</span> <span>ACS 1 (Microárea 01)</span>
+    <div class="section-label">Equipe Área 69</div>
+    <button class="profile-btn" onclick="chooseProfile('a69_m1', 'Área 69 · Microárea 01')">
+      <span>👩‍⚕️</span> <span>ACS · Microárea 01</span>
     </button>
-    <button class="profile-btn" onclick="chooseProfile('ma2', 'ACS 2 · Microárea 02')">
-      <span>👩‍⚕️</span> <span>ACS 2 (Microárea 02)</span>
+    <button class="profile-btn" onclick="chooseProfile('a69_m2', 'Área 69 · Microárea 02')">
+      <span>👩‍⚕️</span> <span>ACS · Microárea 02</span>
     </button>
-    <button class="profile-btn" onclick="chooseProfile('ma3', 'ACS 3 · Microárea 03')">
-      <span>👨‍⚕️</span> <span>ACS 3 (Microárea 03)</span>
+    <button class="profile-btn" onclick="chooseProfile('a69_m3', 'Área 69 · Microárea 03')">
+      <span>👩‍⚕️</span> <span>ACS · Microárea 03</span>
     </button>
-    <button class="profile-btn manager" onclick="chooseProfile('all', 'Diretoria / Coordenação')">
-      <span>👑</span> <span>Diretoria / Geral (Todas)</span>
+
+    <div class="section-label">Equipe Área 70</div>
+    <button class="profile-btn" onclick="chooseProfile('a70_m1', 'Área 70 · Microárea 01')">
+      <span>👩‍⚕️</span> <span>ACS · Microárea 01</span>
+    </button>
+    <button class="profile-btn" onclick="chooseProfile('a70_m2', 'Área 70 · Microárea 02')">
+      <span>👨‍⚕️</span> <span>ACS · Microárea 02</span>
+    </button>
+
+    <div class="section-label">Gestão da Unidade</div>
+    <button class="profile-btn manager" onclick="chooseProfile('all', 'Diretoria / Coordenação (Geral)')">
+      <span>👑</span> <span>Diretoria / Geral (Áreas 69 e 70)</span>
     </button>
   </div>
 
   <div class="login-box" id="pinPadBox" style="display:none">
-    <button class="btn btn-sm btn-soft" style="margin-bottom:10px" onclick="backToProfiles()">◀ Trocar Usuário</button>
-    <h3 style="margin:0" id="pinTargetName">ACS 1</h3>
-    <p style="margin:2px 0 10px;font-size:12px;color:var(--muted)">Digite sua senha de 3 números (padrão: 000):</p>
+    <button class="btn btn-sm btn-soft" style="margin-bottom:10px" onclick="backToProfiles()">◀ Voltar à Lista</button>
+    <h3 style="margin:0" id="pinTargetName">Microárea</h3>
+    <p style="margin:2px 0 10px;font-size:12px;color:var(--muted)">Digite sua senha de 3 números (padrão de teste: 000):</p>
 
     <div class="pin-display">
       <div class="pin-dot" id="dot0"></div>
@@ -179,7 +185,7 @@ input,select,textarea,button{font:inherit}
       <button class="pin-btn" onclick="pressPin('8')">8</button>
       <button class="pin-btn" onclick="pressPin('9')">9</button>
       <button class="pin-btn" style="font-size:14px;color:var(--red)" onclick="clearPin()">Limpar</button>
-      <button class="pin-btn" id="btnTourZero" onclick="pressPin('0')">0</button>
+      <button class="pin-btn" onclick="pressPin('0')">0</button>
       <button class="pin-btn" style="font-size:18px" onclick="backspacePin()">⌫</button>
     </div>
   </div>
@@ -192,12 +198,12 @@ input,select,textarea,button{font:inherit}
     <div class="brand">
       <div class="brand-icon">✚</div>
       <div class="brand-info">
-        <h1 id="topUserTitle">ACS 1 · Microárea 01</h1>
+        <h1 id="topUserTitle">UBS Paris</h1>
         <p id="topDateStr">Hoje</p>
       </div>
     </div>
     <div class="top-actions">
-      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="startHandsOnTour()">❓ Aprenda a Usar</button>
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="showModal('modalNovidades')">✨ Novidades</button>
       <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
     </div>
   </header>
@@ -212,21 +218,41 @@ input,select,textarea,button{font:inherit}
       <button class="btn btn-sm btn-primary" onclick="triggerSmartSync()" id="btnBannerSync">⚡ Enviar Agora</button>
     </div>
 
-    <!-- ABA 1: VISITA POR CASA -->
+    <!-- ================= ABA 1: VISITA POR CASA ================= -->
     <section class="view active" id="view-visita">
       <div class="card-header">
         <h2>Visita Domiciliar</h2>
-        <span class="status-pill blue" id="activeAreaBadge">Microárea 1</span>
+        <span class="status-pill blue" id="activeAreaBadge">Microárea</span>
       </div>
 
-      <div class="card" id="tourCardAddress">
+      <!-- Resumo do Ciclo das Visitas da Microárea -->
+      <div class="card" style="padding:12px;background:#fafdfb">
+        <div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--muted);margin-bottom:8px">PROGRESSO DO CICLO DE VISITAS</div>
+        <div class="grid-3" style="text-align:center">
+          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
+            <strong style="color:var(--amber);font-size:18px" id="kpiAguardando">0</strong>
+            <small style="display:block;font-size:10px;color:var(--muted)">Aguardando 2ª</small>
+          </div>
+          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
+            <strong style="color:var(--red);font-size:18px" id="kpiAtrasadas">0</strong>
+            <small style="display:block;font-size:10px;color:var(--muted)">Atrasadas</small>
+          </div>
+          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
+            <strong style="color:var(--green);font-size:18px" id="kpiConcluidas">0</strong>
+            <small style="display:block;font-size:10px;color:var(--muted)">Concluídas</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div class="card">
         <div class="grid-2">
           <div class="field">
             <label>Data da Visita</label>
             <input type="date" id="vDate">
           </div>
           <div class="field" id="managerAreaSelectField" style="display:none">
-            <label>Filtrar Microárea (Diretora)</label>
+            <label>Filtrar Microárea (Diretoria)</label>
             <select id="vAreaManager" onchange="switchManagerArea()"></select>
           </div>
         </div>
@@ -251,12 +277,12 @@ input,select,textarea,button{font:inherit}
       <!-- Situação no Portão -->
       <div class="card" id="houseBox" style="display:none">
         <div class="card-header">
-          <h3 style="margin:0" id="houseTitle">Rua Antonio Bughi, Nº 120</h3>
+          <h3 style="margin:0" id="houseTitle">Rua ..., Nº ...</h3>
         </div>
 
         <div style="font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px">O QUE ACONTECEU NO PORTÃO?</div>
-        <div class="outcome-btn-grid" id="tourGateOutcomeBox">
-          <div class="outcome-btn active realizada" id="tourBtnAtendida" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
+        <div class="outcome-btn-grid">
+          <div class="outcome-btn active realizada" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
           <div class="outcome-btn ausente" onclick="chooseOutcome('Ausente', this)">◷ Casa Fechada</div>
           <div class="outcome-btn recusa" onclick="chooseOutcome('Recusa', this)">✕ Recusa</div>
         </div>
@@ -270,33 +296,33 @@ input,select,textarea,button{font:inherit}
       <!-- Moradores & Checklists -->
       <div id="familyCard" style="display:none">
         <div class="card-header">
-          <h3>Quem estava na casa?</h3>
-          <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Novo Morador</button>
+          <h3>Moradores Cadastrados</h3>
+          <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Adicionar Morador</button>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:0">Marque os presentes para preencher os cuidados rápidos:</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:0">Marque quem estava presente no atendimento de hoje:</p>
 
         <div id="residentsListContainer"></div>
 
         <div class="card" style="margin-top:10px">
           <div class="field">
-            <label>Observação da Visita (Opcional)</label>
-            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; quintal inspecionado..."></textarea>
+            <label>Observação Geral da Visita</label>
+            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; orientações realizadas..."></textarea>
           </div>
           <button class="btn btn-primary" onclick="saveFullHouseVisit()" style="padding:14px;font-size:16px">
-            💾 Concluir Visita da Casa
+            💾 Concluir Visita da Família
           </button>
         </div>
       </div>
     </section>
 
-    <!-- ABA 2: AGENDA COM CALENDÁRIO -->
+    <!-- ================= ABA 2: AGENDA COM CALENDÁRIO ================= -->
     <section class="view" id="view-agenda">
       <div class="card-header">
         <h2>Agenda de Prazos</h2>
         <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
       </div>
 
-      <div class="card" id="tourAgendaTagsBox" style="padding:10px">
+      <div class="card" style="padding:10px">
         <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
         <div class="tags-cloud" id="agendaTagCloud"></div>
       </div>
@@ -304,7 +330,7 @@ input,select,textarea,button{font:inherit}
       <div class="calendar-widget">
         <div class="cal-header">
           <button class="btn btn-sm btn-soft" onclick="calNav(-1)">◀ Anterior</button>
-          <span id="calTitle">Novembro 2024</span>
+          <span id="calTitle">Mês</span>
           <button class="btn btn-sm btn-soft" onclick="calNav(1)">Próximo ▶</button>
         </div>
         <div class="cal-grid" id="calGrid"></div>
@@ -319,7 +345,7 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ABA 3: FECHAMENTO & CRUZAMENTOS -->
+    <!-- ================= ABA 3: FECHAMENTO & INDICADORES ================= -->
     <section class="view" id="view-fechamento">
       <div class="card-header">
         <h2>Fechamento da Microárea</h2>
@@ -350,29 +376,19 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ABA 4: PLANILHAS & NUVEM -->
+    <!-- ================= ABA 4: PLANILHAS & IMPORTADOR UNIVERSAL ================= -->
     <section class="view" id="view-planilhas">
       <div class="card-header">
-        <h2>Planilhas & Sincronização</h2>
+        <h2>Planilhas & Dados</h2>
       </div>
 
-      <div class="card" style="border-left:5px solid var(--p)" id="tourCardCloud">
-        <h3 style="margin:0 0 6px">☁ Conexão com a Planilha da UBS</h3>
+      <!-- Importador Universal -->
+      <div class="card" style="border-left:5px solid var(--p)">
+        <h3 style="margin:0 0 6px">📥 Importar Planilha de Pacientes (CSV)</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
-          Envie os dados deste aparelho para a planilha oficial da diretoria sem digitar nada de novo:
+          Você pode subir a planilha que já utiliza em sua microárea. Conecte as colunas e os dados serão inseridos diretamente sem redigitação:
         </p>
-        <div class="grid-2">
-          <button class="btn btn-primary" onclick="triggerSmartSync()">⚡ Enviar Visitas Feitas</button>
-          <button class="btn btn-soft" onclick="pullDataFromCloud()">🔄 Puxar Atualizações</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0 0 6px">📥 Importar Planilha das ACS</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:0">
-          Suba a planilha que vocês já usam (CSV) para cadastrar as ruas e moradores sem redigitar:
-        </p>
-        <input type="file" id="importInput" accept=".csv,text/csv,text/plain" onchange="handleFile(event)">
+        <input type="file" id="importInput" accept=".csv,text/csv,text/plain" onchange="handleUniversalFile(event)">
 
         <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px;margin-top:10px">
           <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONECTE AS COLUNAS DA SUA PLANILHA:</div>
@@ -382,15 +398,31 @@ input,select,textarea,button{font:inherit}
           </div>
           <div class="grid-2">
             <div class="field"><label>Coluna do NOME *</label><select id="mapName"></select></div>
-            <div class="field"><label>Coluna de DOENÇAS / OBS</label><select id="mapTags"></select></div>
+            <div class="field"><label>Coluna do GESTOR</label><select id="mapGestor"></select></div>
           </div>
-          <button class="btn btn-primary" onclick="executeImport()">🚀 Importar Dados Agora</button>
+          <div class="grid-2">
+            <div class="field"><label>Coluna do CPF</label><select id="mapCpf"></select></div>
+            <div class="field"><label>Coluna DATA NASCIMENTO</label><select id="mapBirth"></select></div>
+          </div>
+          <div class="field"><label>Coluna de COMORBIDADES / CONDIÇÕES</label><select id="mapTags"></select></div>
+          <button class="btn btn-primary" onclick="executeUniversalImport()">🚀 Carregar Dados na Microárea</button>
         </div>
       </div>
 
+      <!-- Exportador CSV -->
       <div class="card">
         <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel</h3>
-        <button class="btn btn-soft" onclick="exportCSV()">Baixar Visitas (.CSV)</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:0">Exporte os dados das visitas realizadas para arquivo compatível com Excel.</p>
+        <button class="btn btn-soft" onclick="exportCSV()">Baixar Planilha de Visitas (.CSV)</button>
+      </div>
+
+      <!-- Backup Completo -->
+      <div class="card">
+        <div class="card-header"><h3>Cópia de Segurança Local</h3></div>
+        <div class="grid-2">
+          <button class="btn btn-sm btn-soft" onclick="downloadBackup()">Salvar Cópia (JSON)</button>
+          <button class="btn btn-sm btn-danger" onclick="resetToDemo()">Restaurar Demonstração</button>
+        </div>
       </div>
     </section>
 
@@ -398,121 +430,161 @@ input,select,textarea,button{font:inherit}
 
   <!-- Navegação Inferior -->
   <nav class="bottom-nav">
-    <button class="nav-tab active" id="tabVisita" data-v="visita" onclick="navTo('visita')">
+    <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
       <span class="icon">📝</span>Visita
     </button>
-    <button class="nav-tab" id="tabAgenda" data-v="agenda" onclick="navTo('agenda')">
+    <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
       <span class="icon">📅</span>Agenda
     </button>
-    <button class="nav-tab" id="tabFechamento" data-v="fechamento" onclick="navTo('fechamento')">
+    <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
       <span class="icon">📊</span>Fechamento
     </button>
-    <button class="nav-tab" id="tabPlanilhas" data-v="planilhas" onclick="navTo('planilhas')">
+    <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
       <span class="icon">📂</span>Planilhas
     </button>
   </nav>
 
 </div>
 
-<!-- Modal Adicionar Morador -->
+<!-- Modal Adicionar / Editar Morador -->
 <div class="modal" id="modalResident">
   <div class="modal-content">
     <div class="card-header">
-      <h3>Adicionar Morador no Imóvel</h3>
+      <h3 id="modalResidentTitle">Cadastrar / Editar Morador</h3>
       <button class="btn btn-sm btn-soft" onclick="closeModal('modalResident')">✕</button>
     </div>
     <form id="formRes" onsubmit="saveResidentModal(event)">
+      <input type="hidden" id="editResidentId">
+
       <div class="field">
         <label>Nome Completo *</label>
-        <input type="text" id="mName" required placeholder="Ex.: Maria Aparecida">
+        <input type="text" id="mName" required placeholder="Ex.: Maria Francisca">
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Nº do Gestor (Prontuário)</label>
+          <input type="text" id="mGestor" placeholder="Ex.: 32055">
+        </div>
+        <div class="field">
+          <label>CPF</label>
+          <input type="text" id="mCpf" placeholder="000.000.000-00">
+        </div>
       </div>
       <div class="grid-2">
         <div class="field">
           <label>Data de Nascimento</label>
-          <input type="date" id="mBirth">
+          <input type="date" id="mBirth" onchange="autoCalculateAgeTags()">
         </div>
         <div class="field">
-          <label>Cartão SUS / CPF</label>
-          <input type="text" id="mCns" placeholder="Opcional">
+          <label>Pontuação EVFAM (Idoso)</label>
+          <input type="number" id="mEvfam" placeholder="Pontos">
         </div>
       </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Peso (kg)</label>
+          <input type="text" id="mPeso" placeholder="Ex.: 65,5">
+        </div>
+        <div class="field">
+          <label>Estatura / Altura (cm)</label>
+          <input type="text" id="mAltura" placeholder="Ex.: 160">
+        </div>
+      </div>
+
       <div class="field">
-        <label>Condições de Saúde (Toque nas que se aplicam):</label>
+        <label>Comorbidades e Condições (Selecione todas que se aplicam):</label>
         <div class="tags-cloud" id="modalTagCloud">
           <span class="tag" data-tag="Hipertenso" onclick="toggleMTag(this)">🩺 Hipertenso</span>
           <span class="tag" data-tag="Diabético" onclick="toggleMTag(this)">🩸 Diabético</span>
+          <span class="tag" data-tag="Insulinodependente" onclick="toggleMTag(this)">💉 Insulinodependente</span>
+          <span class="tag" data-tag="Tabagista (Fuma)" onclick="toggleMTag(this)">🚬 Tabagista</span>
+          <span class="tag" data-tag="Câncer" onclick="toggleMTag(this)">🎗️ Câncer</span>
+          <span class="tag" data-tag="Transtorno Mental" onclick="toggleMTag(this)">🧠 Transtorno Mental / TAG</span>
+          <span class="tag" data-tag="Acamado / Domiciliado" onclick="toggleMTag(this)">🛏️ Acamado / Domiciliado</span>
           <span class="tag" data-tag="Gestante" onclick="toggleMTag(this)">🤰 Gestante</span>
-          <span class="tag" data-tag="Idoso" onclick="toggleMTag(this)">🧓 Idoso (60+)</span>
-          <span class="tag" data-tag="Criança" onclick="toggleMTag(this)">👶 Criança (&lt;2a)</span>
-          <span class="tag" data-tag="Bolsa Família" onclick="toggleMTag(this)">🤝 Bolsa Família</span>
+          <span class="tag" data-tag="Bolsa Família" onclick="toggleMTag(this)">🤝 Bolsa Família / Vulnerável</span>
+          <span class="tag" data-tag="Não usa UBS / Área Zero" onclick="toggleMTag(this)">🚫 Não usa UBS</span>
         </div>
       </div>
-      <button class="btn btn-primary" type="submit">Salvar Morador</button>
+
+      <div style="margin-bottom:12px">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSccYTiyqoDC_IOgMbvH2182SNSiZAtD-9elcm6JJjyXPQKuNQ/viewform" target="_blank" class="btn btn-sm btn-soft" style="text-decoration:none">
+          📋 Abrir Formulário EVFAM da Secretaria
+        </a>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Salvar Dados do Morador</button>
     </form>
   </div>
 </div>
 
-<!-- ================= BARRA DO TUTORIAL PRÁTICO GUIADO ================= -->
-<div class="guided-tour-bar" id="guidedTourBar">
-  <span class="guided-step-badge" id="gStepBadge">Passo 1 de 6</span>
-  <h4 id="gStepTitle">Título da Ação</h4>
-  <p id="gStepDesc">Instrução prática do que fazer...</p>
-  <div class="guided-tour-footer">
-    <button class="btn btn-sm btn-danger" style="width:auto;padding:5px 10px;font-size:11px" onclick="cancelGuidedTour()">Pular Tutorial ✕</button>
-    <button class="btn btn-sm btn-soft" id="gBtnNextManual" style="width:auto;padding:6px 14px;background:#34d399;color:#064e3b;font-weight:900" onclick="advanceTourStep()">Próximo Passo ▶</button>
+<!-- Modal Novidades / Ouvimos Vocês -->
+<div class="modal" id="modalNovidades">
+  <div class="modal-content">
+    <div class="card-header">
+      <h3>✨ Novidades Desta Versão</h3>
+      <button class="btn btn-sm btn-soft" onclick="closeModal('modalNovidades')">✕</button>
+    </div>
+    <div class="changelog-box">
+      <strong style="color:#1d4ed8;display:block;margin-bottom:6px">Ouvimos o retorno da equipe da UBS Paris!</strong>
+      <ul style="margin:0;padding-left:18px;font-size:13px;color:#1e3a8a;line-height:1.5">
+        <li><strong>Divisão em Área 69 e Área 70:</strong> Acessos separados com 5 microáreas e login geral da diretoria.</li>
+        <li><strong>Campos Gestor e CPF:</strong> Prontuário municipal e CPF agora estão integrados no cadastro.</li>
+        <li><strong>Casas com Letras:</strong> Suporte a números como <code>97 A</code>, <code>125 A</code>, <code>209 B</code> e <code>707 F</code>.</li>
+        <li><strong>Faixas Etárias Oficiais:</strong> Crianças (0-1a), Adolescentes (13-17a), Mulheres Preventivo (24-64a), Homens PSA (40+) e Idosos (60+).</li>
+        <li><strong>Novas Comorbidades:</strong> Tabagismo, Acamado/Domiciliado, Insulinodependente, Câncer e Transtornos.</li>
+        <li><strong>EVFAM do Idoso:</strong> Campo para pontuação e atalho para o formulário oficial.</li>
+        <li><strong>Editar e Excluir:</strong> Possibilidade de corrigir ou remover cadastros errados.</li>
+      </ul>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin:0">Protótipo demonstrativo para avaliação da equipe da UBS Paris.</p>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// BASE DE DADOS
-const DB_KEY = 'ubsParis4_Maringa_v7';
-const HANDSON_TOUR_KEY = 'ubsParis4_handsontour_done';
+// BASE DE DADOS MULTI-ÁREA
+const DB_KEY = 'ubsParis_Universal_v8';
 
 const defaultDB = {
   areas: [
-    { id: 'ma1', name: 'Microárea 01' },
-    { id: 'ma2', name: 'Microárea 02' },
-    { id: 'ma3', name: 'Microárea 03' }
+    { id: 'a69_m1', name: 'Área 69 · Microárea 01' },
+    { id: 'a69_m2', name: 'Área 69 · Microárea 02' },
+    { id: 'a69_m3', name: 'Área 69 · Microárea 03' },
+    { id: 'a70_m1', name: 'Área 70 · Microárea 01' },
+    { id: 'a70_m2', name: 'Área 70 · Microárea 02' }
   ],
   streets: [
     {
-      id: 'st1', areaId: 'ma1', name: 'Rua Antonio Bughi',
+      id: 'st_demo1', areaId: 'a69_m3', name: 'Rua Luiz Fitz',
       houses: [
         {
-          id: 'h1', number: '120',
+          id: 'h_demo1', number: '125 A',
           residents: [
-            { id: 'r1', name: 'Dona Maria de Lourdes', birthDate: '1952-04-12', tags: ['Idoso', 'Hipertenso', 'Bolsa Família'] },
-            { id: 'r2', name: 'Ana Paula Silva', birthDate: '1998-09-15', tags: ['Gestante'] }
+            {
+              id: 'r_demo1', name: 'João Paulo Afonso', gestor: '330398', cpf: '057.972.579-04',
+              birthDate: '1986-08-08', peso: '75', altura: '157', evfam: '',
+              tags: ['Homem PSA (40+)'],
+              visit1Date: '2026-08-01', visit2Prevista: '2026-12-01', visit2Realizada: '', situacao: 'AGUARDANDO 2ª VISITA'
+            },
+            {
+              id: 'r_demo2', name: 'Laisa Pociano de Oliveira', gestor: '874816', cpf: '092.186.369-10',
+              birthDate: '1996-02-03', peso: '', altura: '', evfam: '',
+              tags: ['Mulher Preventivo (24-64)'],
+              visit1Date: '2026-05-10', visit2Prevista: '2026-09-10', visit2Realizada: '', situacao: 'ATRASADA'
+            }
           ]
         },
         {
-          id: 'h2', number: '135',
+          id: 'h_demo2', number: '173',
           residents: [
-            { id: 'r3', name: 'Seu Antônio Meireles', birthDate: '1958-02-12', tags: ['Idoso', 'Hipertenso', 'Diabético'] }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'st2', areaId: 'ma2', name: 'Avenida das Torres',
-      houses: [
-        {
-          id: 'h3', number: '45',
-          residents: [
-            { id: 'r4', name: 'Enzo Gabriel Santos', birthDate: '2024-03-10', tags: ['Criança', 'Bolsa Família'] }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'st3', areaId: 'ma3', name: 'Rua dos Pioneiros',
-      houses: [
-        {
-          id: 'h4', number: '210',
-          residents: [
-            { id: 'r5', name: 'Clara Meireles', birthDate: '1970-05-20', tags: ['Diabético'] }
+            {
+              id: 'r_demo3', name: 'Lúcia Cardoso Silva', gestor: '123489', cpf: '679.716.799-04',
+              birthDate: '1955-03-14', peso: '', altura: '', evfam: '12',
+              tags: ['Idoso (60+)', 'Hipertenso', 'Diabético'],
+              visit1Date: '', visit2Prevista: '', visit2Realizada: '', situacao: ''
+            }
           ]
         }
       ]
@@ -540,9 +612,10 @@ function persist(){
   try{
     localStorage.setItem(DB_KEY, JSON.stringify(db));
     checkPendingVisits();
+    updateCycleKPIs();
     return true;
   }catch(e){
-    toast('Erro ao gravar no aparelho.');
+    toast('Erro de armazenamento local.');
     return false;
   }
 }
@@ -562,11 +635,6 @@ function chooseProfile(areaId, areaName){
   document.getElementById('profileSelectorBox').style.display = 'none';
   document.getElementById('pinPadBox').style.display = 'block';
   clearPin();
-
-  if(tourActive && tourCurrentStep === 1){
-    tourCurrentStep = 2;
-    renderGuidedTourStep();
-  }
 }
 
 function backToProfiles(){
@@ -583,15 +651,8 @@ function pressPin(n){
   }
 }
 
-function clearPin(){
-  pinEntered = '';
-  updatePinDots();
-}
-
-function backspacePin(){
-  pinEntered = pinEntered.slice(0, -1);
-  updatePinDots();
-}
+function clearPin(){ pinEntered = ''; updatePinDots(); }
+function backspacePin(){ pinEntered = pinEntered.slice(0, -1); updatePinDots(); }
 
 function updatePinDots(){
   for(let i=0; i<3; i++){
@@ -607,15 +668,11 @@ function verifyPin(){
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('mainApp').style.display = 'block';
     document.getElementById('topUserTitle').textContent = currentUser.name;
+    document.getElementById('activeAreaBadge').textContent = currentUser.name;
 
     setupMainInterface();
-
-    if(tourActive && tourCurrentStep === 2){
-      tourCurrentStep = 3;
-      renderGuidedTourStep();
-    }
   } else {
-    toast('Senha incorreta! Digite 000 para testar.');
+    toast('Senha incorreta! Digite 000 para teste.');
     clearPin();
   }
 }
@@ -636,13 +693,14 @@ function setupMainInterface(){
   const mgrField = document.getElementById('managerAreaSelectField');
   if(currentUser.areaId === 'all'){
     mgrField.style.display = 'block';
-    document.getElementById('vAreaManager').innerHTML = `<option value="all">Todas as Microáreas</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+    document.getElementById('vAreaManager').innerHTML = `<option value="all">Todas as Microáreas (Visão Geral)</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
   } else {
     mgrField.style.display = 'none';
   }
 
   updateStreetsList();
   renderAgenda();
+  updateCycleKPIs();
   checkPendingVisits();
 }
 
@@ -657,18 +715,36 @@ function getActiveStreets(){
 
 function switchManagerArea(){
   updateStreetsList();
+  renderAgenda();
+  updateCycleKPIs();
 }
 
-// ================= 1. VISITA POR DOMICÍLIO (CASA) =================
+// ================= CONTROLE DE CICLO DE VISITAS (MÉTRICAS DO CABEÇALHO) =================
+function updateCycleKPIs(){
+  const streets = getActiveStreets();
+  let aguardando = 0, atrasadas = 0, concluidas = 0;
+
+  streets.forEach(s => {
+    s.houses.forEach(h => {
+      (h.residents || []).forEach(r => {
+        if(r.situacao === 'CONCLUÍDA') concluidas++;
+        else if(r.situacao === 'ATRASADA') atrasadas++;
+        else if(r.situacao === 'AGUARDANDO 2ª VISITA') aguardando++;
+      });
+    });
+  });
+
+  document.getElementById('kpiAguardando').textContent = aguardando;
+  document.getElementById('kpiAtrasadas').textContent = atrasadas;
+  document.getElementById('kpiConcluidas').textContent = concluidas;
+}
+
+// ================= 1. VISITA POR CASA =================
 function updateStreetsList(){
   const streets = getActiveStreets();
   const sel = document.getElementById('vStreet');
   sel.innerHTML = `<option value="">Selecione a Rua...</option>` + streets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-  
-  // Demonstração da Rua 1 pronta
-  if(streets.length > 0){
-    sel.value = streets[0].id;
-  }
+  if(streets.length > 0) sel.value = streets[0].id;
   updateHousesList();
 }
 
@@ -684,8 +760,6 @@ function updateHousesList(){
   }
 
   houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number}</option>`).join('');
-  
-  // Casa 1 pronta para o tutorial
   if(street.houses.length > 0){
     houseSel.value = street.houses[0].id;
     loadHouseData();
@@ -698,10 +772,7 @@ function loadHouseData(){
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
 
-  if(!house){
-    hideHouseSections();
-    return;
-  }
+  if(!house){ hideHouseSections(); return; }
 
   document.getElementById('houseTitle').textContent = `${street.name}, Nº ${house.number}`;
   document.getElementById('houseBox').style.display = 'block';
@@ -719,21 +790,13 @@ function chooseOutcome(outcome, btn){
   btn.classList.add('active');
   document.getElementById('vOutcome').value = outcome;
 
-  const quickClose = document.getElementById('quickCloseBox');
-  const familyCard = document.getElementById('familyCard');
-
   if(outcome === 'Realizada'){
-    quickClose.style.display = 'none';
-    familyCard.style.display = 'block';
+    document.getElementById('quickCloseBox').style.display = 'none';
+    document.getElementById('familyCard').style.display = 'block';
     renderHouseResidents();
-
-    if(tourActive && tourCurrentStep === 3){
-      tourCurrentStep = 4;
-      renderGuidedTourStep();
-    }
   } else {
-    quickClose.style.display = 'block';
-    familyCard.style.display = 'none';
+    document.getElementById('quickCloseBox').style.display = 'block';
+    document.getElementById('familyCard').style.display = 'none';
   }
 }
 
@@ -748,18 +811,33 @@ function renderHouseResidents(){
     container.innerHTML = `
       <div style="background:#fffbeb;border:1px dashed #f59e0b;padding:12px;border-radius:10px;text-align:center">
         <p style="margin:0 0 6px;font-size:13px;color:#92400e">Nenhum morador cadastrado neste número.</p>
-        <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Cadastrar Primeiro Morador</button>
+        <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Cadastrar Morador</button>
       </div>
     `;
     return;
   }
 
   container.innerHTML = house.residents.map(r => `
-    <div class="resident-visit-card" id="card_${r.id}">
-      <label class="check-item" style="font-weight:800;font-size:14px" id="chkLabel_${r.id}">
-        <input type="checkbox" class="chk-resident-presence" data-id="${r.id}" onchange="togglePresence('${r.id}', this)">
-        <span>${r.name}</span>
-      </label>
+    <div class="resident-card" id="card_${r.id}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <label class="check-item" style="font-weight:800;font-size:14px">
+          <input type="checkbox" class="chk-resident-presence" data-id="${r.id}" onchange="togglePresence('${r.id}', this)">
+          <span>${r.name}</span>
+        </label>
+        <div>
+          <button class="btn btn-sm btn-soft" onclick="editResident('${r.id}')" title="Editar">✏️</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteResident('${r.id}')" title="Excluir">🗑️</button>
+        </div>
+      </div>
+
+      <div style="font-size:11px;color:var(--muted);margin:2px 0 4px">
+        ${r.gestor ? `Gestor: <strong>${r.gestor}</strong> · ` : ''}
+        ${r.cpf ? `CPF: ${r.cpf} · ` : ''}
+        ${r.peso ? `Peso: ${r.peso}kg · ` : ''}
+        ${r.altura ? `Alt: ${r.altura}cm · ` : ''}
+        ${r.evfam ? `EVFAM: <strong>${r.evfam} pts</strong>` : ''}
+      </div>
+
       <div class="tags-cloud">
         ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
       </div>
@@ -774,27 +852,22 @@ function renderHouseResidents(){
 function togglePresence(resId, el){
   document.getElementById(`check_${resId}`).style.display = el.checked ? 'block' : 'none';
   document.getElementById(`card_${resId}`).classList.toggle('active-presence', el.checked);
-
-  if(tourActive && tourCurrentStep === 4 && resId === 'r1' && el.checked){
-    tourCurrentStep = 5;
-    renderGuidedTourStep();
-  }
 }
 
 function buildChecklistHTML(r){
   let html = '';
   if(r.tags.includes('Hipertenso')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Hipertensão (HAS):</div>
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Aferição de Hipertensão:</div>
       <div class="grid-2">
         <div class="field"><label>PA Aferida</label><input type="text" id="pa_${r.id}" placeholder="120x80"></div>
-        <div class="field"><label>Consulta nos 6m?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Consulta 6m?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
-  if(r.tags.includes('Diabético')){
+  if(r.tags.includes('Diabético') || r.tags.includes('Insulinodependente')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Diabetes (DM):</div>
+      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Aferição de Diabetes:</div>
       <div class="grid-2">
         <div class="field"><label>Glicemia (mg/dL)</label><input type="number" id="gli_${r.id}" placeholder="110"></div>
         <div class="field"><label>Avaliação de Pés?</label><select id="pesDM_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
@@ -808,20 +881,14 @@ function buildChecklistHTML(r){
       <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos feitos</label>
     `;
   }
-  if(r.tags.includes('Criança')){
+  if(r.tags.includes('Criança (0 a 1 ano)')){
     html += `
       <div style="font-size:12px;font-weight:800;color:#9a3412;margin-bottom:4px">👶 Criança:</div>
-      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia</label>
-    `;
-  }
-  if(r.tags.includes('Idoso')){
-    html += `
-      <div style="font-size:12px;font-weight:800;color:#6b21a8;margin-bottom:4px">🧓 Idoso:</div>
-      <label class="check-item"><input type="checkbox" id="iVac_${r.id}"> Vacina da gripe tomada</label>
+      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia (Pólio/Penta)</label>
     `;
   }
   if(!html){
-    html = `<p style="font-size:12px;color:var(--muted);margin:0">Orientações gerais de saúde.</p>`;
+    html = `<p style="font-size:12px;color:var(--muted);margin:0">Orientações gerais de saúde realizadas.</p>`;
   }
   return html;
 }
@@ -873,13 +940,135 @@ function saveQuickHouseVisit(){
     date,
     outcome,
     attendees: [],
-    notes: outcome === 'Ausente' ? 'Casa fechada / ninguém atendeu' : 'Recusa de visita',
+    notes: outcome === 'Ausente' ? 'Casa fechada / ausente' : 'Recusa de visita',
     synced: false
   });
 
   persist();
   toast(`✓ Registro salvo: ${outcome}`);
   navTo('agenda');
+}
+
+// ================= CRUD: ADICIONAR / EDITAR / EXCLUIR MORADOR =================
+function openAddResidentModal(){
+  document.getElementById('formRes').reset();
+  document.getElementById('editResidentId').value = '';
+  document.getElementById('modalResidentTitle').textContent = 'Cadastrar Novo Morador';
+  document.querySelectorAll('#modalTagCloud .tag').forEach(t => t.classList.remove('active'));
+  showModal('modalResident');
+}
+
+function editResident(resId){
+  const res = findResident(resId);
+  if(!res) return;
+
+  document.getElementById('formRes').reset();
+  document.getElementById('editResidentId').value = res.id;
+  document.getElementById('modalResidentTitle').textContent = 'Editar Dados do Morador';
+  document.getElementById('mName').value = res.name || '';
+  document.getElementById('mGestor').value = res.gestor || '';
+  document.getElementById('mCpf').value = res.cpf || '';
+  document.getElementById('mBirth').value = res.birthDate || '';
+  document.getElementById('mPeso').value = res.peso || '';
+  document.getElementById('mAltura').value = res.altura || '';
+  document.getElementById('mEvfam').value = res.evfam || '';
+
+  document.querySelectorAll('#modalTagCloud .tag').forEach(t => {
+    t.classList.toggle('active', (res.tags || []).includes(t.dataset.tag));
+  });
+
+  showModal('modalResident');
+}
+
+function deleteResident(resId){
+  if(!confirm('Deseja realmente excluir o cadastro deste morador?')) return;
+  for(let s of db.streets){
+    for(let h of s.houses){
+      const idx = (h.residents || []).findIndex(r => r.id === resId);
+      if(idx >= 0){
+        h.residents.splice(idx, 1);
+        persist();
+        renderHouseResidents();
+        toast('Cadastro excluído.');
+        return;
+      }
+    }
+  }
+}
+
+function autoCalculateAgeTags(){
+  const b = document.getElementById('mBirth').value;
+  if(!b) return;
+  const age = Math.floor((new Date() - new Date(b)) / (1000*60*60*24*365.25));
+
+  // Auto-seleciona faixas de idade
+  const tags = [];
+  if(age <= 1) tags.push('Criança (0 a 1 ano)');
+  if(age >= 13 && age <= 17) tags.push('Adolescente (13 a 17 anos)');
+  if(age >= 24 && age <= 64) tags.push('Mulher Preventivo (24-64)');
+  if(age >= 40) tags.push('Homem PSA (40+)');
+  if(age >= 60) tags.push('Idoso (60+)');
+
+  tags.forEach(tg => {
+    const el = document.querySelector(`#modalTagCloud .tag[data-tag="${tg}"]`);
+    if(el) el.classList.add('active');
+  });
+}
+
+function toggleMTag(el){ el.classList.toggle('active'); }
+
+function saveResidentModal(e){
+  e.preventDefault();
+  const editId = document.getElementById('editResidentId').value;
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
+  const street = db.streets.find(s => s.id === streetId);
+  const house = street?.houses.find(h => h.id === houseId);
+  if(!house) return;
+
+  const selectedTags = Array.from(document.querySelectorAll('#modalTagCloud .tag.active')).map(t => t.dataset.tag);
+  const birth = document.getElementById('mBirth').value;
+
+  // Adiciona faixas de idade às tags
+  if(birth){
+    const age = Math.floor((new Date() - new Date(birth)) / (1000*60*60*24*365.25));
+    if(age <= 1 && !selectedTags.includes('Criança (0 a 1 ano)')) selectedTags.push('Criança (0 a 1 ano)');
+    if(age >= 13 && age <= 17 && !selectedTags.includes('Adolescente (13 a 17 anos)')) selectedTags.push('Adolescente (13 a 17 anos)');
+    if(age >= 24 && age <= 64 && !selectedTags.includes('Mulher Preventivo (24-64)')) selectedTags.push('Mulher Preventivo (24-64)');
+    if(age >= 40 && !selectedTags.includes('Homem PSA (40+)')) selectedTags.push('Homem PSA (40+)');
+    if(age >= 60 && !selectedTags.includes('Idoso (60+)')) selectedTags.push('Idoso (60+)');
+  }
+
+  const payload = {
+    name: document.getElementById('mName').value.trim(),
+    gestor: document.getElementById('mGestor').value.trim(),
+    cpf: document.getElementById('mCpf').value.trim(),
+    birthDate: birth,
+    peso: document.getElementById('mPeso').value.trim(),
+    altura: document.getElementById('mAltura').value.trim(),
+    evfam: document.getElementById('mEvfam').value.trim(),
+    tags: selectedTags
+  };
+
+  if(editId){
+    const res = findResident(editId);
+    if(res) Object.assign(res, payload);
+    toast('Cadastro atualizado com sucesso!');
+  } else {
+    house.residents.push({
+      id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
+      ...payload,
+      visit1Date: '',
+      visit2Prevista: '',
+      visit2Realizada: '',
+      situacao: ''
+    });
+    toast('Morador cadastrado na casa!');
+  }
+
+  persist();
+  closeModal('modalResident');
+  renderHouseResidents();
 }
 
 // ================= 2. AGENDA & CALENDÁRIO =================
@@ -890,10 +1079,10 @@ function renderAgenda(){
 }
 
 function renderAgendaTags(){
-  const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
+  const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Mulher Preventivo (24-64)', 'Homem PSA (40+)', 'Criança (0 a 1 ano)', 'Tabagista (Fuma)', 'Acamado / Domiciliado'];
   document.getElementById('agendaTagCloud').innerHTML = tags.map(t => {
     const isAct = activeAgendaTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" id="tagAgenda_${t}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
+    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
   }).join('') + (activeAgendaTags.length ? `<span class="tag btn-danger" onclick="clearAgendaTags()">✕ Limpar</span>` : '');
 }
 
@@ -901,17 +1090,9 @@ function toggleAgendaTag(t){
   if(activeAgendaTags.includes(t)) activeAgendaTags = activeAgendaTags.filter(x => x !== t);
   else activeAgendaTags.push(t);
   renderAgenda();
-
-  if(tourActive && tourCurrentStep === 6 && (t === 'Idoso' || t === 'Hipertenso')){
-    // Dá feedback visual e aguarda
-    toast(`Filtro ativado: ${activeAgendaTags.join(' + ')}`);
-  }
 }
 
-function clearAgendaTags(){
-  activeAgendaTags = [];
-  renderAgenda();
-}
+function clearAgendaTags(){ activeAgendaTags = []; renderAgenda(); }
 
 function renderCalGrid(){
   const year = selectedCalDate.getFullYear();
@@ -949,10 +1130,7 @@ function calNav(delta){
   renderAgenda();
 }
 
-function selectCalDay(d){
-  selectedCalDate.setDate(d);
-  renderAgenda();
-}
+function selectCalDay(d){ selectedCalDate.setDate(d); renderAgenda(); }
 
 function renderAgendaDeadlines(){
   const streets = getActiveStreets();
@@ -963,22 +1141,11 @@ function renderAgendaDeadlines(){
       (h.residents || []).forEach(r => {
         if(!activeAgendaTags.every(t => r.tags.includes(t))) return;
 
-        const last = db.visits
-          .filter(v => v.outcome === 'Realizada' && v.attendees?.some(a => a.residentId === r.id))
-          .sort((a,b) => b.date.localeCompare(a.date))[0];
-
-        const days = last ? Math.floor((new Date() - new Date(last.date)) / (1000*60*60*24)) : 999;
         let color = 'green', label = 'Em dia';
+        if(r.situacao === 'ATRASADA') { color = 'red'; label = 'Atrasada'; }
+        else if(r.situacao === 'AGUARDANDO 2ª VISITA') { color = 'yellow'; label = 'Aguardando 2ª'; }
 
-        if(r.tags.includes('Gestante')){
-          if(days > 35) { color = 'red'; label = 'Atrasada (Gestante)'; }
-          else if(days >= 25) { color = 'yellow'; label = 'A vencer'; }
-        } else if(r.tags.includes('Hipertenso') || r.tags.includes('Diabético')){
-          if(days > 180) { color = 'red'; label = 'Atrasada (>6 meses)'; }
-          else if(days >= 150) { color = 'yellow'; label = 'Vence em breve'; }
-        }
-
-        citizens.push({ ...r, streetName: s.name, houseNumber: h.number, streetId: s.id, houseId: h.id, color, label, days });
+        citizens.push({ ...r, streetName: s.name, houseNumber: h.number, streetId: s.id, houseId: h.id, color, label });
       });
     });
   });
@@ -997,9 +1164,12 @@ function renderAgendaDeadlines(){
         <div>
           <span class="status-pill ${c.color}">${c.label}</span>
           <strong style="display:block;margin:3px 0">${c.name}</strong>
-          <small style="color:var(--muted)">📍 ${c.streetName}, Nº ${c.houseNumber}</small>
+          <small style="color:var(--muted)">📍 ${c.streetName}, Nº ${c.houseNumber} ${c.gestor ? `· Gestor: ${c.gestor}` : ''}</small>
         </div>
         <button class="btn btn-sm btn-primary" onclick="goToVisit('${c.streetId}','${c.houseId}')">Ir à Casa</button>
+      </div>
+      <div class="tags-cloud" style="margin-top:4px">
+        ${c.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
       </div>
     </div>
   `).join('');
@@ -1055,7 +1225,7 @@ function runReport(){
       <div style="padding:10px 0;border-bottom:1px solid #edf4f1;display:flex;justify-content:space-between;align-items:center">
         <div>
           <strong style="font-size:13px">${r.name}</strong>
-          <small style="display:block;color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber}</small>
+          <small style="display:block;color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber} ${r.cpf ? `· CPF: ${r.cpf}` : ''}</small>
           <div class="tags-cloud" style="margin:2px 0">
             ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
           </div>
@@ -1067,10 +1237,10 @@ function runReport(){
 }
 
 function renderReportTags(){
-  const tags = ['Idoso', 'Hipertenso', 'Diabético', 'Gestante', 'Criança', 'Bolsa Família'];
+  const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Mulher Preventivo (24-64)', 'Homem PSA (40+)', 'Criança (0 a 1 ano)', 'Tabagista (Fuma)'];
   document.getElementById('reportTagCloud').innerHTML = tags.map(t => {
     const isAct = activeReportTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" id="tagReport_${t}" onclick="toggleReportTag('${t}')">${t}</span>`;
+    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleReportTag('${t}')">${t}</span>`;
   }).join('') + (activeReportTags.length ? `<span class="tag btn-danger" onclick="clearReportTags()">✕ Limpar</span>` : '');
 }
 
@@ -1080,54 +1250,10 @@ function toggleReportTag(t){
   runReport();
 }
 
-function clearReportTags(){
-  activeReportTags = [];
-  runReport();
-}
+function clearReportTags(){ activeReportTags = []; runReport(); }
 
-// ================= 4. SINCRONIZAÇÃO AMIGÁVEL =================
-function checkPendingVisits(){
-  const pending = db.visits.filter(v => !v.synced).length;
-  const banner = document.getElementById('syncFriendlyBanner');
-  if(pending > 0 && navigator.onLine){
-    document.getElementById('syncBannerMsg').textContent = `Você tem ${pending} visita(s) feitas que podem ser enviadas para a UBS agora.`;
-    banner.style.display = 'flex';
-  } else {
-    banner.style.display = 'none';
-  }
-}
-
-window.addEventListener('online', checkPendingVisits);
-
-function triggerSmartSync(){
-  const pending = db.visits.filter(v => !v.synced);
-  if(!pending.length){
-    toast('Tudo em dia! Nenhuma visita pendente de envio.');
-    return;
-  }
-  const btn = document.getElementById('btnBannerSync');
-  btn.textContent = 'Enviando...';
-
-  setTimeout(() => {
-    db.visits.forEach(v => v.synced = true);
-    persist();
-    btn.textContent = '⚡ Enviar Agora';
-    toast(`✓ Sucesso! ${pending.length} visitas salvas na planilha da UBS!`);
-    checkPendingVisits();
-  }, 1200);
-}
-
-function pullDataFromCloud(){
-  toast('🔄 Puxando atualizações da planilha da UBS...');
-  setTimeout(() => {
-    toast('✓ Aparelho sincronizado com a base mais recente!');
-    updateStreetsList();
-    renderAgenda();
-  }, 1000);
-}
-
-// ================= 5. IMPORTADOR DE PLANILHAS =================
-function handleFile(e){
+// ================= 4. IMPORTADOR UNIVERSAL DE PLANILHAS (CSV) =================
+function handleUniversalFile(e){
   const file = e.target.files[0];
   if(!file) return;
 
@@ -1145,29 +1271,37 @@ function handleFile(e){
       rows: lines.slice(1).map(l => l.split(sep).map(c => c.replace(/"/g,'').trim()))
     };
 
-    ['mapStreet', 'mapNumber', 'mapName', 'mapTags'].forEach(id => {
-      document.getElementById(id).innerHTML = `<option value="">-- Selecione --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
+    const selIds = ['mapStreet', 'mapNumber', 'mapName', 'mapGestor', 'mapCpf', 'mapBirth', 'mapTags'];
+    selIds.forEach(id => {
+      document.getElementById(id).innerHTML = `<option value="">-- Ignorar --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
     });
 
+    // Auto-detecção universal
     headers.forEach((h, idx) => {
       const low = h.toLowerCase();
       if(low.includes('rua') || low.includes('logradouro')) document.getElementById('mapStreet').value = idx;
-      if(low.includes('num') || low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
-      if(low.includes('nome') || low.includes('paciente')) document.getElementById('mapName').value = idx;
-      if(low.includes('doen') || low.includes('comorb') || low.includes('obs')) document.getElementById('mapTags').value = idx;
+      if(low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
+      if(low.includes('nome') || low.includes('paciente') || low.includes('morador')) document.getElementById('mapName').value = idx;
+      if(low.includes('gestor')) document.getElementById('mapGestor').value = idx;
+      if(low.includes('cpf')) document.getElementById('mapCpf').value = idx;
+      if(low.includes('nasc') || low.includes('data')) document.getElementById('mapBirth').value = idx;
+      if(low.includes('comorb') || low.includes('doen') || low.includes('condi')) document.getElementById('mapTags').value = idx;
     });
 
     document.getElementById('mapperBox').style.display = 'block';
-    toast('Planilha carregada! Confirme as colunas.');
+    toast('Planilha lida! Confirme as colunas.');
   };
   reader.readAsText(file, 'UTF-8');
 }
 
-function executeImport(){
+function executeUniversalImport(){
   if(!importedRawData) return;
   const colStreet = document.getElementById('mapStreet').value;
   const colNumber = document.getElementById('mapNumber').value;
   const colName = document.getElementById('mapName').value;
+  const colGestor = document.getElementById('mapGestor').value;
+  const colCpf = document.getElementById('mapCpf').value;
+  const colBirth = document.getElementById('mapBirth').value;
   const colTags = document.getElementById('mapTags').value;
 
   if(colStreet === '' || colNumber === '' || colName === ''){
@@ -1176,12 +1310,15 @@ function executeImport(){
   }
 
   let count = 0;
-  const userArea = currentUser.areaId === 'all' ? 'ma1' : currentUser.areaId;
+  const userArea = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m1';
 
   importedRawData.rows.forEach(r => {
     const sName = r[colStreet]?.trim();
     const hNum = r[colNumber]?.trim();
     const rName = r[colName]?.trim();
+    const gestor = colGestor !== '' ? r[colGestor]?.trim() : '';
+    const cpf = colCpf !== '' ? r[colCpf]?.trim() : '';
+    const birth = colBirth !== '' ? r[colBirth]?.trim() : '';
     const rawTags = colTags !== '' ? (r[colTags] || '').toUpperCase() : '';
 
     if(!sName || !hNum || !rName) return;
@@ -1201,15 +1338,43 @@ function executeImport(){
     const tags = [];
     if(rawTags.includes('HAS') || rawTags.includes('HIPER')) tags.push('Hipertenso');
     if(rawTags.includes('DM') || rawTags.includes('DIAB')) tags.push('Diabético');
+    if(rawTags.includes('INSULIN')) tags.push('Insulinodependente');
+    if(rawTags.includes('FUM') || rawTags.includes('TABA')) tags.push('Tabagista (Fuma)');
+    if(rawTags.includes('CANC')) tags.push('Câncer');
+    if(rawTags.includes('MENTAL') || rawTags.includes('TAG') || rawTags.includes('ANSIED')) tags.push('Transtorno Mental');
+    if(rawTags.includes('ACAM') || rawTags.includes('DOMICIL')) tags.push('Acamado / Domiciliado');
     if(rawTags.includes('GEST')) tags.push('Gestante');
-    if(rawTags.includes('IDOS') || rawTags.includes('60')) tags.push('Idoso');
-    if(rawTags.includes('CRIAN')) tags.push('Criança');
-    if(rawTags.includes('BOLSA') || rawTags.includes('BF')) tags.push('Bolsa Família');
+    if(rawTags.includes('BOLSA') || rawTags.includes('VULNER')) tags.push('Bolsa Família');
+    if(rawTags.includes('NÃO USA') || rawTags.includes('ZERO')) tags.push('Não usa UBS / Área Zero');
+
+    // Auto faixa etária
+    if(birth){
+      const parts = birth.includes('/') ? birth.split('/') : null;
+      let dt = parts ? new Date(parts[2], parts[1]-1, parts[0]) : new Date(birth);
+      if(!isNaN(dt)){
+        const age = Math.floor((new Date() - dt) / (1000*60*60*24*365.25));
+        if(age <= 1) tags.push('Criança (0 a 1 ano)');
+        if(age >= 13 && age <= 17) tags.push('Adolescente (13 a 17 anos)');
+        if(age >= 24 && age <= 64) tags.push('Mulher Preventivo (24-64)');
+        if(age >= 40) tags.push('Homem PSA (40+)');
+        if(age >= 60) tags.push('Idoso (60+)');
+      }
+    }
 
     house.residents.push({
       id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
       name: rName,
-      tags
+      gestor,
+      cpf,
+      birthDate: birth,
+      peso: '',
+      altura: '',
+      evfam: '',
+      tags,
+      visit1Date: '',
+      visit2Prevista: '',
+      visit2Realizada: '',
+      situacao: ''
     });
     count++;
   });
@@ -1217,180 +1382,38 @@ function executeImport(){
   persist();
   document.getElementById('mapperBox').style.display = 'none';
   document.getElementById('importInput').value = '';
-  toast(`✓ Sucesso! ${count} pessoas importadas para a sua microárea!`);
+  toast(`✓ Sucesso! ${count} cadastros importados!`);
   updateStreetsList();
   navTo('visita');
 }
 
-// ================= 6. MOTOR DO TUTORIAL PRÁTICO GUIADO ("MÃO NA MASSA") =================
-let tourActive = false;
-let tourCurrentStep = 1;
-
-const guidedSteps = [
-  {
-    step: 1,
-    title: "Passo 1: Escolha seu perfil",
-    desc: "👉 Toque no card piscante <strong>ACS 1 (Microárea 01)</strong> para começar.",
-    targetId: "btnTourLoginACS1"
-  },
-  {
-    step: 2,
-    title: "Passo 2: Digite sua senha",
-    desc: "👉 Toque 3 vezes no número <strong>0</strong> (senha padrão: 000).",
-    targetId: "btnTourZero"
-  },
-  {
-    step: 3,
-    title: "Passo 3: No portão da casa",
-    desc: "👉 Você está na Rua Antonio Bughi, Nº 120. Imagine que os moradores atenderam: toque no botão verde <strong>✓ Atendida</strong>.",
-    targetId: "tourBtnAtendida"
-  },
-  {
-    step: 4,
-    title: "Passo 4: A Mágica do Checklist",
-    desc: "👉 Veja os moradores deste domicílio. Toque na caixinha ao lado de <strong>Dona Maria de Lourdes</strong>.",
-    targetId: "card_r1"
-  },
-  {
-    step: 5,
-    title: "Passo 5: Cuidado Direcionado",
-    desc: "🎉 <strong>Viu como abriu a caixinha de Pressão Arterial?</strong> Como ela é Hipertensa, o app já abre os campos de PA na hora! Agora toque no botão <strong>📅 Agenda</strong> no rodapé.",
-    targetId: "tabAgenda"
-  },
-  {
-    step: 6,
-    title: "Passo 6: Agenda com Semáforo",
-    desc: "👉 Este é o seu calendário! O semáforo avisa quem está atrasado (🔴) ou em dia (🟢). Toque nas tags <strong>Idoso</strong> e <strong>Hipertenso</strong> no topo para ver o cruzamento de condições.",
-    targetId: "tourAgendaTagsBox"
-  },
-  {
-    step: 7,
-    title: "Passo 7: Fechamento sem dor de cabeça",
-    desc: "👉 Agora toque em <strong>📊 Fechamento</strong> no rodapé.",
-    targetId: "tabFechamento"
-  },
-  {
-    step: 8,
-    title: "Passo 8: Contagem Automática",
-    desc: "🎉 <strong>Chega de contar papel no fim do mês!</strong> O sistema dá o cálculo pronto para o e-SUS e a lista nominal de quem foi ou não visitado. Toque em <strong>Finalizar</strong> para começar a usar!",
-    targetId: null
-  }
-];
-
-function checkAutoHandsOnTour(){
-  const seen = localStorage.getItem(HANDSON_TOUR_KEY);
-  if(!seen){
-    startHandsOnTour();
-  }
-}
-
-function startHandsOnTour(){
-  tourActive = true;
-  tourCurrentStep = 1;
-  // Se já estiver logado, faz logout para ensinar desde a entrada
-  if(currentUser.areaId){
-    logout();
-  }
-  document.getElementById('guidedTourBar').classList.add('open');
-  renderGuidedTourStep();
-}
-
-function renderGuidedTourStep(){
-  clearTourSpotlights();
-  const stepData = guidedSteps.find(s => s.step === tourCurrentStep);
-  if(!stepData){
-    finishGuidedTour();
-    return;
-  }
-
-  document.getElementById('gStepBadge').textContent = `Passo ${stepData.step} de ${guidedSteps.length}`;
-  document.getElementById('gStepTitle').textContent = stepData.title;
-  document.getElementById('gStepDesc').innerHTML = stepData.desc;
-
-  if(stepData.targetId){
-    const el = document.getElementById(stepData.targetId);
-    if(el) {
-      el.classList.add('tour-spotlight');
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+// ================= UTILITÁRIOS =================
+function findResident(id){
+  for(let s of db.streets){
+    for(let h of s.houses){
+      const r = (h.residents || []).find(x => x.id === id);
+      if(r) return r;
     }
   }
-
-  document.getElementById('gBtnNextManual').textContent = tourCurrentStep === guidedSteps.length ? 'Finalizar 🎉' : 'Próximo ▶';
+  return null;
 }
 
-function advanceTourStep(){
-  if(tourCurrentStep === 1){
-    chooseProfile('ma1', 'ACS 1 · Microárea 01');
-    return;
-  }
-  if(tourCurrentStep === 2){
-    pressPin('0'); pressPin('0'); pressPin('0');
-    return;
-  }
-  if(tourCurrentStep === 3){
-    chooseOutcome('Realizada', document.querySelector('.outcome-btn.realizada'));
-    return;
-  }
-  if(tourCurrentStep === 4){
-    const chk = document.querySelector('.chk-resident-presence[data-id="r1"]');
-    if(chk) { chk.checked = true; togglePresence('r1', chk); }
-    tourCurrentStep = 5;
-    renderGuidedTourStep();
-    return;
-  }
-  if(tourCurrentStep === 5){
-    navTo('agenda');
-    tourCurrentStep = 6;
-    renderGuidedTourStep();
-    return;
-  }
-  if(tourCurrentStep === 6){
-    navTo('fechamento');
-    tourCurrentStep = 7;
-    renderGuidedTourStep();
-    return;
-  }
-  if(tourCurrentStep === 7){
-    tourCurrentStep = 8;
-    renderGuidedTourStep();
-    return;
-  }
-  if(tourCurrentStep === 8){
-    finishGuidedTour();
-  }
-}
-
-function clearTourSpotlights(){
-  document.querySelectorAll('.tour-spotlight').forEach(el => el.classList.remove('tour-spotlight'));
-}
-
-function cancelGuidedTour(){
-  finishGuidedTour();
-}
-
-function finishGuidedTour(){
-  tourActive = false;
-  clearTourSpotlights();
-  document.getElementById('guidedTourBar').classList.remove('open');
-  localStorage.setItem(HANDSON_TOUR_KEY, 'true');
-  toast('🎉 Você concluiu o treinamento prático! Use o app livremente.');
-}
-
-// ================= UTILITÁRIOS =================
 function getTagClass(t){
   if(t.includes('Gestante')) return 'gestante';
   if(t.includes('Hipertenso')) return 'has';
-  if(t.includes('Diabético')) return 'dm';
+  if(t.includes('Diabético') || t.includes('Insulinodependente')) return 'dm';
   if(t.includes('Idoso')) return 'idoso';
   if(t.includes('Criança')) return 'crianca';
   if(t.includes('Bolsa Família')) return 'bf';
+  if(t.includes('Adolescente')) return 'teen';
+  if(t.includes('PSA')) return 'psa';
   return '';
 }
 
 function promptAddStreet(){
   const name = prompt('Nome da nova rua:');
   if(!name) return;
-  const areaId = currentUser.areaId === 'all' ? 'ma1' : currentUser.areaId;
+  const areaId = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m1';
   db.streets.push({ id: 'st_' + Date.now(), areaId, name: name.trim(), houses: [] });
   persist();
   updateStreetsList();
@@ -1399,7 +1422,7 @@ function promptAddStreet(){
 function promptAddHouse(){
   const streetId = document.getElementById('vStreet').value;
   if(!streetId){ alert('Escolha uma rua primeiro!'); return; }
-  const num = prompt('Número da casa:');
+  const num = prompt('Número da casa (pode conter letra, ex: 125 A):');
   if(!num) return;
   const street = db.streets.find(s => s.id === streetId);
   street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), residents: [] });
@@ -1407,35 +1430,51 @@ function promptAddHouse(){
   updateHousesList();
 }
 
-function openAddResidentModal(){
-  document.getElementById('formRes').reset();
-  document.querySelectorAll('#modalTagCloud .tag').forEach(t => t.classList.remove('active'));
-  document.getElementById('modalResident').classList.add('open');
+function checkPendingVisits(){
+  const pending = db.visits.filter(v => !v.synced).length;
+  const banner = document.getElementById('syncFriendlyBanner');
+  if(pending > 0 && navigator.onLine){
+    document.getElementById('syncBannerMsg').textContent = `Você tem ${pending} visita(s) realizadas neste aparelho.`;
+    banner.style.display = 'flex';
+  } else {
+    banner.style.display = 'none';
+  }
 }
 
-function toggleMTag(el){ el.classList.toggle('active'); }
+window.addEventListener('online', checkPendingVisits);
+
+function triggerSmartSync(){
+  const pending = db.visits.filter(v => !v.synced);
+  if(!pending.length){ toast('Tudo em dia!'); return; }
+  const btn = document.getElementById('btnBannerSync');
+  btn.textContent = 'Enviando...';
+
+  setTimeout(() => {
+    db.visits.forEach(v => v.synced = true);
+    persist();
+    btn.textContent = '⚡ Enviar Agora';
+    toast(`✓ Sucesso! ${pending.length} visitas salvas!`);
+    checkPendingVisits();
+  }, 1200);
+}
+
+function showModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
-function saveResidentModal(e){
-  e.preventDefault();
-  const streetId = document.getElementById('vStreet').value;
-  const houseId = document.getElementById('vHouse').value;
-  const street = db.streets.find(s => s.id === streetId);
-  const house = street?.houses.find(h => h.id === houseId);
-  if(!house) return;
+function downloadBackup(){
+  const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `backup_ubs_paris_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
 
-  const tags = Array.from(document.querySelectorAll('#modalTagCloud .tag.active')).map(t => t.dataset.tag);
-  house.residents.push({
-    id: 'r_' + Date.now(),
-    name: document.getElementById('mName').value.trim(),
-    birthDate: document.getElementById('mBirth').value,
-    tags
-  });
-
+function resetToDemo(){
+  if(!confirm('Restaurar dados de demonstração padrão?')) return;
+  db = defaultDB;
   persist();
-  closeModal('modalResident');
-  renderHouseResidents();
-  toast('Morador cadastrado na casa!');
+  updateStreetsList();
+  toast('Demonstração restaurada.');
 }
 
 function exportCSV(){
@@ -1448,7 +1487,7 @@ function exportCSV(){
   const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
-  a.download = `Visitas_${currentUser.name.replace(/[^a-z0-9]/gi, '_')}.csv`;
+  a.download = `Visitas_UBS_Paris_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
 
@@ -1461,21 +1500,7 @@ function navTo(viewId){
   if(viewId === 'agenda') renderAgenda();
   if(viewId === 'fechamento') runReport();
   window.scrollTo({top:0, behavior:'smooth'});
-
-  if(tourActive){
-    if(tourCurrentStep === 5 && viewId === 'agenda') {
-      tourCurrentStep = 6;
-      renderGuidedTourStep();
-    } else if(tourCurrentStep === 6 && viewId === 'fechamento'){
-      tourCurrentStep = 7;
-      renderGuidedTourStep();
-    }
-  }
 }
-
-window.addEventListener('load', () => {
-  checkAutoHandsOnTour();
-});
 </script>
 </body>
 </html>
