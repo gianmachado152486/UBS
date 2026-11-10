@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
 <title>UBS Paris · Campo Digital ACS</title>
+<!-- Leitor Oficial de Arquivos Excel (.xlsx / .xls) -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
   --p:#086b56;--p-dark:#054637;--p-light:#e7f5ef;--sec:#148a6d;--ink:#17342d;--muted:#5f7871;--line:#dbe6e2;--bg:#f3f7f5;--card:#ffffff;
@@ -12,10 +14,10 @@
   --radius:14px;--shadow:0 3px 12px rgba(10,40,30,0.06);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 input,select,textarea,button{font:inherit}
 
-/* Tela de Login */
+/* Tela de Login Neutra */
 .login-screen{min-height:100vh;background:linear-gradient(145deg,#06483b,#0a745d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff}
 .login-box{background:#fff;color:var(--ink);width:100%;max-width:440px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
 .login-avatar{width:60px;height:60px;border-radius:18px;background:var(--p-light);color:var(--p);font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
@@ -41,7 +43,7 @@ input,select,textarea,button{font:inherit}
 .top-actions{display:flex;align-items:center;gap:6px}
 
 /* Layout */
-.app{max-width:780px;margin:0 auto;padding-bottom:85px;min-height:100vh}
+.app{max-width:850px;margin:0 auto;padding-bottom:85px;min-height:100vh}
 .view{display:none;padding:16px}
 .view.active{display:block}
 
@@ -56,38 +58,31 @@ input,select,textarea,button{font:inherit}
 .nav-tab.active{color:var(--p)}
 .nav-tab .icon{font-size:18px}
 
-/* Banners */
-.smart-banner{background:#ecfdf5;border:1.5px solid #a7f3d0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.changelog-box{background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:14px;margin-bottom:14px}
-
 /* Tags / Atributos */
-.tags-cloud{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-.tag{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
+.tags-cloud{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:16px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
 .tag.active{background:var(--p-light);border-color:var(--sec);color:var(--p);box-shadow:0 0 0 1px var(--sec)}
 .tag.bf{background:#fef3c7;border-color:#fde68a;color:#92400e}
 .tag.gestante{background:#fce7f3;border-color:#fbcfe8;color:#9d174d}
 .tag.has{background:#fee2e2;border-color:#fecaca;color:#991b1b}
 .tag.dm{background:#e0f2fe;border-color:#bae6fd;color:#075985}
 .tag.idoso{background:#f3e8ff;border-color:#e9d5ff;color:#6b21a8}
-.tag.crianca{background:#ffedd5;border-color:#fed7aa;color:#9a3412}
-.tag.teen{background:#f1f5f9;border-color:#cbd5e1;color:#475569}
-.tag.psa{background:#ede9fe;border-color:#ddd6fe;color:#5b21b6}
 
 /* Formulários */
 .field{margin-bottom:12px}
-.field label{display:block;font-size:12px;font-weight:800;color:#35534b;margin-bottom:5px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:10px;background:#fff;color:var(--ink);outline:none;font-size:14px}
+.field label{display:block;font-size:12px;font-weight:800;color:#35534b;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:9px;background:#fff;color:var(--ink);outline:none;font-size:13px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(8,107,86,0.12)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
 /* Botões */
-.btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
+.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
 .btn-primary{background:var(--p);color:#fff;border-color:var(--p)}
 .btn-primary:active{background:var(--p-dark)}
 .btn-soft{background:var(--p-light);color:var(--p);border-color:#cbe7dc}
 .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
-.btn-sm{padding:6px 10px;font-size:11px;border-radius:7px;width:auto}
+.btn-sm{padding:5px 9px;font-size:11px;border-radius:7px;width:auto}
 
 /* Visita por Casa */
 .outcome-btn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
@@ -96,68 +91,88 @@ input,select,textarea,button{font:inherit}
 .outcome-btn.active.ausente{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
 .outcome-btn.active.recusa{background:var(--red-bg);border-color:var(--red);color:var(--red)}
 
-.resident-card{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff;position:relative}
+.resident-card{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
 .resident-card.active-presence{border-color:var(--sec);background:#fafdfc}
-.card-actions{display:flex;gap:6px;margin-top:8px}
-
 .checklist-box{background:#f4f9f7;border:1px solid #d4e7df;border-radius:8px;padding:10px;margin-top:8px}
 .check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
+
+/* ================= TABELA DO FECHAMENTO MENSAL (RÉPLICA DA FOTO 1) ================= */
+.prod-table-wrap{overflow-x:auto;border:1px solid #111;background:#fff;margin-top:10px}
+.prod-table{width:100%;border-collapse:collapse;font-size:12px;color:#000;font-family:Arial,sans-serif}
+.prod-table th,.prod-table td{border:1px solid #000;padding:5px 7px}
+.prod-header-main{background:#c8d7eb;text-align:center;font-weight:bold;font-size:13px;text-transform:uppercase}
+.prod-header-sub{background:#dbe6f5;text-align:center;font-weight:bold;font-size:12px}
+.prod-meta-label{font-weight:bold;background:#f3f4f6}
+.prod-section-row{background:#fff480;font-weight:bold}
+.prod-col-header{background:#e5e7eb;font-weight:bold;text-align:center}
+.prod-num{text-align:center;font-weight:bold}
+
+/* Área de Upload e Ajuda Visual */
+.upload-dropzone{border:2.5px dashed var(--sec);border-radius:14px;background:#f0fbf7;padding:24px 16px;text-align:center;cursor:pointer;transition:all 0.2s}
+.upload-dropzone:hover{background:#e4f7f0;border-color:var(--p)}
+.help-guide-card{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin-top:12px;font-size:12px;color:#92400e;line-height:1.45}
 
 /* Calendário */
 .calendar-widget{background:#fff;border-radius:var(--radius);border:1px solid var(--line);padding:12px;margin-bottom:12px}
 .cal-header{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:10px}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
 .cal-weekday{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
-.cal-day{min-height:42px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;position:relative}
+.cal-day{min-height:42px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer}
 .cal-day.today{border-color:var(--p);background:var(--p-light);color:var(--p);font-weight:900}
 .cal-day.selected{background:var(--p);color:#fff}
 .cal-day.other-month{opacity:0.25}
 
-/* Badges */
+/* Badges e Modais */
 .status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800}
 .status-pill.red{background:var(--red-bg);color:var(--red)}
 .status-pill.yellow{background:var(--amber-bg);color:var(--amber)}
 .status-pill.green{background:var(--green-bg);color:var(--green)}
 .status-pill.blue{background:var(--blue-bg);color:var(--blue)}
 
-/* Toast & Modais */
 .toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#10392f;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:700;display:none;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
 .toast.show{display:block}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
-.modal-content{background:#fff;border-radius:var(--radius);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
+.modal-content{background:#fff;border-radius:var(--radius);max-width:580px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
+
+@media print{
+  body{background:#fff;color:#000}
+  .topbar,.bottom-nav,.card-header button,.no-print{display:none !important}
+  .app{max-width:100%;padding:0}
+  .prod-table-wrap{border:0}
+}
 </style>
 </head>
 <body>
 
-<!-- ================= 1. TELA DE LOGIN NEUTRA ================= -->
+<!-- ================= 1. TELA DE LOGIN ================= -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box" id="profileSelectorBox">
     <div class="login-avatar">✚</div>
     <h2 style="margin:0 0 2px">UBS Paris</h2>
-    <p style="margin:0 0 14px;color:var(--muted);font-size:12px">Protótipo Demonstrativo de Campo</p>
+    <p style="margin:0 0 14px;color:var(--muted);font-size:12px">Sistema de Apoio e Produtividade ACS</p>
 
-    <div class="section-label">Equipe Área 69</div>
-    <button class="profile-btn" onclick="chooseProfile('a69_m1', 'Área 69 · Microárea 01')">
+    <div class="section-label">Equipe Área 69 (ESF 69)</div>
+    <button class="profile-btn" onclick="chooseProfile('a69_m1', 'ESF 69 · Microárea 01')">
       <span>👩‍⚕️</span> <span>ACS · Microárea 01</span>
     </button>
-    <button class="profile-btn" onclick="chooseProfile('a69_m2', 'Área 69 · Microárea 02')">
+    <button class="profile-btn" onclick="chooseProfile('a69_m2', 'ESF 69 · Microárea 02')">
       <span>👩‍⚕️</span> <span>ACS · Microárea 02</span>
     </button>
-    <button class="profile-btn" onclick="chooseProfile('a69_m3', 'Área 69 · Microárea 03')">
+    <button class="profile-btn" onclick="chooseProfile('a69_m3', 'ESF 69 · Microárea 03')">
       <span>👩‍⚕️</span> <span>ACS · Microárea 03</span>
     </button>
 
-    <div class="section-label">Equipe Área 70</div>
-    <button class="profile-btn" onclick="chooseProfile('a70_m1', 'Área 70 · Microárea 01')">
+    <div class="section-label">Equipe Área 70 (ESF 70)</div>
+    <button class="profile-btn" onclick="chooseProfile('a70_m1', 'ESF 70 · Microárea 01')">
       <span>👩‍⚕️</span> <span>ACS · Microárea 01</span>
     </button>
-    <button class="profile-btn" onclick="chooseProfile('a70_m2', 'Área 70 · Microárea 02')">
+    <button class="profile-btn" onclick="chooseProfile('a70_m2', 'ESF 70 · Microárea 02')">
       <span>👨‍⚕️</span> <span>ACS · Microárea 02</span>
     </button>
 
-    <div class="section-label">Gestão da Unidade</div>
+    <div class="section-label">Coordenação da UBS</div>
     <button class="profile-btn manager" onclick="chooseProfile('all', 'Diretoria / Coordenação (Geral)')">
       <span>👑</span> <span>Diretoria / Geral (Áreas 69 e 70)</span>
     </button>
@@ -203,45 +218,17 @@ input,select,textarea,button{font:inherit}
       </div>
     </div>
     <div class="top-actions">
-      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="showModal('modalNovidades')">✨ Novidades</button>
       <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
     </div>
   </header>
 
   <div class="app">
 
-    <div class="smart-banner" id="syncFriendlyBanner" style="display:none">
-      <div>
-        <strong style="color:var(--green);font-size:13px;display:block">📶 Conexão Detectada!</strong>
-        <span style="font-size:12px;color:var(--ink)" id="syncBannerMsg">Você tem visitas salvas neste aparelho.</span>
-      </div>
-      <button class="btn btn-sm btn-primary" onclick="triggerSmartSync()" id="btnBannerSync">⚡ Enviar Agora</button>
-    </div>
-
     <!-- ================= ABA 1: VISITA POR CASA ================= -->
     <section class="view active" id="view-visita">
       <div class="card-header">
         <h2>Visita Domiciliar</h2>
         <span class="status-pill blue" id="activeAreaBadge">Microárea</span>
-      </div>
-
-      <!-- Resumo do Ciclo das Visitas da Microárea -->
-      <div class="card" style="padding:12px;background:#fafdfb">
-        <div style="font-size:11px;font-weight:900;text-transform:uppercase;color:var(--muted);margin-bottom:8px">PROGRESSO DO CICLO DE VISITAS</div>
-        <div class="grid-3" style="text-align:center">
-          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
-            <strong style="color:var(--amber);font-size:18px" id="kpiAguardando">0</strong>
-            <small style="display:block;font-size:10px;color:var(--muted)">Aguardando 2ª</small>
-          </div>
-          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
-            <strong style="color:var(--red);font-size:18px" id="kpiAtrasadas">0</strong>
-            <small style="display:block;font-size:10px;color:var(--muted)">Atrasadas</small>
-          </div>
-          <div style="background:#fff;border:1px solid var(--line);padding:8px;border-radius:8px">
-            <strong style="color:var(--green);font-size:18px" id="kpiConcluidas">0</strong>
-            <small style="display:block;font-size:10px;color:var(--muted)">Concluídas</small>
-          </div>
-        </div>
       </div>
 
       <!-- Endereço -->
@@ -280,7 +267,25 @@ input,select,textarea,button{font:inherit}
           <h3 style="margin:0" id="houseTitle">Rua ..., Nº ...</h3>
         </div>
 
-        <div style="font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px">O QUE ACONTECEU NO PORTÃO?</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Vulnerabilidade Familiar Deste Domicílio:</label>
+            <select id="vHouseVuln" onchange="updateHouseVuln()">
+              <option value="Baixa">Vulnerabilidade Baixa</option>
+              <option value="Moderada">Vulnerabilidade Moderada</option>
+              <option value="Grave">Vulnerabilidade Grave</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Internação no mês?</label>
+            <select id="vHouseInternacao">
+              <option value="Não">Não</option>
+              <option value="Sim">Sim (1 internação no mês)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="font-size:12px;font-weight:800;color:var(--muted);margin:8px 0 6px">SITUAÇÃO DO PORTÃO:</div>
         <div class="outcome-btn-grid">
           <div class="outcome-btn active realizada" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
           <div class="outcome-btn ausente" onclick="chooseOutcome('Ausente', this)">◷ Casa Fechada</div>
@@ -289,7 +294,7 @@ input,select,textarea,button{font:inherit}
         <input type="hidden" id="vOutcome" value="Realizada">
 
         <div id="quickCloseBox" style="display:none;margin-top:10px">
-          <button class="btn btn-primary" onclick="saveQuickHouseVisit()">💾 Salvar Situação do Imóvel</button>
+          <button class="btn btn-primary" onclick="saveQuickHouseVisit()">💾 Salvar Situação do Domicílio</button>
         </div>
       </div>
 
@@ -306,7 +311,7 @@ input,select,textarea,button{font:inherit}
         <div class="card" style="margin-top:10px">
           <div class="field">
             <label>Observação Geral da Visita</label>
-            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; orientações realizadas..."></textarea>
+            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; vigência do Bolsa Família conferida..."></textarea>
           </div>
           <button class="btn btn-primary" onclick="saveFullHouseVisit()" style="padding:14px;font-size:16px">
             💾 Concluir Visita da Família
@@ -320,11 +325,6 @@ input,select,textarea,button{font:inherit}
       <div class="card-header">
         <h2>Agenda de Prazos</h2>
         <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
-      </div>
-
-      <div class="card" style="padding:10px">
-        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">CRUZAR CONDIÇÕES DE SAÚDE:</div>
-        <div class="tags-cloud" id="agendaTagCloud"></div>
       </div>
 
       <div class="calendar-widget">
@@ -345,53 +345,166 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 3: FECHAMENTO & INDICADORES ================= -->
+    <!-- ================= ABA 3: FECHAMENTO OFICIAL DE PRODUTIVIDADE (FOTO 1) ================= -->
     <section class="view" id="view-fechamento">
       <div class="card-header">
-        <h2>Fechamento da Microárea</h2>
-        <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir</button>
+        <h2>Fechamento Mensal ACS</h2>
+        <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir Folha Oficial</button>
       </div>
 
-      <div class="card">
-        <div class="field">
-          <label>Período de Análise</label>
-          <select id="repPeriod" onchange="runReport()">
-            <option value="thisMonth">Mês Atual</option>
-            <option value="lastMonth">Mês Passado</option>
-            <option value="quadrimestre">Quadrimestre Atual (e-SUS)</option>
-            <option value="ano">Ano Inteiro</option>
-          </select>
+      <div class="card no-print">
+        <div class="grid-2">
+          <div class="field">
+            <label>Selecione o Mês</label>
+            <select id="prodMonth" onchange="generateProductivitySheet()">
+              <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
+              <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
+              <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
+              <option value="10">Outubro</option><option value="11" selected>Novembro</option><option value="12">Dezembro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Ano</label>
+            <input type="number" id="prodYear" value="2026" onchange="generateProductivitySheet()">
+          </div>
         </div>
-        <div style="font-size:11px;font-weight:800;color:var(--muted);margin-bottom:4px">COMBINAR GRUPOS (EX: IDOSO + HIPERTENSO):</div>
-        <div class="tags-cloud" id="reportTagCloud"></div>
       </div>
 
-      <div class="card" id="reportSummaryBox"></div>
+      <!-- RÉPLICA EXATA DA FOLHA DE PRODUTIVIDADE DA FOTO 1 -->
+      <div class="prod-table-wrap" id="printableProductivitySheet">
+        <table class="prod-table">
+          <thead>
+            <tr>
+              <th colspan="3" class="prod-header-main" id="thMainTitle">FECHAMENTO DE PRODUTIVIDADE DO ACS UBS PARIS - ESF 69</th>
+            </tr>
+            <tr>
+              <th colspan="3" class="prod-header-sub">PRODUÇÃO MENSAL AGENTE COMUNITÁRIO DE SAÚDE</th>
+            </tr>
+            <tr>
+              <td colspan="2" class="prod-meta-label">ACS: <span id="lblAcsName" style="font-weight:normal">ACS DAYANE</span></td>
+              <td class="prod-meta-label">MICRO-ÁREA: <span id="lblMicroArea" style="font-weight:normal">3</span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="prod-meta-label">MÊS: <span id="lblMonth" style="font-weight:normal">NOVEMBRO</span></td>
+              <td class="prod-meta-label">ANO: <span id="lblYear" style="font-weight:normal">2026</span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="prod-meta-label">TOTAL DE FAMÍLIAS: <span id="lblTotFamilias" style="font-weight:normal">0</span></td>
+              <td class="prod-meta-label">TOTAL DE USUÁRIO: <span id="lblTotUsuarios" style="font-weight:normal">0</span></td>
+            </tr>
+            <tr>
+              <td colspan="2">Internações / mês:</td>
+              <td class="prod-num" id="lblInternacoes">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Ausentes (nº de domicílios):</td>
+              <td class="prod-num" id="lblAusentes">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Domicílios que recusaram cadastro:</td>
+              <td class="prod-num" id="lblRecusas">0</td>
+            </tr>
+            <tr class="prod-col-header">
+              <th style="width:40%">GRUPOS</th>
+              <th style="width:30%">TOTAL CADASTRO</th>
+              <th style="width:30%">VISITAS / MÊS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Domicílio / Vulnerabilidade -->
+            <tr class="prod-section-row">
+              <td rowspan="3"><strong>Domicílio / Escala de Vulnerabilidade Familiar</strong></td>
+              <td>Baixa</td>
+              <td class="prod-num" id="cad_vuln_baixa">0</td>
+            </tr>
+            <tr class="prod-section-row">
+              <td>Moderada</td>
+              <td class="prod-num" id="cad_vuln_mod">0</td>
+            </tr>
+            <tr class="prod-section-row">
+              <td>Grave</td>
+              <td class="prod-num" id="cad_vuln_grave">0</td>
+            </tr>
 
-      <div class="card">
-        <div class="card-header">
-          <h3 id="reportListTitle">Lista Nominal</h3>
-        </div>
-        <div id="reportNamesList"></div>
+            <!-- Pessoas -->
+            <tr style="background:#e5e7eb;font-weight:bold"><td colspan="3">Pessoas</td></tr>
+
+            <!-- Gestantes -->
+            <tr><td rowspan="3">Gestantes</td><td>Risco Habitual</td><td class="prod-num" id="cad_gest_hab">0</td></tr>
+            <tr><td>Risco Intermediário</td><td class="prod-num" id="cad_gest_inter">0</td></tr>
+            <tr><td>Alto Risco</td><td class="prod-num" id="cad_gest_alto">0</td></tr>
+
+            <!-- Demais Linhas -->
+            <tr><td colspan="2">Recém-nascido / mês</td><td class="prod-num" id="cad_rn">0</td></tr>
+            <tr><td colspan="2">Crianças (0 a 12 anos)</td><td class="prod-num" id="cad_criancas">0</td></tr>
+            <tr><td colspan="2">Adolescentes (13 a 18 anos)</td><td class="prod-num" id="cad_teens">0</td></tr>
+            <tr><td colspan="2">Acamados</td><td class="prod-num" id="cad_acamados">0</td></tr>
+            <tr><td colspan="2">Domiciliados</td><td class="prod-num" id="cad_domiciliados">0</td></tr>
+            <tr><td colspan="2">Usuários com câncer em tratamento</td><td class="prod-num" id="cad_cancer">0</td></tr>
+            <tr><td colspan="2">Famílias do Bolsa Família</td><td class="prod-num" id="cad_bf">0</td></tr>
+            <tr><td colspan="2">Pessoas com deficiência</td><td class="prod-num" id="cad_pcd">0</td></tr>
+            <tr><td colspan="2">Hipertensos</td><td class="prod-num" id="cad_has">0</td></tr>
+            <tr><td colspan="2">Diabéticos</td><td class="prod-num" id="cad_dm">0</td></tr>
+            <tr><td colspan="2"><strong>Hipertensos e Diabéticos</strong></td><td class="prod-num" id="cad_has_dm">0</td></tr>
+            <tr><td colspan="2">Mulheres de 25 a 64 anos - exame papanicolau</td><td class="prod-num" id="cad_mulheres_prev">0</td></tr>
+            <tr><td colspan="2">Homens a partir de 40 anos - coleta PSA</td><td class="prod-num" id="cad_homens_psa">0</td></tr>
+
+            <!-- Transtorno Mental -->
+            <tr><td rowspan="3">Transtorno Mental</td><td>Baixo risco</td><td class="prod-num" id="cad_mental_baixo">0</td></tr>
+            <tr><td>Médio risco</td><td class="prod-num" id="cad_mental_medio">0</td></tr>
+            <tr><td>Alto risco</td><td class="prod-num" id="cad_mental_alto">0</td></tr>
+
+            <!-- Idoso 318 -->
+            <tr><td rowspan="3">Idoso 318</td><td>Robusto</td><td class="prod-num" id="cad_idoso_robusto">0</td></tr>
+            <tr><td>Risco de fragilização</td><td class="prod-num" id="cad_idoso_risco">0</td></tr>
+            <tr><td>Frágil</td><td class="prod-num" id="cad_idoso_fragil">0</td></tr>
+
+            <tr><td colspan="2">Acompanhamento tuberculose</td><td class="prod-num" id="cad_tb">0</td></tr>
+            <tr><td colspan="2">Acompanhamento hanseníase</td><td class="prod-num" id="cad_hanseniase">0</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
-    <!-- ================= ABA 4: PLANILHAS & IMPORTADOR UNIVERSAL ================= -->
+    <!-- ================= ABA 4: PLANILHAS & IMPORTADOR EXCEL (.XLSX) ================= -->
     <section class="view" id="view-planilhas">
       <div class="card-header">
-        <h2>Planilhas & Dados</h2>
+        <h2>Planilhas & Importação</h2>
       </div>
 
-      <!-- Importador Universal -->
+      <!-- Importador com Suporte Nativo a Excel (.xlsx) -->
       <div class="card" style="border-left:5px solid var(--p)">
-        <h3 style="margin:0 0 6px">📥 Importar Planilha de Pacientes (CSV)</h3>
+        <h3 style="margin:0 0 4px">📥 Importar Planilha de Pacientes (Excel ou CSV)</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
-          Você pode subir a planilha que já utiliza em sua microárea. Conecte as colunas e os dados serão inseridos diretamente sem redigitação:
+          Você pode subir o arquivo <strong>.xlsx do Excel</strong> direto do seu computador ou Google Drive:
         </p>
-        <input type="file" id="importInput" accept=".csv,text/csv,text/plain" onchange="handleUniversalFile(event)">
 
-        <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px;margin-top:10px">
-          <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONECTE AS COLUNAS DA SUA PLANILHA:</div>
+        <div class="upload-dropzone" onclick="document.getElementById('importFile').click()">
+          <div style="font-size:32px;margin-bottom:6px">📊</div>
+          <strong>Toque aqui para escolher a planilha do Excel (.xlsx ou .csv)</strong>
+          <small style="display:block;color:var(--muted);margin-top:4px">O aplicativo aceita a planilha com as ruas e vigências do Bolsa Família.</small>
+          <input type="file" id="importFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelUpload(event)">
+        </div>
+
+        <!-- Guia Amigável de Como Salvar a Planilha -->
+        <div class="help-guide-card">
+          <strong>💡 Como pegar a planilha no Google Sheets (Foto 2):</strong><br>
+          1. Abra a planilha da sua microárea no Google Drive;<br>
+          2. Clique em <strong>Arquivo</strong> ➔ <strong>Fazer Download</strong> ➔ <strong>Planilha do Microsoft Excel (.xlsx)</strong>;<br>
+          3. Depois basta tocar na caixa verde acima e selecionar o arquivo baixado!
+        </div>
+
+        <!-- Seletor de Aba de Rua (Se for Excel com várias abas) -->
+        <div id="sheetTabSelectorBox" style="display:none;margin-top:12px;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px">
+          <label style="font-size:12px;font-weight:800;color:var(--p)">Detectamos as seguintes ruas nas abas da sua planilha:</label>
+          <div class="field" style="margin-top:6px">
+            <select id="selExcelSheet" onchange="loadExcelSheetRows()"></select>
+          </div>
+        </div>
+
+        <!-- Mapeamento de Colunas Inteligente -->
+        <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px;margin-top:12px">
+          <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONFIRME AS COLUNAS DA SUA PLANILHA:</div>
           <div class="grid-2">
             <div class="field"><label>Coluna da RUA *</label><select id="mapStreet"></select></div>
             <div class="field"><label>Coluna do NÚMERO *</label><select id="mapNumber"></select></div>
@@ -404,21 +517,24 @@ input,select,textarea,button{font:inherit}
             <div class="field"><label>Coluna do CPF</label><select id="mapCpf"></select></div>
             <div class="field"><label>Coluna DATA NASCIMENTO</label><select id="mapBirth"></select></div>
           </div>
-          <div class="field"><label>Coluna de COMORBIDADES / CONDIÇÕES</label><select id="mapTags"></select></div>
-          <button class="btn btn-primary" onclick="executeUniversalImport()">🚀 Carregar Dados na Microárea</button>
+          <div class="grid-2">
+            <div class="field"><label>Coluna PESO</label><select id="mapPeso"></select></div>
+            <div class="field"><label>Coluna ESTATURA (ALTURA)</label><select id="mapAltura"></select></div>
+          </div>
+          <div class="field"><label>Coluna de COMORBIDADES / OUTRAS CONDIÇÕES</label><select id="mapTags"></select></div>
+          <button class="btn btn-primary" onclick="executeExcelImport()">🚀 Carregar Famílias no Aplicativo</button>
         </div>
       </div>
 
       <!-- Exportador CSV -->
       <div class="card">
-        <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel</h3>
-        <p style="font-size:12px;color:var(--muted);margin-top:0">Exporte os dados das visitas realizadas para arquivo compatível com Excel.</p>
+        <h3 style="margin:0 0 6px">⇩ Baixar Relatório em Excel</h3>
         <button class="btn btn-soft" onclick="exportCSV()">Baixar Planilha de Visitas (.CSV)</button>
       </div>
 
       <!-- Backup Completo -->
       <div class="card">
-        <div class="card-header"><h3>Cópia de Segurança Local</h3></div>
+        <div class="card-header"><h3>Cópia de Segurança dos Dados</h3></div>
         <div class="grid-2">
           <button class="btn btn-sm btn-soft" onclick="downloadBackup()">Salvar Cópia (JSON)</button>
           <button class="btn btn-sm btn-danger" onclick="resetToDemo()">Restaurar Demonstração</button>
@@ -458,12 +574,12 @@ input,select,textarea,button{font:inherit}
 
       <div class="field">
         <label>Nome Completo *</label>
-        <input type="text" id="mName" required placeholder="Ex.: Maria Francisca">
+        <input type="text" id="mName" required placeholder="Ex.: Tainara Iara M P S">
       </div>
       <div class="grid-2">
         <div class="field">
-          <label>Nº do Gestor (Prontuário)</label>
-          <input type="text" id="mGestor" placeholder="Ex.: 32055">
+          <label>Nº do Gestor</label>
+          <input type="text" id="mGestor" placeholder="Ex.: 10983">
         </div>
         <div class="field">
           <label>CPF</label>
@@ -473,44 +589,64 @@ input,select,textarea,button{font:inherit}
       <div class="grid-2">
         <div class="field">
           <label>Data de Nascimento</label>
-          <input type="date" id="mBirth" onchange="autoCalculateAgeTags()">
+          <input type="date" id="mBirth">
         </div>
         <div class="field">
-          <label>Pontuação EVFAM (Idoso)</label>
-          <input type="number" id="mEvfam" placeholder="Pontos">
+          <label>Sexo</label>
+          <select id="mSex"><option value="F">Feminino</option><option value="M">Masculino</option></select>
         </div>
       </div>
       <div class="grid-2">
+        <div class="field"><label>Peso (kg)</label><input type="text" id="mPeso" placeholder="Ex.: 45,3"></div>
+        <div class="field"><label>Estatura / Altura (cm)</label><input type="text" id="mAltura" placeholder="Ex.: 159"></div>
+      </div>
+
+      <!-- Estratificações Oficiais da Folha (Foto 1) -->
+      <div class="grid-2">
         <div class="field">
-          <label>Peso (kg)</label>
-          <input type="text" id="mPeso" placeholder="Ex.: 65,5">
+          <label>Gestante - Risco:</label>
+          <select id="mGestRisco">
+            <option value="">Não é Gestante</option>
+            <option value="Habitual">Risco Habitual</option>
+            <option value="Intermediário">Risco Intermediário</option>
+            <option value="Alto Risco">Alto Risco</option>
+          </select>
         </div>
         <div class="field">
-          <label>Estatura / Altura (cm)</label>
-          <input type="text" id="mAltura" placeholder="Ex.: 160">
+          <label>Idoso 318 (EVFAM):</label>
+          <select id="mIdosoEvfam">
+            <option value="">Não avaliado / Não idoso</option>
+            <option value="Robusto">Robusto</option>
+            <option value="Risco de fragilização">Risco de fragilização</option>
+            <option value="Frágil">Frágil</option>
+          </select>
         </div>
       </div>
 
       <div class="field">
-        <label>Comorbidades e Condições (Selecione todas que se aplicam):</label>
+        <label>Transtorno Mental:</label>
+        <select id="mMentalRisco">
+          <option value="">Nenhum transtorno diagnosticado</option>
+          <option value="Baixo risco">Baixo risco</option>
+          <option value="Médio risco">Médio risco</option>
+          <option value="Alto risco">Alto risco</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Condições Crônicas & Vulnerabilidades:</label>
         <div class="tags-cloud" id="modalTagCloud">
           <span class="tag" data-tag="Hipertenso" onclick="toggleMTag(this)">🩺 Hipertenso</span>
           <span class="tag" data-tag="Diabético" onclick="toggleMTag(this)">🩸 Diabético</span>
-          <span class="tag" data-tag="Insulinodependente" onclick="toggleMTag(this)">💉 Insulinodependente</span>
+          <span class="tag" data-tag="Acamado" onclick="toggleMTag(this)">🛏️ Acamado</span>
+          <span class="tag" data-tag="Domiciliado" onclick="toggleMTag(this)">🏠 Domiciliado</span>
+          <span class="tag" data-tag="Câncer em tratamento" onclick="toggleMTag(this)">🎗️ Câncer em tratamento</span>
+          <span class="tag" data-tag="Bolsa Família" onclick="toggleMTag(this)">🤝 Bolsa Família</span>
+          <span class="tag" data-tag="Pessoa com deficiência" onclick="toggleMTag(this)">♿ Pessoa com deficiência</span>
+          <span class="tag" data-tag="Tuberculose" onclick="toggleMTag(this)">🫁 Tuberculose</span>
+          <span class="tag" data-tag="Hanseníase" onclick="toggleMTag(this)">🩹 Hanseníase</span>
           <span class="tag" data-tag="Tabagista (Fuma)" onclick="toggleMTag(this)">🚬 Tabagista</span>
-          <span class="tag" data-tag="Câncer" onclick="toggleMTag(this)">🎗️ Câncer</span>
-          <span class="tag" data-tag="Transtorno Mental" onclick="toggleMTag(this)">🧠 Transtorno Mental / TAG</span>
-          <span class="tag" data-tag="Acamado / Domiciliado" onclick="toggleMTag(this)">🛏️ Acamado / Domiciliado</span>
-          <span class="tag" data-tag="Gestante" onclick="toggleMTag(this)">🤰 Gestante</span>
-          <span class="tag" data-tag="Bolsa Família" onclick="toggleMTag(this)">🤝 Bolsa Família / Vulnerável</span>
-          <span class="tag" data-tag="Não usa UBS / Área Zero" onclick="toggleMTag(this)">🚫 Não usa UBS</span>
         </div>
-      </div>
-
-      <div style="margin-bottom:12px">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSccYTiyqoDC_IOgMbvH2182SNSiZAtD-9elcm6JJjyXPQKuNQ/viewform" target="_blank" class="btn btn-sm btn-soft" style="text-decoration:none">
-          📋 Abrir Formulário EVFAM da Secretaria
-        </a>
       </div>
 
       <button class="btn btn-primary" type="submit">Salvar Dados do Morador</button>
@@ -518,34 +654,11 @@ input,select,textarea,button{font:inherit}
   </div>
 </div>
 
-<!-- Modal Novidades / Ouvimos Vocês -->
-<div class="modal" id="modalNovidades">
-  <div class="modal-content">
-    <div class="card-header">
-      <h3>✨ Novidades Desta Versão</h3>
-      <button class="btn btn-sm btn-soft" onclick="closeModal('modalNovidades')">✕</button>
-    </div>
-    <div class="changelog-box">
-      <strong style="color:#1d4ed8;display:block;margin-bottom:6px">Ouvimos o retorno da equipe da UBS Paris!</strong>
-      <ul style="margin:0;padding-left:18px;font-size:13px;color:#1e3a8a;line-height:1.5">
-        <li><strong>Divisão em Área 69 e Área 70:</strong> Acessos separados com 5 microáreas e login geral da diretoria.</li>
-        <li><strong>Campos Gestor e CPF:</strong> Prontuário municipal e CPF agora estão integrados no cadastro.</li>
-        <li><strong>Casas com Letras:</strong> Suporte a números como <code>97 A</code>, <code>125 A</code>, <code>209 B</code> e <code>707 F</code>.</li>
-        <li><strong>Faixas Etárias Oficiais:</strong> Crianças (0-1a), Adolescentes (13-17a), Mulheres Preventivo (24-64a), Homens PSA (40+) e Idosos (60+).</li>
-        <li><strong>Novas Comorbidades:</strong> Tabagismo, Acamado/Domiciliado, Insulinodependente, Câncer e Transtornos.</li>
-        <li><strong>EVFAM do Idoso:</strong> Campo para pontuação e atalho para o formulário oficial.</li>
-        <li><strong>Editar e Excluir:</strong> Possibilidade de corrigir ou remover cadastros errados.</li>
-      </ul>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin:0">Protótipo demonstrativo para avaliação da equipe da UBS Paris.</p>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 // BASE DE DADOS MULTI-ÁREA
-const DB_KEY = 'ubsParis_Universal_v8';
+const DB_KEY = 'ubsParis_FullExcel_v9';
 
 const defaultDB = {
   areas: [
@@ -560,45 +673,46 @@ const defaultDB = {
       id: 'st_demo1', areaId: 'a69_m3', name: 'Rua Luiz Fitz',
       houses: [
         {
-          id: 'h_demo1', number: '125 A',
+          id: 'h_demo1', number: '125 A', vuln: 'Moderada',
           residents: [
             {
               id: 'r_demo1', name: 'João Paulo Afonso', gestor: '330398', cpf: '057.972.579-04',
-              birthDate: '1986-08-08', peso: '75', altura: '157', evfam: '',
-              tags: ['Homem PSA (40+)'],
-              visit1Date: '2026-08-01', visit2Prevista: '2026-12-01', visit2Realizada: '', situacao: 'AGUARDANDO 2ª VISITA'
+              birthDate: '1986-08-08', sex: 'M', peso: '75', altura: '157',
+              tags: ['Bolsa Família'], gestRisco: '', idosoEvfam: '', mentalRisco: ''
             },
             {
               id: 'r_demo2', name: 'Laisa Pociano de Oliveira', gestor: '874816', cpf: '092.186.369-10',
-              birthDate: '1996-02-03', peso: '', altura: '', evfam: '',
-              tags: ['Mulher Preventivo (24-64)'],
-              visit1Date: '2026-05-10', visit2Prevista: '2026-09-10', visit2Realizada: '', situacao: 'ATRASADA'
+              birthDate: '1996-02-03', sex: 'F', peso: '', altura: '',
+              tags: ['Bolsa Família'], gestRisco: 'Habitual', idosoEvfam: '', mentalRisco: ''
             }
           ]
         },
         {
-          id: 'h_demo2', number: '173',
+          id: 'h_demo2', number: '173', vuln: 'Grave',
           residents: [
             {
               id: 'r_demo3', name: 'Lúcia Cardoso Silva', gestor: '123489', cpf: '679.716.799-04',
-              birthDate: '1955-03-14', peso: '', altura: '', evfam: '12',
-              tags: ['Idoso (60+)', 'Hipertenso', 'Diabético'],
-              visit1Date: '', visit2Prevista: '', visit2Realizada: '', situacao: ''
+              birthDate: '1955-03-14', sex: 'F', peso: '', altura: '',
+              tags: ['Hipertenso', 'Diabético'], gestRisco: '', idosoEvfam: 'Frágil', mentalRisco: ''
             }
           ]
         }
       ]
     }
   ],
-  visits: []
+  visits: [
+    {
+      id: 'v_init1', date: '2026-11-10', streetId: 'st_demo1', houseId: 'h_demo1', areaId: 'a69_m3',
+      outcome: 'Realizada', attendees: [{ residentId: 'r_demo2' }], notes: 'Pré-natal em dia.'
+    }
+  ]
 };
 
 let db = loadDB();
 let currentUser = { areaId: null, name: '' };
 let pinEntered = '', targetAreaId = '', targetAreaName = '';
 let selectedCalDate = new Date();
-let activeAgendaTags = [], activeReportTags = [];
-let importedRawData = null;
+let excelWorkbook = null;
 
 function loadDB(){
   try{
@@ -611,8 +725,6 @@ function loadDB(){
 function persist(){
   try{
     localStorage.setItem(DB_KEY, JSON.stringify(db));
-    checkPendingVisits();
-    updateCycleKPIs();
     return true;
   }catch(e){
     toast('Erro de armazenamento local.');
@@ -700,8 +812,7 @@ function setupMainInterface(){
 
   updateStreetsList();
   renderAgenda();
-  updateCycleKPIs();
-  checkPendingVisits();
+  generateProductivitySheet();
 }
 
 function getActiveStreets(){
@@ -716,27 +827,7 @@ function getActiveStreets(){
 function switchManagerArea(){
   updateStreetsList();
   renderAgenda();
-  updateCycleKPIs();
-}
-
-// ================= CONTROLE DE CICLO DE VISITAS (MÉTRICAS DO CABEÇALHO) =================
-function updateCycleKPIs(){
-  const streets = getActiveStreets();
-  let aguardando = 0, atrasadas = 0, concluidas = 0;
-
-  streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        if(r.situacao === 'CONCLUÍDA') concluidas++;
-        else if(r.situacao === 'ATRASADA') atrasadas++;
-        else if(r.situacao === 'AGUARDANDO 2ª VISITA') aguardando++;
-      });
-    });
-  });
-
-  document.getElementById('kpiAguardando').textContent = aguardando;
-  document.getElementById('kpiAtrasadas').textContent = atrasadas;
-  document.getElementById('kpiConcluidas').textContent = concluidas;
+  generateProductivitySheet();
 }
 
 // ================= 1. VISITA POR CASA =================
@@ -775,6 +866,7 @@ function loadHouseData(){
   if(!house){ hideHouseSections(); return; }
 
   document.getElementById('houseTitle').textContent = `${street.name}, Nº ${house.number}`;
+  document.getElementById('vHouseVuln').value = house.vuln || 'Baixa';
   document.getElementById('houseBox').style.display = 'block';
 
   chooseOutcome('Realizada', document.querySelector('.outcome-btn.realizada'));
@@ -783,6 +875,16 @@ function loadHouseData(){
 function hideHouseSections(){
   document.getElementById('houseBox').style.display = 'none';
   document.getElementById('familyCard').style.display = 'none';
+}
+
+function updateHouseVuln(){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
+  const house = db.streets.find(s => s.id === streetId)?.houses.find(h => h.id === houseId);
+  if(house){
+    house.vuln = document.getElementById('vHouseVuln').value;
+    persist();
+  }
 }
 
 function chooseOutcome(outcome, btn){
@@ -835,7 +937,8 @@ function renderHouseResidents(){
         ${r.cpf ? `CPF: ${r.cpf} · ` : ''}
         ${r.peso ? `Peso: ${r.peso}kg · ` : ''}
         ${r.altura ? `Alt: ${r.altura}cm · ` : ''}
-        ${r.evfam ? `EVFAM: <strong>${r.evfam} pts</strong>` : ''}
+        ${r.gestRisco ? `Gestante: ${r.gestRisco} · ` : ''}
+        ${r.idosoEvfam ? `EVFAM: ${r.idosoEvfam}` : ''}
       </div>
 
       <div class="tags-cloud">
@@ -858,33 +961,27 @@ function buildChecklistHTML(r){
   let html = '';
   if(r.tags.includes('Hipertenso')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Aferição de Hipertensão:</div>
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Hipertensão (HAS):</div>
       <div class="grid-2">
         <div class="field"><label>PA Aferida</label><input type="text" id="pa_${r.id}" placeholder="120x80"></div>
-        <div class="field"><label>Consulta 6m?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Consulta no semestre?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
-  if(r.tags.includes('Diabético') || r.tags.includes('Insulinodependente')){
+  if(r.tags.includes('Diabético')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Aferição de Diabetes:</div>
+      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Diabetes (DM):</div>
       <div class="grid-2">
         <div class="field"><label>Glicemia (mg/dL)</label><input type="number" id="gli_${r.id}" placeholder="110"></div>
-        <div class="field"><label>Avaliação de Pés?</label><select id="pesDM_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Pés avaliados?</label><select id="pesDM_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
-  if(r.tags.includes('Gestante')){
+  if(r.gestRisco){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Pré-Natal:</div>
-      <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa tomada</label>
-      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos feitos</label>
-    `;
-  }
-  if(r.tags.includes('Criança (0 a 1 ano)')){
-    html += `
-      <div style="font-size:12px;font-weight:800;color:#9a3412;margin-bottom:4px">👶 Criança:</div>
-      <label class="check-item"><input type="checkbox" id="cVac_${r.id}"> Vacinas em dia (Pólio/Penta)</label>
+      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Acompanhamento Gestante (${r.gestRisco}):</div>
+      <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa em dia</label>
+      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos realizados</label>
     `;
   }
   if(!html){
@@ -900,14 +997,11 @@ function saveFullHouseVisit(){
   const notes = document.getElementById('vHouseNotes').value.trim();
 
   const checked = Array.from(document.querySelectorAll('.chk-resident-presence:checked'));
-  const attendees = checked.map(c => {
-    const id = c.dataset.id;
-    return {
-      residentId: id,
-      pa: document.getElementById(`pa_${id}`)?.value || '',
-      glicemia: document.getElementById(`gli_${id}`)?.value || ''
-    };
-  });
+  const attendees = checked.map(c => ({
+    residentId: c.dataset.id,
+    pa: document.getElementById(`pa_${c.dataset.id}`)?.value || '',
+    glicemia: document.getElementById(`gli_${c.dataset.id}`)?.value || ''
+  }));
 
   db.visits.push({
     id: 'v_' + Date.now(),
@@ -917,13 +1011,15 @@ function saveFullHouseVisit(){
     date,
     outcome: 'Realizada',
     attendees,
+    internacao: document.getElementById('vHouseInternacao').value === 'Sim',
     notes,
     synced: false
   });
 
   persist();
-  toast('✓ Visita da casa salva!');
-  navTo('agenda');
+  toast('✓ Visita salva com sucesso!');
+  generateProductivitySheet();
+  navTo('fechamento');
 }
 
 function saveQuickHouseVisit(){
@@ -940,16 +1036,18 @@ function saveQuickHouseVisit(){
     date,
     outcome,
     attendees: [],
-    notes: outcome === 'Ausente' ? 'Casa fechada / ausente' : 'Recusa de visita',
+    internacao: false,
+    notes: outcome === 'Ausente' ? 'Casa fechada / ausente' : 'Recusa de atendimento',
     synced: false
   });
 
   persist();
   toast(`✓ Registro salvo: ${outcome}`);
-  navTo('agenda');
+  generateProductivitySheet();
+  navTo('fechamento');
 }
 
-// ================= CRUD: ADICIONAR / EDITAR / EXCLUIR MORADOR =================
+// ================= 2. CRUD MORADOR =================
 function openAddResidentModal(){
   document.getElementById('formRes').reset();
   document.getElementById('editResidentId').value = '';
@@ -969,9 +1067,12 @@ function editResident(resId){
   document.getElementById('mGestor').value = res.gestor || '';
   document.getElementById('mCpf').value = res.cpf || '';
   document.getElementById('mBirth').value = res.birthDate || '';
+  document.getElementById('mSex').value = res.sex || 'F';
   document.getElementById('mPeso').value = res.peso || '';
   document.getElementById('mAltura').value = res.altura || '';
-  document.getElementById('mEvfam').value = res.evfam || '';
+  document.getElementById('mGestRisco').value = res.gestRisco || '';
+  document.getElementById('mIdosoEvfam').value = res.idosoEvfam || '';
+  document.getElementById('mMentalRisco').value = res.mentalRisco || '';
 
   document.querySelectorAll('#modalTagCloud .tag').forEach(t => {
     t.classList.toggle('active', (res.tags || []).includes(t.dataset.tag));
@@ -981,7 +1082,7 @@ function editResident(resId){
 }
 
 function deleteResident(resId){
-  if(!confirm('Deseja realmente excluir o cadastro deste morador?')) return;
+  if(!confirm('Deseja excluir este morador do cadastro?')) return;
   for(let s of db.streets){
     for(let h of s.houses){
       const idx = (h.residents || []).findIndex(r => r.id === resId);
@@ -989,30 +1090,12 @@ function deleteResident(resId){
         h.residents.splice(idx, 1);
         persist();
         renderHouseResidents();
-        toast('Cadastro excluído.');
+        generateProductivitySheet();
+        toast('Morador removido.');
         return;
       }
     }
   }
-}
-
-function autoCalculateAgeTags(){
-  const b = document.getElementById('mBirth').value;
-  if(!b) return;
-  const age = Math.floor((new Date() - new Date(b)) / (1000*60*60*24*365.25));
-
-  // Auto-seleciona faixas de idade
-  const tags = [];
-  if(age <= 1) tags.push('Criança (0 a 1 ano)');
-  if(age >= 13 && age <= 17) tags.push('Adolescente (13 a 17 anos)');
-  if(age >= 24 && age <= 64) tags.push('Mulher Preventivo (24-64)');
-  if(age >= 40) tags.push('Homem PSA (40+)');
-  if(age >= 60) tags.push('Idoso (60+)');
-
-  tags.forEach(tg => {
-    const el = document.querySelector(`#modalTagCloud .tag[data-tag="${tg}"]`);
-    if(el) el.classList.add('active');
-  });
 }
 
 function toggleMTag(el){ el.classList.toggle('active'); }
@@ -1022,79 +1105,372 @@ function saveResidentModal(e){
   const editId = document.getElementById('editResidentId').value;
   const streetId = document.getElementById('vStreet').value;
   const houseId = document.getElementById('vHouse').value;
-  const street = db.streets.find(s => s.id === streetId);
-  const house = street?.houses.find(h => h.id === houseId);
+  const house = db.streets.find(s => s.id === streetId)?.houses.find(h => h.id === houseId);
   if(!house) return;
 
   const selectedTags = Array.from(document.querySelectorAll('#modalTagCloud .tag.active')).map(t => t.dataset.tag);
-  const birth = document.getElementById('mBirth').value;
-
-  // Adiciona faixas de idade às tags
-  if(birth){
-    const age = Math.floor((new Date() - new Date(birth)) / (1000*60*60*24*365.25));
-    if(age <= 1 && !selectedTags.includes('Criança (0 a 1 ano)')) selectedTags.push('Criança (0 a 1 ano)');
-    if(age >= 13 && age <= 17 && !selectedTags.includes('Adolescente (13 a 17 anos)')) selectedTags.push('Adolescente (13 a 17 anos)');
-    if(age >= 24 && age <= 64 && !selectedTags.includes('Mulher Preventivo (24-64)')) selectedTags.push('Mulher Preventivo (24-64)');
-    if(age >= 40 && !selectedTags.includes('Homem PSA (40+)')) selectedTags.push('Homem PSA (40+)');
-    if(age >= 60 && !selectedTags.includes('Idoso (60+)')) selectedTags.push('Idoso (60+)');
-  }
-
   const payload = {
     name: document.getElementById('mName').value.trim(),
     gestor: document.getElementById('mGestor').value.trim(),
     cpf: document.getElementById('mCpf').value.trim(),
-    birthDate: birth,
+    birthDate: document.getElementById('mBirth').value,
+    sex: document.getElementById('mSex').value,
     peso: document.getElementById('mPeso').value.trim(),
     altura: document.getElementById('mAltura').value.trim(),
-    evfam: document.getElementById('mEvfam').value.trim(),
+    gestRisco: document.getElementById('mGestRisco').value,
+    idosoEvfam: document.getElementById('mIdosoEvfam').value,
+    mentalRisco: document.getElementById('mMentalRisco').value,
     tags: selectedTags
   };
 
   if(editId){
     const res = findResident(editId);
     if(res) Object.assign(res, payload);
-    toast('Cadastro atualizado com sucesso!');
+    toast('Cadastro atualizado!');
   } else {
     house.residents.push({
       id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
-      ...payload,
-      visit1Date: '',
-      visit2Prevista: '',
-      visit2Realizada: '',
-      situacao: ''
+      ...payload
     });
-    toast('Morador cadastrado na casa!');
+    toast('Morador cadastrado!');
   }
 
   persist();
   closeModal('modalResident');
   renderHouseResidents();
+  generateProductivitySheet();
 }
 
-// ================= 2. AGENDA & CALENDÁRIO =================
+// ================= 3. FECHAMENTO OFICIAL DE PRODUTIVIDADE (FOTO 1) =================
+function generateProductivitySheet(){
+  const streets = getActiveStreets();
+  const m = parseInt(document.getElementById('prodMonth').value, 10);
+  const y = parseInt(document.getElementById('prodYear').value, 10);
+
+  // Metadados
+  const monthNames = ['JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
+  document.getElementById('lblMonth').textContent = monthNames[m - 1];
+  document.getElementById('lblYear').textContent = y;
+
+  const isArea69 = currentUser.areaId?.includes('a69');
+  document.getElementById('thMainTitle').textContent = `FECHAMENTO DE PRODUTIVIDADE DO ACS UBS PARIS - ${isArea69 ? 'ESF 69' : 'ESF 70'}`;
+  document.getElementById('lblAcsName').textContent = currentUser.name.toUpperCase();
+  document.getElementById('lblMicroArea').textContent = currentUser.areaId ? currentUser.areaId.slice(-1) : 'Geral';
+
+  // Visitas ocorridas no mês selecionado
+  const monthVisits = db.visits.filter(v => {
+    if(!v.date) return false;
+    const [vy, vm] = v.date.split('-').map(Number);
+    return vy === y && vm === m;
+  });
+
+  const visitedResidentIds = new Set();
+  let ausentesCount = 0, recusasCount = 0, internacoesCount = 0;
+
+  monthVisits.forEach(v => {
+    if(v.outcome === 'Ausente') ausentesCount++;
+    if(v.outcome === 'Recusa') recusasCount++;
+    if(v.internacao) internacoesCount++;
+    if(v.outcome === 'Realizada' && v.attendees){
+      v.attendees.forEach(a => visitedResidentIds.add(a.residentId));
+    }
+  });
+
+  document.getElementById('lblAusentes').textContent = ausentesCount;
+  document.getElementById('lblRecusas').textContent = recusasCount;
+  document.getElementById('lblInternacoes').textContent = internacoesCount;
+
+  // Contagem Geral
+  let totFamilias = 0, totUsuarios = 0;
+  let vulnBaixa = 0, vulnMod = 0, vulnGrave = 0;
+
+  // Contadores das Linhas
+  const metrics = {
+    gest_hab: [0,0], gest_inter: [0,0], gest_alto: [0,0],
+    rn: [0,0], criancas: [0,0], teens: [0,0],
+    acamados: [0,0], domiciliados: [0,0], cancer: [0,0], bf: [0,0], pcd: [0,0],
+    has: [0,0], dm: [0,0], has_dm: [0,0],
+    mulheres_prev: [0,0], homens_psa: [0,0],
+    mental_baixo: [0,0], mental_medio: [0,0], mental_alto: [0,0],
+    idoso_robusto: [0,0], idoso_risco: [0,0], idoso_fragil: [0,0],
+    tb: [0,0], hanseniase: [0,0]
+  };
+
+  streets.forEach(s => {
+    s.houses.forEach(h => {
+      totFamilias++;
+      if(h.vuln === 'Grave') vulnGrave++;
+      else if(h.vuln === 'Moderada') vulnMod++;
+      else vulnBaixa++;
+
+      (h.residents || []).forEach(r => {
+        totUsuarios++;
+        const wasVisited = visitedResidentIds.has(r.id);
+        const add = (key) => {
+          metrics[key][0]++; // Total Cadastro
+          if(wasVisited) metrics[key][1]++; // Visitas no Mês
+        };
+
+        // Gestantes
+        if(r.gestRisco === 'Habitual') add('gest_hab');
+        if(r.gestRisco === 'Intermediário') add('gest_inter');
+        if(r.gestRisco === 'Alto Risco') add('gest_alto');
+
+        // Cálculo de Idade
+        let age = -1;
+        if(r.birthDate){
+          const b = new Date(r.birthDate);
+          age = Math.floor((new Date() - b) / (1000*60*60*24*365.25));
+        }
+
+        if(age >= 0 && age < 1) add('rn');
+        if(age >= 0 && age <= 12) add('criancas');
+        if(age >= 13 && age <= 18) add('teens');
+        if(r.sex === 'F' && age >= 25 && age <= 64) add('mulheres_prev');
+        if(r.sex === 'M' && age >= 40) add('homens_psa');
+
+        // Condições
+        const tags = r.tags || [];
+        if(tags.includes('Acamado')) add('acamados');
+        if(tags.includes('Domiciliado')) add('domiciliados');
+        if(tags.includes('Câncer em tratamento')) add('cancer');
+        if(tags.includes('Bolsa Família')) add('bf');
+        if(tags.includes('Pessoa com deficiência')) add('pcd');
+
+        const isHAS = tags.includes('Hipertenso');
+        const isDM = tags.includes('Diabético');
+        if(isHAS) add('has');
+        if(isDM) add('dm');
+        if(isHAS && isDM) add('has_dm');
+
+        // Transtorno Mental
+        if(r.mentalRisco === 'Baixo risco') add('mental_baixo');
+        if(r.mentalRisco === 'Médio risco') add('mental_medio');
+        if(r.mentalRisco === 'Alto risco') add('mental_alto');
+
+        // Idoso 318
+        if(r.idosoEvfam === 'Robusto') add('idoso_robusto');
+        if(r.idosoEvfam === 'Risco de fragilização') add('idoso_risco');
+        if(r.idosoEvfam === 'Frágil') add('idoso_fragil');
+
+        if(tags.includes('Tuberculose')) add('tb');
+        if(tags.includes('Hanseníase')) add('hanseniase');
+      });
+    });
+  });
+
+  document.getElementById('lblTotFamilias').textContent = totFamilias;
+  document.getElementById('lblTotUsuarios').textContent = totUsuarios;
+  document.getElementById('cad_vuln_baixa').textContent = vulnBaixa;
+  document.getElementById('cad_vuln_mod').textContent = vulnMod;
+  document.getElementById('cad_vuln_grave').textContent = vulnGrave;
+
+  // Atualiza as células com "Total Cadastro / Visitas Mês"
+  for(let k in metrics){
+    const el = document.getElementById(`cad_${k}`);
+    if(el){
+      el.textContent = `${metrics[k][0]}  (Visitas: ${metrics[k][1]})`;
+    }
+  }
+}
+
+// ================= 4. IMPORTADOR DE EXCEL (.XLSX) =================
+function handleExcelUpload(e){
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  if(file.name.endsWith('.csv')){
+    // Leitura Direta de CSV
+    reader.onload = (evt) => parseCSVToTable(evt.target.result);
+    reader.readAsText(file, 'UTF-8');
+  } else {
+    // Leitura Oficial de Excel .xlsx / .xls
+    reader.onload = function(evt){
+      try {
+        const data = new Uint8Array(evt.target.result);
+        excelWorkbook = XLSX.read(data, { type: 'array' });
+
+        // Preenche seletor de abas (Ruas da Foto 2!)
+        const sheetSel = document.getElementById('selExcelSheet');
+        sheetSel.innerHTML = excelWorkbook.SheetNames.map(name => `<option value="${name}">Rua / Aba: ${name}</option>`).join('');
+
+        document.getElementById('sheetTabSelectorBox').style.display = 'block';
+        loadExcelSheetRows();
+      } catch(err) {
+        alert('Não foi possível ler este arquivo de Excel. Tente salvar como CSV ou verifique o arquivo.');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+function loadExcelSheetRows(){
+  if(!excelWorkbook) return;
+  const sheetName = document.getElementById('selExcelSheet').value;
+  const worksheet = excelWorkbook.Sheets[sheetName];
+  const jsonRows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+  if(!jsonRows.length){ toast('Aba vazia.'); return; }
+
+  // Encontra a linha de cabeçalho
+  let headerIndex = jsonRows.findIndex(r => r.some(c => String(c).toLowerCase().includes('nome') || String(c).toLowerCase().includes('gestor')));
+  if(headerIndex === -1) headerIndex = 0;
+
+  const headers = jsonRows[headerIndex].map(h => String(h || '').trim());
+  const rows = jsonRows.slice(headerIndex + 1);
+
+  setupMapperSelectors(headers, rows, sheetName);
+}
+
+function parseCSVToTable(text){
+  const lines = text.split(/\r\n|\n/).filter(l => l.trim().length > 0);
+  const sep = lines[0].includes(';') ? ';' : ',';
+  const headers = lines[0].split(sep).map(h => h.replace(/"/g,'').trim());
+  const rows = lines.slice(1).map(l => l.split(sep).map(c => c.replace(/"/g,'').trim()));
+  setupMapperSelectors(headers, rows, 'Rua da Planilha');
+}
+
+function setupMapperSelectors(headers, rows, currentStreetName){
+  importedRawData = { headers, rows, currentStreetName };
+
+  const ids = ['mapStreet', 'mapNumber', 'mapName', 'mapGestor', 'mapCpf', 'mapBirth', 'mapPeso', 'mapAltura', 'mapTags'];
+  ids.forEach(id => {
+    document.getElementById(id).innerHTML = `<option value="">-- Ignorar --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
+  });
+
+  // Auto-detecção inteligente das colunas da Foto 2
+  headers.forEach((h, idx) => {
+    const low = h.toLowerCase();
+    if(low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
+    if(low.includes('nome')) document.getElementById('mapName').value = idx;
+    if(low.includes('gestor')) document.getElementById('mapGestor').value = idx;
+    if(low.includes('cpf')) document.getElementById('mapCpf').value = idx;
+    if(low.includes('nasc') || low.includes('data')) document.getElementById('mapBirth').value = idx;
+    if(low.includes('peso')) document.getElementById('mapPeso').value = idx;
+    if(low.includes('estatura') || low.includes('altura')) document.getElementById('mapAltura').value = idx;
+    if(low.includes('comorb') || low.includes('condi') || low.includes('doen')) document.getElementById('mapTags').value = idx;
+  });
+
+  document.getElementById('mapperBox').style.display = 'block';
+  toast(`Aba "${currentStreetName}" carregada! Confirme as colunas.`);
+}
+
+function executeExcelImport(){
+  if(!importedRawData) return;
+  const colNumber = document.getElementById('mapNumber').value;
+  const colName = document.getElementById('mapName').value;
+  const colGestor = document.getElementById('mapGestor').value;
+  const colCpf = document.getElementById('mapCpf').value;
+  const colBirth = document.getElementById('mapBirth').value;
+  const colPeso = document.getElementById('mapPeso').value;
+  const colAltura = document.getElementById('mapAltura').value;
+  const colTags = document.getElementById('mapTags').value;
+
+  if(colNumber === '' || colName === ''){
+    alert('As colunas de Número da Casa e Nome são obrigatórias!');
+    return;
+  }
+
+  const userArea = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m3';
+  const streetName = importedRawData.currentStreetName || 'Rua Importada';
+
+  let street = db.streets.find(s => s.name.toLowerCase() === streetName.toLowerCase() && s.areaId === userArea);
+  if(!street){
+    street = { id: 'st_' + Date.now(), areaId: userArea, name: streetName, houses: [] };
+    db.streets.push(street);
+  }
+
+  let count = 0;
+  importedRawData.rows.forEach(r => {
+    const hNum = String(r[colNumber] || '').trim();
+    const rName = String(r[colName] || '').trim();
+    if(!hNum || !rName) return;
+
+    let house = street.houses.find(h => h.number.toLowerCase() === hNum.toLowerCase());
+    if(!house){
+      house = { id: 'h_' + Date.now() + Math.random().toString(36).slice(2,5), number: hNum, vuln: 'Baixa', residents: [] };
+      street.houses.push(house);
+    }
+
+    const rawTags = colTags !== '' ? String(r[colTags] || '').toUpperCase() : '';
+    const tags = [];
+    if(rawTags.includes('HAS') || rawTags.includes('HIPER')) tags.push('Hipertenso');
+    if(rawTags.includes('DM') || rawTags.includes('DIAB')) tags.push('Diabético');
+    if(rawTags.includes('BOLSA') || rawTags.includes('VULNER')) tags.push('Bolsa Família');
+    if(rawTags.includes('ACAM')) tags.push('Acamado');
+    if(rawTags.includes('DOMIC')) tags.push('Domiciliado');
+
+    house.residents.push({
+      id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
+      name: rName,
+      gestor: colGestor !== '' ? String(r[colGestor] || '').trim() : '',
+      cpf: colCpf !== '' ? String(r[colCpf] || '').trim() : '',
+      birthDate: colBirth !== '' ? String(r[colBirth] || '').trim() : '',
+      sex: 'F',
+      peso: colPeso !== '' ? String(r[colPeso] || '').trim() : '',
+      altura: colAltura !== '' ? String(r[colAltura] || '').trim() : '',
+      gestRisco: '',
+      idosoEvfam: '',
+      mentalRisco: '',
+      tags
+    });
+    count++;
+  });
+
+  persist();
+  document.getElementById('mapperBox').style.display = 'none';
+  toast(`✓ Sucesso! ${count} pessoas importadas para a rua ${streetName}!`);
+  updateStreetsList();
+  generateProductivitySheet();
+  navTo('visita');
+}
+
+// ================= UTILITÁRIOS =================
+function findResident(id){
+  for(let s of db.streets){
+    for(let h of s.houses){
+      const r = (h.residents || []).find(x => x.id === id);
+      if(r) return r;
+    }
+  }
+  return null;
+}
+
+function getTagClass(t){
+  if(t.includes('Gestante')) return 'gestante';
+  if(t.includes('Hipertenso')) return 'has';
+  if(t.includes('Diabético')) return 'dm';
+  if(t.includes('Idoso')) return 'idoso';
+  if(t.includes('Bolsa Família')) return 'bf';
+  return '';
+}
+
+function promptAddStreet(){
+  const name = prompt('Nome da nova rua:');
+  if(!name) return;
+  const areaId = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m3';
+  db.streets.push({ id: 'st_' + Date.now(), areaId, name: name.trim(), houses: [] });
+  persist();
+  updateStreetsList();
+}
+
+function promptAddHouse(){
+  const streetId = document.getElementById('vStreet').value;
+  if(!streetId){ alert('Escolha uma rua primeiro!'); return; }
+  const num = prompt('Número da casa (pode conter letras, ex: 125 A, 707 F):');
+  if(!num) return;
+  const street = db.streets.find(s => s.id === streetId);
+  street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), vuln: 'Baixa', residents: [] });
+  persist();
+  updateHousesList();
+}
+
+function showModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
 function renderAgenda(){
-  renderAgendaTags();
-  renderCalGrid();
-  renderAgendaDeadlines();
-}
-
-function renderAgendaTags(){
-  const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Mulher Preventivo (24-64)', 'Homem PSA (40+)', 'Criança (0 a 1 ano)', 'Tabagista (Fuma)', 'Acamado / Domiciliado'];
-  document.getElementById('agendaTagCloud').innerHTML = tags.map(t => {
-    const isAct = activeAgendaTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleAgendaTag('${t}')">${t}</span>`;
-  }).join('') + (activeAgendaTags.length ? `<span class="tag btn-danger" onclick="clearAgendaTags()">✕ Limpar</span>` : '');
-}
-
-function toggleAgendaTag(t){
-  if(activeAgendaTags.includes(t)) activeAgendaTags = activeAgendaTags.filter(x => x !== t);
-  else activeAgendaTags.push(t);
-  renderAgenda();
-}
-
-function clearAgendaTags(){ activeAgendaTags = []; renderAgenda(); }
-
-function renderCalGrid(){
   const year = selectedCalDate.getFullYear();
   const month = selectedCalDate.getMonth();
   const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
@@ -1114,13 +1490,7 @@ function renderCalGrid(){
   const today = new Date();
   for(let d=1; d<=totalDays; d++){
     const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
-    const isSel = selectedCalDate.getDate() === d && selectedCalDate.getMonth() === month;
-
-    html += `
-      <div class="cal-day ${isToday ? 'today' : ''} ${isSel ? 'selected' : ''}" onclick="selectCalDay(${d})">
-        <span>${d}</span>
-      </div>
-    `;
+    html += `<div class="cal-day ${isToday ? 'today' : ''}"><span>${d}</span></div>`;
   }
   grid.innerHTML = html;
 }
@@ -1130,360 +1500,31 @@ function calNav(delta){
   renderAgenda();
 }
 
-function selectCalDay(d){ selectedCalDate.setDate(d); renderAgenda(); }
-
-function renderAgendaDeadlines(){
-  const streets = getActiveStreets();
-  const citizens = [];
-
-  streets.forEach(s => {
-    s.houses.forEach(h => {
-      (h.residents || []).forEach(r => {
-        if(!activeAgendaTags.every(t => r.tags.includes(t))) return;
-
-        let color = 'green', label = 'Em dia';
-        if(r.situacao === 'ATRASADA') { color = 'red'; label = 'Atrasada'; }
-        else if(r.situacao === 'AGUARDANDO 2ª VISITA') { color = 'yellow'; label = 'Aguardando 2ª'; }
-
-        citizens.push({ ...r, streetName: s.name, houseNumber: h.number, streetId: s.id, houseId: h.id, color, label });
-      });
-    });
-  });
-
-  document.getElementById('agendaCount').textContent = `${citizens.length} cidadãos`;
-  const container = document.getElementById('agendaItemsList');
-
-  if(!citizens.length){
-    container.innerHTML = `<p style="text-align:center;color:var(--muted)">Nenhum cidadão para o filtro selecionado.</p>`;
-    return;
-  }
-
-  container.innerHTML = citizens.map(c => `
-    <div style="border-left:4px solid var(--${c.color});background:#fff;border-radius:8px;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <span class="status-pill ${c.color}">${c.label}</span>
-          <strong style="display:block;margin:3px 0">${c.name}</strong>
-          <small style="color:var(--muted)">📍 ${c.streetName}, Nº ${c.houseNumber} ${c.gestor ? `· Gestor: ${c.gestor}` : ''}</small>
-        </div>
-        <button class="btn btn-sm btn-primary" onclick="goToVisit('${c.streetId}','${c.houseId}')">Ir à Casa</button>
-      </div>
-      <div class="tags-cloud" style="margin-top:4px">
-        ${c.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
-      </div>
-    </div>
-  `).join('');
-}
-
-function goToVisit(streetId, houseId){
-  navTo('visita');
-  document.getElementById('vStreet').value = streetId;
-  updateHousesList();
-  document.getElementById('vHouse').value = houseId;
-  loadHouseData();
-}
-
-// ================= 3. FECHAMENTO & CRUZAMENTOS =================
-function runReport(){
-  renderReportTags();
-  const streets = getActiveStreets();
-  const citizens = [];
-  streets.forEach(s => s.houses.forEach(h => (h.residents || []).forEach(r => citizens.push({ ...r, streetName: s.name, houseNumber: h.number }))));
-
-  const filtered = citizens.filter(r => activeReportTags.every(t => r.tags.includes(t)));
-
-  const now = new Date();
-  const start = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0,10);
-  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0,10);
-
-  const periodVisits = db.visits.filter(v => v.outcome === 'Realizada' && v.date >= start && v.date <= end);
-  const visitedIds = new Set();
-  periodVisits.forEach(v => v.attendees?.forEach(a => visitedIds.add(a.residentId)));
-
-  const tot = filtered.length;
-  const done = filtered.filter(r => visitedIds.has(r.id)).length;
-  const pending = tot - done;
-  const perc = tot > 0 ? Math.round((done / tot) * 100) + '%' : '0%';
-
-  document.getElementById('reportSummaryBox').innerHTML = `
-    <div class="grid-2" style="text-align:center">
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:10px">
-        <strong style="font-size:22px;color:var(--green);display:block">${done}</strong>
-        <small style="color:#166534;font-weight:700">Visitados no Mês (${perc})</small>
-      </div>
-      <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px">
-        <strong style="font-size:22px;color:var(--red);display:block">${pending}</strong>
-        <small style="color:#991b1b;font-weight:700">Pendentes no Mês</small>
-      </div>
-    </div>
-  `;
-
-  document.getElementById('reportListTitle').textContent = `Lista Nominal (${filtered.length} pessoas encontradas)`;
-  document.getElementById('reportNamesList').innerHTML = filtered.map(r => {
-    const wasDone = visitedIds.has(r.id);
-    return `
-      <div style="padding:10px 0;border-bottom:1px solid #edf4f1;display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <strong style="font-size:13px">${r.name}</strong>
-          <small style="display:block;color:var(--muted)">📍 ${r.streetName}, Nº ${r.houseNumber} ${r.cpf ? `· CPF: ${r.cpf}` : ''}</small>
-          <div class="tags-cloud" style="margin:2px 0">
-            ${r.tags.map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
-          </div>
-        </div>
-        <span class="status-pill ${wasDone ? 'green' : 'red'}">${wasDone ? '✓ Visitado' : '⚠️ Pendente'}</span>
-      </div>
-    `;
-  }).join('') || '<p style="text-align:center;color:var(--muted)">Nenhum cidadão atende a esse cruzamento.</p>';
-}
-
-function renderReportTags(){
-  const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Mulher Preventivo (24-64)', 'Homem PSA (40+)', 'Criança (0 a 1 ano)', 'Tabagista (Fuma)'];
-  document.getElementById('reportTagCloud').innerHTML = tags.map(t => {
-    const isAct = activeReportTags.includes(t);
-    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleReportTag('${t}')">${t}</span>`;
-  }).join('') + (activeReportTags.length ? `<span class="tag btn-danger" onclick="clearReportTags()">✕ Limpar</span>` : '');
-}
-
-function toggleReportTag(t){
-  if(activeReportTags.includes(t)) activeReportTags = activeReportTags.filter(x => x !== t);
-  else activeReportTags.push(t);
-  runReport();
-}
-
-function clearReportTags(){ activeReportTags = []; runReport(); }
-
-// ================= 4. IMPORTADOR UNIVERSAL DE PLANILHAS (CSV) =================
-function handleUniversalFile(e){
-  const file = e.target.files[0];
-  if(!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    const text = evt.target.result;
-    const lines = text.split(/\r\n|\n/).filter(l => l.trim().length > 0);
-    if(lines.length < 2){ toast('Planilha vazia ou inválida.'); return; }
-
-    const sep = lines[0].includes(';') ? ';' : ',';
-    const headers = lines[0].split(sep).map(h => h.replace(/"/g,'').trim());
-
-    importedRawData = {
-      headers,
-      rows: lines.slice(1).map(l => l.split(sep).map(c => c.replace(/"/g,'').trim()))
-    };
-
-    const selIds = ['mapStreet', 'mapNumber', 'mapName', 'mapGestor', 'mapCpf', 'mapBirth', 'mapTags'];
-    selIds.forEach(id => {
-      document.getElementById(id).innerHTML = `<option value="">-- Ignorar --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
-    });
-
-    // Auto-detecção universal
-    headers.forEach((h, idx) => {
-      const low = h.toLowerCase();
-      if(low.includes('rua') || low.includes('logradouro')) document.getElementById('mapStreet').value = idx;
-      if(low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
-      if(low.includes('nome') || low.includes('paciente') || low.includes('morador')) document.getElementById('mapName').value = idx;
-      if(low.includes('gestor')) document.getElementById('mapGestor').value = idx;
-      if(low.includes('cpf')) document.getElementById('mapCpf').value = idx;
-      if(low.includes('nasc') || low.includes('data')) document.getElementById('mapBirth').value = idx;
-      if(low.includes('comorb') || low.includes('doen') || low.includes('condi')) document.getElementById('mapTags').value = idx;
-    });
-
-    document.getElementById('mapperBox').style.display = 'block';
-    toast('Planilha lida! Confirme as colunas.');
-  };
-  reader.readAsText(file, 'UTF-8');
-}
-
-function executeUniversalImport(){
-  if(!importedRawData) return;
-  const colStreet = document.getElementById('mapStreet').value;
-  const colNumber = document.getElementById('mapNumber').value;
-  const colName = document.getElementById('mapName').value;
-  const colGestor = document.getElementById('mapGestor').value;
-  const colCpf = document.getElementById('mapCpf').value;
-  const colBirth = document.getElementById('mapBirth').value;
-  const colTags = document.getElementById('mapTags').value;
-
-  if(colStreet === '' || colNumber === '' || colName === ''){
-    alert('As colunas de Rua, Número e Nome são obrigatórias!');
-    return;
-  }
-
-  let count = 0;
-  const userArea = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m1';
-
-  importedRawData.rows.forEach(r => {
-    const sName = r[colStreet]?.trim();
-    const hNum = r[colNumber]?.trim();
-    const rName = r[colName]?.trim();
-    const gestor = colGestor !== '' ? r[colGestor]?.trim() : '';
-    const cpf = colCpf !== '' ? r[colCpf]?.trim() : '';
-    const birth = colBirth !== '' ? r[colBirth]?.trim() : '';
-    const rawTags = colTags !== '' ? (r[colTags] || '').toUpperCase() : '';
-
-    if(!sName || !hNum || !rName) return;
-
-    let street = db.streets.find(s => s.name.toLowerCase() === sName.toLowerCase() && s.areaId === userArea);
-    if(!street){
-      street = { id: 'st_' + Date.now() + Math.random().toString(36).slice(2,5), areaId: userArea, name: sName, houses: [] };
-      db.streets.push(street);
-    }
-
-    let house = street.houses.find(h => h.number.toLowerCase() === hNum.toLowerCase());
-    if(!house){
-      house = { id: 'h_' + Date.now() + Math.random().toString(36).slice(2,5), number: hNum, residents: [] };
-      street.houses.push(house);
-    }
-
-    const tags = [];
-    if(rawTags.includes('HAS') || rawTags.includes('HIPER')) tags.push('Hipertenso');
-    if(rawTags.includes('DM') || rawTags.includes('DIAB')) tags.push('Diabético');
-    if(rawTags.includes('INSULIN')) tags.push('Insulinodependente');
-    if(rawTags.includes('FUM') || rawTags.includes('TABA')) tags.push('Tabagista (Fuma)');
-    if(rawTags.includes('CANC')) tags.push('Câncer');
-    if(rawTags.includes('MENTAL') || rawTags.includes('TAG') || rawTags.includes('ANSIED')) tags.push('Transtorno Mental');
-    if(rawTags.includes('ACAM') || rawTags.includes('DOMICIL')) tags.push('Acamado / Domiciliado');
-    if(rawTags.includes('GEST')) tags.push('Gestante');
-    if(rawTags.includes('BOLSA') || rawTags.includes('VULNER')) tags.push('Bolsa Família');
-    if(rawTags.includes('NÃO USA') || rawTags.includes('ZERO')) tags.push('Não usa UBS / Área Zero');
-
-    // Auto faixa etária
-    if(birth){
-      const parts = birth.includes('/') ? birth.split('/') : null;
-      let dt = parts ? new Date(parts[2], parts[1]-1, parts[0]) : new Date(birth);
-      if(!isNaN(dt)){
-        const age = Math.floor((new Date() - dt) / (1000*60*60*24*365.25));
-        if(age <= 1) tags.push('Criança (0 a 1 ano)');
-        if(age >= 13 && age <= 17) tags.push('Adolescente (13 a 17 anos)');
-        if(age >= 24 && age <= 64) tags.push('Mulher Preventivo (24-64)');
-        if(age >= 40) tags.push('Homem PSA (40+)');
-        if(age >= 60) tags.push('Idoso (60+)');
-      }
-    }
-
-    house.residents.push({
-      id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
-      name: rName,
-      gestor,
-      cpf,
-      birthDate: birth,
-      peso: '',
-      altura: '',
-      evfam: '',
-      tags,
-      visit1Date: '',
-      visit2Prevista: '',
-      visit2Realizada: '',
-      situacao: ''
-    });
-    count++;
-  });
-
-  persist();
-  document.getElementById('mapperBox').style.display = 'none';
-  document.getElementById('importInput').value = '';
-  toast(`✓ Sucesso! ${count} cadastros importados!`);
-  updateStreetsList();
-  navTo('visita');
-}
-
-// ================= UTILITÁRIOS =================
-function findResident(id){
-  for(let s of db.streets){
-    for(let h of s.houses){
-      const r = (h.residents || []).find(x => x.id === id);
-      if(r) return r;
-    }
-  }
-  return null;
-}
-
-function getTagClass(t){
-  if(t.includes('Gestante')) return 'gestante';
-  if(t.includes('Hipertenso')) return 'has';
-  if(t.includes('Diabético') || t.includes('Insulinodependente')) return 'dm';
-  if(t.includes('Idoso')) return 'idoso';
-  if(t.includes('Criança')) return 'crianca';
-  if(t.includes('Bolsa Família')) return 'bf';
-  if(t.includes('Adolescente')) return 'teen';
-  if(t.includes('PSA')) return 'psa';
-  return '';
-}
-
-function promptAddStreet(){
-  const name = prompt('Nome da nova rua:');
-  if(!name) return;
-  const areaId = (currentUser.areaId && currentUser.areaId !== 'all') ? currentUser.areaId : 'a69_m1';
-  db.streets.push({ id: 'st_' + Date.now(), areaId, name: name.trim(), houses: [] });
-  persist();
-  updateStreetsList();
-}
-
-function promptAddHouse(){
-  const streetId = document.getElementById('vStreet').value;
-  if(!streetId){ alert('Escolha uma rua primeiro!'); return; }
-  const num = prompt('Número da casa (pode conter letra, ex: 125 A):');
-  if(!num) return;
-  const street = db.streets.find(s => s.id === streetId);
-  street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), residents: [] });
-  persist();
-  updateHousesList();
-}
-
-function checkPendingVisits(){
-  const pending = db.visits.filter(v => !v.synced).length;
-  const banner = document.getElementById('syncFriendlyBanner');
-  if(pending > 0 && navigator.onLine){
-    document.getElementById('syncBannerMsg').textContent = `Você tem ${pending} visita(s) realizadas neste aparelho.`;
-    banner.style.display = 'flex';
-  } else {
-    banner.style.display = 'none';
-  }
-}
-
-window.addEventListener('online', checkPendingVisits);
-
-function triggerSmartSync(){
-  const pending = db.visits.filter(v => !v.synced);
-  if(!pending.length){ toast('Tudo em dia!'); return; }
-  const btn = document.getElementById('btnBannerSync');
-  btn.textContent = 'Enviando...';
-
-  setTimeout(() => {
-    db.visits.forEach(v => v.synced = true);
-    persist();
-    btn.textContent = '⚡ Enviar Agora';
-    toast(`✓ Sucesso! ${pending.length} visitas salvas!`);
-    checkPendingVisits();
-  }, 1200);
-}
-
-function showModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
-
 function downloadBackup(){
-  const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' }));
   a.download = `backup_ubs_paris_${new Date().toISOString().slice(0,10)}.json`;
   a.click();
 }
 
 function resetToDemo(){
-  if(!confirm('Restaurar dados de demonstração padrão?')) return;
+  if(!confirm('Restaurar dados de teste padrão?')) return;
   db = defaultDB;
   persist();
   updateStreetsList();
+  generateProductivitySheet();
   toast('Demonstração restaurada.');
 }
 
 function exportCSV(){
   const headers = ['Data', 'Rua', 'Numero', 'Situacao', 'Observacoes'];
-  const rows = db.visits.map(v => {
-    const street = db.streets.find(s => s.id === v.streetId)?.name || '';
-    const house = db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '';
-    return [v.date, street, house, v.outcome, (v.notes || '').replace(/[\n\r;]/g, ' ')];
-  });
+  const rows = db.visits.map(v => [
+    v.date,
+    db.streets.find(s => s.id === v.streetId)?.name || '',
+    db.streets.find(s => s.id === v.streetId)?.houses.find(h => h.id === v.houseId)?.number || '',
+    v.outcome,
+    (v.notes || '').replace(/[\n\r;]/g, ' ')
+  ]);
   const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
@@ -1498,7 +1539,7 @@ function navTo(viewId){
 
   if(viewId === 'visita') updateStreetsList();
   if(viewId === 'agenda') renderAgenda();
-  if(viewId === 'fechamento') runReport();
+  if(viewId === 'fechamento') generateProductivitySheet();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 </script>
