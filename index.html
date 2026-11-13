@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 <meta name="theme-color" content="#086b56">
 <title>UBS Paris · Campo Digital ACS</title>
-<!-- Leitor Oficial de Arquivos Excel (.xlsx / .xls) -->
+<!-- Leitor Oficial de Planilhas Excel (.xlsx) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
@@ -17,7 +17,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 input,select,textarea,button{font:inherit}
 
-/* Tela de Login Neutra */
+/* Tela de Login */
 .login-screen{min-height:100vh;background:linear-gradient(145deg,#06483b,#0a745d);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;color:#fff}
 .login-box{background:#fff;color:var(--ink);width:100%;max-width:440px;border-radius:20px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,0.25);text-align:center}
 .login-avatar{width:60px;height:60px;border-radius:18px;background:var(--p-light);color:var(--p);font-size:30px;display:grid;place-items:center;margin:0 auto 10px}
@@ -43,7 +43,7 @@ input,select,textarea,button{font:inherit}
 .top-actions{display:flex;align-items:center;gap:6px}
 
 /* Layout */
-.app{max-width:850px;margin:0 auto;padding-bottom:85px;min-height:100vh}
+.app{max-width:820px;margin:0 auto;padding-bottom:85px;min-height:100vh}
 .view{display:none;padding:16px}
 .view.active{display:block}
 
@@ -60,7 +60,7 @@ input,select,textarea,button{font:inherit}
 
 /* Tags / Atributos */
 .tags-cloud{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
-.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:16px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:5px 9px;border-radius:16px;font-size:11px;font-weight:700;background:var(--bg);border:1px solid var(--line);color:#2d4a42;cursor:pointer}
 .tag.active{background:var(--p-light);border-color:var(--sec);color:var(--p);box-shadow:0 0 0 1px var(--sec)}
 .tag.bf{background:#fef3c7;border-color:#fde68a;color:#92400e}
 .tag.gestante{background:#fce7f3;border-color:#fbcfe8;color:#9d174d}
@@ -71,25 +71,31 @@ input,select,textarea,button{font:inherit}
 /* Formulários */
 .field{margin-bottom:12px}
 .field label{display:block;font-size:12px;font-weight:800;color:#35534b;margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:9px;background:#fff;color:var(--ink);outline:none;font-size:13px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:10px;background:#fff;color:var(--ink);outline:none;font-size:14px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(8,107,86,0.12)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
 /* Botões */
-.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
+.btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
 .btn-primary{background:var(--p);color:#fff;border-color:var(--p)}
 .btn-primary:active{background:var(--p-dark)}
 .btn-soft{background:var(--p-light);color:var(--p);border-color:#cbe7dc}
 .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
-.btn-sm{padding:5px 9px;font-size:11px;border-radius:7px;width:auto}
+.btn-sm{padding:5px 10px;font-size:11px;border-radius:7px;width:auto}
 
-/* Visita por Casa */
-.outcome-btn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}
-.outcome-btn{border:1.5px solid var(--line);border-radius:10px;padding:10px 4px;background:#fff;text-align:center;font-size:11px;font-weight:800;cursor:pointer}
-.outcome-btn.active.realizada{background:#ecfdf5;border-color:var(--green);color:var(--green)}
-.outcome-btn.active.ausente{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
-.outcome-btn.active.recusa{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+/* ================= WIZARD: VISITA PASSO A PASSO ================= */
+.wizard-step{display:none}
+.wizard-step.active{display:block}
+.wizard-progress{display:flex;justify-content:space-between;margin-bottom:14px;background:#e9f4ef;border-radius:10px;padding:4px}
+.w-prog-item{flex:1;text-align:center;font-size:11px;font-weight:800;color:var(--muted);padding:6px;border-radius:8px}
+.w-prog-item.active{background:var(--p);color:#fff}
+
+.gate-buttons{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+.gate-btn{border:2px solid var(--line);border-radius:14px;padding:18px;text-align:center;font-size:16px;font-weight:900;background:#fff;cursor:pointer}
+.gate-btn.atendida{border-color:var(--green);color:var(--green);background:#f0fdf4}
+.gate-btn.ausente{border-color:var(--amber);color:var(--amber);background:var(--amber-bg)}
+.gate-btn.recusa{border-color:var(--red);color:var(--red);background:var(--red-bg)}
 
 .resident-card{border:1.5px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
 .resident-card.active-presence{border-color:var(--sec);background:#fafdfc}
@@ -97,51 +103,29 @@ input,select,textarea,button{font:inherit}
 .check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
 
-/* ================= TABELA DO FECHAMENTO MENSAL (RÉPLICA DA FOTO 1) ================= */
-.prod-table-wrap{overflow-x:auto;border:1px solid #111;background:#fff;margin-top:10px}
-.prod-table{width:100%;border-collapse:collapse;font-size:12px;color:#000;font-family:Arial,sans-serif}
-.prod-table th,.prod-table td{border:1px solid #000;padding:5px 7px}
-.prod-header-main{background:#c8d7eb;text-align:center;font-weight:bold;font-size:13px;text-transform:uppercase}
-.prod-header-sub{background:#dbe6f5;text-align:center;font-weight:bold;font-size:12px}
-.prod-meta-label{font-weight:bold;background:#f3f4f6}
-.prod-section-row{background:#fff480;font-weight:bold}
-.prod-col-header{background:#e5e7eb;font-weight:bold;text-align:center}
-.prod-num{text-align:center;font-weight:bold}
+/* ================= TABELA DIGITAL MODERNA DE FECHAMENTO ================= */
+.modern-table-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:10px}
+.modern-table{width:100%;border-collapse:collapse;font-size:13px}
+.modern-table th{background:#e7f5ef;color:var(--p-dark);padding:10px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase}
+.modern-table td{padding:10px 12px;border-bottom:1px solid #edf4f1}
+.modern-table tr:hover{background:#f8fbf9;cursor:pointer}
+.modern-table tr.header-row{background:#fafdfb;font-weight:900;color:var(--p)}
+.num-cell{text-align:center;font-weight:800;font-size:14px}
+.num-cell.visited{color:var(--green)}
 
-/* Área de Upload e Ajuda Visual */
-.upload-dropzone{border:2.5px dashed var(--sec);border-radius:14px;background:#f0fbf7;padding:24px 16px;text-align:center;cursor:pointer;transition:all 0.2s}
-.upload-dropzone:hover{background:#e4f7f0;border-color:var(--p)}
-.help-guide-card{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin-top:12px;font-size:12px;color:#92400e;line-height:1.45}
-
-/* Calendário */
-.calendar-widget{background:#fff;border-radius:var(--radius);border:1px solid var(--line);padding:12px;margin-bottom:12px}
-.cal-header{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin-bottom:10px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
-.cal-weekday{font-size:11px;font-weight:800;color:var(--muted);padding:4px 0}
-.cal-day{min-height:42px;border-radius:8px;border:1px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer}
-.cal-day.today{border-color:var(--p);background:var(--p-light);color:var(--p);font-weight:900}
-.cal-day.selected{background:var(--p);color:#fff}
-.cal-day.other-month{opacity:0.25}
-
-/* Badges e Modais */
+/* Badges */
 .status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800}
 .status-pill.red{background:var(--red-bg);color:var(--red)}
 .status-pill.yellow{background:var(--amber-bg);color:var(--amber)}
 .status-pill.green{background:var(--green-bg);color:var(--green)}
 .status-pill.blue{background:var(--blue-bg);color:var(--blue)}
 
+/* Toast & Modais */
 .toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#10392f;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:700;display:none;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
 .toast.show{display:block}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-content{background:#fff;border-radius:var(--radius);max-width:580px;width:100%;max-height:90vh;overflow-y:auto;padding:18px}
-
-@media print{
-  body{background:#fff;color:#000}
-  .topbar,.bottom-nav,.card-header button,.no-print{display:none !important}
-  .app{max-width:100%;padding:0}
-  .prod-table-wrap{border:0}
-}
 </style>
 </head>
 <body>
@@ -151,7 +135,7 @@ input,select,textarea,button{font:inherit}
   <div class="login-box" id="profileSelectorBox">
     <div class="login-avatar">✚</div>
     <h2 style="margin:0 0 2px">UBS Paris</h2>
-    <p style="margin:0 0 14px;color:var(--muted);font-size:12px">Sistema de Apoio e Produtividade ACS</p>
+    <p style="margin:0 0 14px;color:var(--muted);font-size:12px">Painel de Acesso das Agentes Comunitárias</p>
 
     <div class="section-label">Equipe Área 69 (ESF 69)</div>
     <button class="profile-btn" onclick="chooseProfile('a69_m1', 'ESF 69 · Microárea 01')">
@@ -172,7 +156,7 @@ input,select,textarea,button{font:inherit}
       <span>👨‍⚕️</span> <span>ACS · Microárea 02</span>
     </button>
 
-    <div class="section-label">Coordenação da UBS</div>
+    <div class="section-label">Coordenação Geral</div>
     <button class="profile-btn manager" onclick="chooseProfile('all', 'Diretoria / Coordenação (Geral)')">
       <span>👑</span> <span>Diretoria / Geral (Áreas 69 e 70)</span>
     </button>
@@ -218,109 +202,204 @@ input,select,textarea,button{font:inherit}
       </div>
     </div>
     <div class="top-actions">
+      <button class="btn btn-sm btn-primary" id="btnInstallApp" style="display:none" onclick="triggerPwaInstall()">📲 Baixar App</button>
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="showModal('modalInstallGuide')">📲 Como Baixar</button>
+      <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="showModal('modalNovidades')">✨ Novidades</button>
       <button class="btn btn-sm btn-soft" style="background:#ffffff25;color:#fff;border-color:transparent" onclick="logout()">Sair ✕</button>
     </div>
   </header>
 
   <div class="app">
 
-    <!-- ================= ABA 1: VISITA POR CASA ================= -->
+    <!-- ================= ABA 1: NOVA VISITA PASSO A PASSO (WIZARD LIMPO) ================= -->
     <section class="view active" id="view-visita">
       <div class="card-header">
-        <h2>Visita Domiciliar</h2>
+        <h2>Registro de Visita</h2>
         <span class="status-pill blue" id="activeAreaBadge">Microárea</span>
       </div>
 
-      <!-- Endereço -->
-      <div class="card">
-        <div class="grid-2">
-          <div class="field">
-            <label>Data da Visita</label>
-            <input type="date" id="vDate">
-          </div>
+      <!-- Barra de Progresso Simples -->
+      <div class="wizard-progress">
+        <div class="w-prog-item active" id="prog1">1. Qual Casa?</div>
+        <div class="w-prog-item" id="prog2">2. No Portão</div>
+        <div class="w-prog-item" id="prog3">3. Quem Atendeu?</div>
+      </div>
+
+      <!-- PASSO 1: Escolher Rua e Casa -->
+      <div class="wizard-step active" id="wizardStep1">
+        <div class="card">
           <div class="field" id="managerAreaSelectField" style="display:none">
             <label>Filtrar Microárea (Diretoria)</label>
             <select id="vAreaManager" onchange="switchManagerArea()"></select>
           </div>
-        </div>
-
-        <div class="grid-2">
           <div class="field">
-            <label>Rua *</label>
-            <select id="vStreet" onchange="updateHousesList()"></select>
+            <label>Data de Hoje</label>
+            <input type="date" id="vDate">
           </div>
           <div class="field">
-            <label>Número do Imóvel *</label>
-            <select id="vHouse" onchange="loadHouseData()"></select>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-sm btn-soft" onclick="promptAddStreet()">＋ Nova Rua</button>
-          <button class="btn btn-sm btn-soft" onclick="promptAddHouse()">＋ Novo Número</button>
-        </div>
-      </div>
-
-      <!-- Situação no Portão -->
-      <div class="card" id="houseBox" style="display:none">
-        <div class="card-header">
-          <h3 style="margin:0" id="houseTitle">Rua ..., Nº ...</h3>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label>Vulnerabilidade Familiar Deste Domicílio:</label>
-            <select id="vHouseVuln" onchange="updateHouseVuln()">
-              <option value="Baixa">Vulnerabilidade Baixa</option>
-              <option value="Moderada">Vulnerabilidade Moderada</option>
-              <option value="Grave">Vulnerabilidade Grave</option>
-            </select>
+            <label>1. Escolha a Rua:</label>
+            <select id="vStreet" onchange="updateHousesList()" style="padding:12px;font-size:15px;font-weight:800"></select>
           </div>
           <div class="field">
-            <label>Internação no mês?</label>
-            <select id="vHouseInternacao">
-              <option value="Não">Não</option>
-              <option value="Sim">Sim (1 internação no mês)</option>
-            </select>
+            <label>2. Escolha o Número do Imóvel:</label>
+            <select id="vHouse" style="padding:12px;font-size:15px;font-weight:800"></select>
           </div>
-        </div>
-
-        <div style="font-size:12px;font-weight:800;color:var(--muted);margin:8px 0 6px">SITUAÇÃO DO PORTÃO:</div>
-        <div class="outcome-btn-grid">
-          <div class="outcome-btn active realizada" onclick="chooseOutcome('Realizada', this)">✓ Atendida</div>
-          <div class="outcome-btn ausente" onclick="chooseOutcome('Ausente', this)">◷ Casa Fechada</div>
-          <div class="outcome-btn recusa" onclick="chooseOutcome('Recusa', this)">✕ Recusa</div>
-        </div>
-        <input type="hidden" id="vOutcome" value="Realizada">
-
-        <div id="quickCloseBox" style="display:none;margin-top:10px">
-          <button class="btn btn-primary" onclick="saveQuickHouseVisit()">💾 Salvar Situação do Domicílio</button>
-        </div>
-      </div>
-
-      <!-- Moradores & Checklists -->
-      <div id="familyCard" style="display:none">
-        <div class="card-header">
-          <h3>Moradores Cadastrados</h3>
-          <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Adicionar Morador</button>
-        </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:0">Marque quem estava presente no atendimento de hoje:</p>
-
-        <div id="residentsListContainer"></div>
-
-        <div class="card" style="margin-top:10px">
-          <div class="field">
-            <label>Observação Geral da Visita</label>
-            <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Agendado retorno na UBS; vigência do Bolsa Família conferida..."></textarea>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <button class="btn btn-sm btn-soft" onclick="promptAddStreet()">＋ Nova Rua</button>
+            <button class="btn btn-sm btn-soft" onclick="promptAddHouse()">＋ Novo Número</button>
           </div>
-          <button class="btn btn-primary" onclick="saveFullHouseVisit()" style="padding:14px;font-size:16px">
-            💾 Concluir Visita da Família
+          <button class="btn btn-primary" style="margin-top:16px;padding:15px;font-size:16px" onclick="goToWizardStep(2)">
+            Avançar para o Portão ➔
           </button>
+        </div>
+      </div>
+
+      <!-- PASSO 2: O que aconteceu no portão? -->
+      <div class="wizard-step" id="wizardStep2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <small style="color:var(--muted)">Você está em:</small>
+              <h3 style="margin:2px 0" id="step2HouseTitle">Rua ..., Nº ...</h3>
+            </div>
+            <button class="btn btn-sm btn-soft" onclick="goToWizardStep(1)">◀ Trocar Casa</button>
+          </div>
+
+          <div class="field" style="margin-top:6px">
+            <label>Escala de Vulnerabilidade Familiar (EVFAM):</label>
+            <select id="vHouseVuln" onchange="updateHouseVuln()">
+              <option value="Baixa">EVFAM: Baixa Vulnerabilidade</option>
+              <option value="Moderada">EVFAM: Moderada Vulnerabilidade</option>
+              <option value="Grave">EVFAM: Grave Vulnerabilidade</option>
+            </select>
+          </div>
+
+          <div style="font-size:13px;font-weight:900;color:var(--p);margin:12px 0 6px">TOQUE NO QUE ACONTECEU NO PORTÃO:</div>
+          <div class="gate-buttons">
+            <div class="gate-btn atendida" onclick="handleGateOutcome('Realizada')">
+              ✓ Casa Atendida (Moradores Presentes)
+            </div>
+            <div class="gate-btn ausente" onclick="handleGateOutcome('Ausente')">
+              ◷ Casa Fechada / Morador Ausente
+              <small style="display:block;font-size:11px;font-weight:normal;margin-top:4px">Salva a visita na hora em 1 clique</small>
+            </div>
+            <div class="gate-btn recusa" onclick="handleGateOutcome('Recusa')">
+              ✕ Recusa de Atendimento
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSO 3: Moradores e Cuidados -->
+      <div class="wizard-step" id="wizardStep3">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 style="margin:0" id="step3HouseTitle">Família Cadastrada</h3>
+              <small style="color:var(--muted)">Marque quem estava presente no atendimento de hoje:</small>
+            </div>
+            <button class="btn btn-sm btn-primary" onclick="openAddResidentModal()">＋ Adicionar Morador</button>
+          </div>
+
+          <div id="residentsListContainer"></div>
+
+          <div style="margin-top:14px">
+            <div class="field">
+              <label>Observação Geral da Visita</label>
+              <textarea id="vHouseNotes" rows="2" placeholder="Ex.: Aferição realizada; vigência do Bolsa Família em dia..."></textarea>
+            </div>
+            <div class="grid-2">
+              <button class="btn btn-soft" onclick="goToWizardStep(2)">◀ Voltar</button>
+              <button class="btn btn-primary" onclick="saveFullHouseVisit()" style="padding:14px">💾 Concluir Visita da Família</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= ABA 2: AGENDA COM CALENDÁRIO ================= -->
+    <!-- ================= ABA 2: FECHAMENTO & PRODUTIVIDADE (TABELA MODERNA + CRUZADOR) ================= -->
+    <section class="view" id="view-fechamento">
+      <div class="card-header">
+        <h2>Fechamento de Produtividade</h2>
+        <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir Relatório</button>
+      </div>
+
+      <!-- Controles do Período -->
+      <div class="card">
+        <div class="grid-2">
+          <div class="field">
+            <label>Mês de Análise</label>
+            <select id="repMonth" onchange="updateModernReport()">
+              <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
+              <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
+              <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
+              <option value="10">Outubro</option><option value="11" selected>Novembro</option><option value="12">Dezembro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Ano</label>
+            <input type="number" id="repYear" value="2026" onchange="updateModernReport()">
+          </div>
+        </div>
+      </div>
+
+      <!-- O SUPER CRUZADOR & SOMADOR DINÂMICO -->
+      <div class="card" style="border-left:5px solid var(--p)">
+        <div class="card-header">
+          <div>
+            <h3 style="margin:0">🔍 Cruzador e Somador de Condições</h3>
+            <small style="color:var(--muted)">Selecione as condições para ver o total somado ou o cruzamento exato:</small>
+          </div>
+        </div>
+
+        <div class="tags-cloud" id="crossTagCloud"></div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin:10px 0;background:#f8fbf9;padding:8px 12px;border-radius:8px">
+          <label style="font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="radio" name="crossMode" value="intersection" checked onchange="updateModernReport()">
+            Quem tem TODAS juntas (Ex: Idoso E Diabético)
+          </label>
+          <label style="font-size:12px;font-weight:800;display:flex;align-items:center;gap:6px;cursor:pointer">
+            <input type="radio" name="crossMode" value="union" onchange="updateModernReport()">
+            Somar Tudo (Total de Qualquer um dos Selecionados)
+          </label>
+        </div>
+
+        <!-- Indicador Rápido do Cruzamento -->
+        <div class="grid-2" style="text-align:center;margin-top:6px" id="crossResultsBox"></div>
+      </div>
+
+      <!-- TABELA MODERNA OFICIAL COM OS DADOS DA UBS PARIS -->
+      <div class="card">
+        <h3 style="margin:0 0 4px">📊 Painel Oficial de Indicadores da Microárea</h3>
+        <small style="color:var(--muted)">Toque em qualquer linha para abrir os nomes das pessoas desse grupo embaixo:</small>
+
+        <div class="modern-table-card">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>Grupo / Indicador Oficial</th>
+                <th style="text-align:center">Total Cadastro</th>
+                <th style="text-align:center">Visitas no Mês</th>
+                <th style="text-align:center">Cobertura</th>
+              </tr>
+            </thead>
+            <tbody id="modernTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Lista Nominal do Grupo Clicado -->
+      <div class="card" id="cardNominalList">
+        <div class="card-header">
+          <h3 id="nominalListTitle">Pessoas do Grupo</h3>
+          <span class="status-pill blue" id="nominalCountBadge">0</span>
+        </div>
+        <div id="nominalListContainer"></div>
+      </div>
+    </section>
+
+    <!-- ================= ABA 3: AGENDA ================= -->
     <section class="view" id="view-agenda">
       <div class="card-header">
         <h2>Agenda de Prazos</h2>
@@ -338,131 +417,10 @@ input,select,textarea,button{font:inherit}
 
       <div class="card">
         <div class="card-header">
-          <h3 id="agendaSelectedDayTitle">Prazos e Prioridades</h3>
+          <h3>Prazos Prioritários</h3>
           <span class="status-pill blue" id="agendaCount">0</span>
         </div>
         <div id="agendaItemsList"></div>
-      </div>
-    </section>
-
-    <!-- ================= ABA 3: FECHAMENTO OFICIAL DE PRODUTIVIDADE (FOTO 1) ================= -->
-    <section class="view" id="view-fechamento">
-      <div class="card-header">
-        <h2>Fechamento Mensal ACS</h2>
-        <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir Folha Oficial</button>
-      </div>
-
-      <div class="card no-print">
-        <div class="grid-2">
-          <div class="field">
-            <label>Selecione o Mês</label>
-            <select id="prodMonth" onchange="generateProductivitySheet()">
-              <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
-              <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
-              <option value="7">Julho</option><option value="8">Agosto</option><option value="9">Setembro</option>
-              <option value="10">Outubro</option><option value="11" selected>Novembro</option><option value="12">Dezembro</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Ano</label>
-            <input type="number" id="prodYear" value="2026" onchange="generateProductivitySheet()">
-          </div>
-        </div>
-      </div>
-
-      <!-- RÉPLICA EXATA DA FOLHA DE PRODUTIVIDADE DA FOTO 1 -->
-      <div class="prod-table-wrap" id="printableProductivitySheet">
-        <table class="prod-table">
-          <thead>
-            <tr>
-              <th colspan="3" class="prod-header-main" id="thMainTitle">FECHAMENTO DE PRODUTIVIDADE DO ACS UBS PARIS - ESF 69</th>
-            </tr>
-            <tr>
-              <th colspan="3" class="prod-header-sub">PRODUÇÃO MENSAL AGENTE COMUNITÁRIO DE SAÚDE</th>
-            </tr>
-            <tr>
-              <td colspan="2" class="prod-meta-label">ACS: <span id="lblAcsName" style="font-weight:normal">ACS DAYANE</span></td>
-              <td class="prod-meta-label">MICRO-ÁREA: <span id="lblMicroArea" style="font-weight:normal">3</span></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="prod-meta-label">MÊS: <span id="lblMonth" style="font-weight:normal">NOVEMBRO</span></td>
-              <td class="prod-meta-label">ANO: <span id="lblYear" style="font-weight:normal">2026</span></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="prod-meta-label">TOTAL DE FAMÍLIAS: <span id="lblTotFamilias" style="font-weight:normal">0</span></td>
-              <td class="prod-meta-label">TOTAL DE USUÁRIO: <span id="lblTotUsuarios" style="font-weight:normal">0</span></td>
-            </tr>
-            <tr>
-              <td colspan="2">Internações / mês:</td>
-              <td class="prod-num" id="lblInternacoes">0</td>
-            </tr>
-            <tr>
-              <td colspan="2">Ausentes (nº de domicílios):</td>
-              <td class="prod-num" id="lblAusentes">0</td>
-            </tr>
-            <tr>
-              <td colspan="2">Domicílios que recusaram cadastro:</td>
-              <td class="prod-num" id="lblRecusas">0</td>
-            </tr>
-            <tr class="prod-col-header">
-              <th style="width:40%">GRUPOS</th>
-              <th style="width:30%">TOTAL CADASTRO</th>
-              <th style="width:30%">VISITAS / MÊS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Domicílio / Vulnerabilidade -->
-            <tr class="prod-section-row">
-              <td rowspan="3"><strong>Domicílio / Escala de Vulnerabilidade Familiar</strong></td>
-              <td>Baixa</td>
-              <td class="prod-num" id="cad_vuln_baixa">0</td>
-            </tr>
-            <tr class="prod-section-row">
-              <td>Moderada</td>
-              <td class="prod-num" id="cad_vuln_mod">0</td>
-            </tr>
-            <tr class="prod-section-row">
-              <td>Grave</td>
-              <td class="prod-num" id="cad_vuln_grave">0</td>
-            </tr>
-
-            <!-- Pessoas -->
-            <tr style="background:#e5e7eb;font-weight:bold"><td colspan="3">Pessoas</td></tr>
-
-            <!-- Gestantes -->
-            <tr><td rowspan="3">Gestantes</td><td>Risco Habitual</td><td class="prod-num" id="cad_gest_hab">0</td></tr>
-            <tr><td>Risco Intermediário</td><td class="prod-num" id="cad_gest_inter">0</td></tr>
-            <tr><td>Alto Risco</td><td class="prod-num" id="cad_gest_alto">0</td></tr>
-
-            <!-- Demais Linhas -->
-            <tr><td colspan="2">Recém-nascido / mês</td><td class="prod-num" id="cad_rn">0</td></tr>
-            <tr><td colspan="2">Crianças (0 a 12 anos)</td><td class="prod-num" id="cad_criancas">0</td></tr>
-            <tr><td colspan="2">Adolescentes (13 a 18 anos)</td><td class="prod-num" id="cad_teens">0</td></tr>
-            <tr><td colspan="2">Acamados</td><td class="prod-num" id="cad_acamados">0</td></tr>
-            <tr><td colspan="2">Domiciliados</td><td class="prod-num" id="cad_domiciliados">0</td></tr>
-            <tr><td colspan="2">Usuários com câncer em tratamento</td><td class="prod-num" id="cad_cancer">0</td></tr>
-            <tr><td colspan="2">Famílias do Bolsa Família</td><td class="prod-num" id="cad_bf">0</td></tr>
-            <tr><td colspan="2">Pessoas com deficiência</td><td class="prod-num" id="cad_pcd">0</td></tr>
-            <tr><td colspan="2">Hipertensos</td><td class="prod-num" id="cad_has">0</td></tr>
-            <tr><td colspan="2">Diabéticos</td><td class="prod-num" id="cad_dm">0</td></tr>
-            <tr><td colspan="2"><strong>Hipertensos e Diabéticos</strong></td><td class="prod-num" id="cad_has_dm">0</td></tr>
-            <tr><td colspan="2">Mulheres de 25 a 64 anos - exame papanicolau</td><td class="prod-num" id="cad_mulheres_prev">0</td></tr>
-            <tr><td colspan="2">Homens a partir de 40 anos - coleta PSA</td><td class="prod-num" id="cad_homens_psa">0</td></tr>
-
-            <!-- Transtorno Mental -->
-            <tr><td rowspan="3">Transtorno Mental</td><td>Baixo risco</td><td class="prod-num" id="cad_mental_baixo">0</td></tr>
-            <tr><td>Médio risco</td><td class="prod-num" id="cad_mental_medio">0</td></tr>
-            <tr><td>Alto risco</td><td class="prod-num" id="cad_mental_alto">0</td></tr>
-
-            <!-- Idoso 318 -->
-            <tr><td rowspan="3">Idoso 318</td><td>Robusto</td><td class="prod-num" id="cad_idoso_robusto">0</td></tr>
-            <tr><td>Risco de fragilização</td><td class="prod-num" id="cad_idoso_risco">0</td></tr>
-            <tr><td>Frágil</td><td class="prod-num" id="cad_idoso_fragil">0</td></tr>
-
-            <tr><td colspan="2">Acompanhamento tuberculose</td><td class="prod-num" id="cad_tb">0</td></tr>
-            <tr><td colspan="2">Acompanhamento hanseníase</td><td class="prod-num" id="cad_hanseniase">0</td></tr>
-          </tbody>
-        </table>
       </div>
     </section>
 
@@ -472,69 +430,49 @@ input,select,textarea,button{font:inherit}
         <h2>Planilhas & Importação</h2>
       </div>
 
-      <!-- Importador com Suporte Nativo a Excel (.xlsx) -->
       <div class="card" style="border-left:5px solid var(--p)">
-        <h3 style="margin:0 0 4px">📥 Importar Planilha de Pacientes (Excel ou CSV)</h3>
+        <h3 style="margin:0 0 4px">📥 Importar Planilha do Excel (.xlsx ou .csv)</h3>
         <p style="font-size:12px;color:var(--muted);margin-top:0">
-          Você pode subir o arquivo <strong>.xlsx do Excel</strong> direto do seu computador ou Google Drive:
+          Você pode subir a planilha oficial da sua microárea direto do computador ou Google Drive:
         </p>
 
-        <div class="upload-dropzone" onclick="document.getElementById('importFile').click()">
-          <div style="font-size:32px;margin-bottom:6px">📊</div>
-          <strong>Toque aqui para escolher a planilha do Excel (.xlsx ou .csv)</strong>
-          <small style="display:block;color:var(--muted);margin-top:4px">O aplicativo aceita a planilha com as ruas e vigências do Bolsa Família.</small>
-          <input type="file" id="importFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelUpload(event)">
-        </div>
+        <input type="file" id="importFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelUpload(event)">
+        <button class="btn btn-primary" onclick="document.getElementById('importFile').click()" style="padding:14px">
+          📊 Escolher Arquivo do Excel (.xlsx)
+        </button>
 
-        <!-- Guia Amigável de Como Salvar a Planilha -->
-        <div class="help-guide-card">
-          <strong>💡 Como pegar a planilha no Google Sheets (Foto 2):</strong><br>
-          1. Abra a planilha da sua microárea no Google Drive;<br>
-          2. Clique em <strong>Arquivo</strong> ➔ <strong>Fazer Download</strong> ➔ <strong>Planilha do Microsoft Excel (.xlsx)</strong>;<br>
-          3. Depois basta tocar na caixa verde acima e selecionar o arquivo baixado!
-        </div>
-
-        <!-- Seletor de Aba de Rua (Se for Excel com várias abas) -->
         <div id="sheetTabSelectorBox" style="display:none;margin-top:12px;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px">
-          <label style="font-size:12px;font-weight:800;color:var(--p)">Detectamos as seguintes ruas nas abas da sua planilha:</label>
+          <label style="font-size:12px;font-weight:800;color:var(--p)">Selecione a Rua / Aba detectada na sua planilha:</label>
           <div class="field" style="margin-top:6px">
             <select id="selExcelSheet" onchange="loadExcelSheetRows()"></select>
           </div>
         </div>
 
-        <!-- Mapeamento de Colunas Inteligente -->
         <div id="mapperBox" style="display:none;background:#f8fbf9;border:1px solid #cbe4d8;border-radius:10px;padding:12px;margin-top:12px">
           <div style="font-size:12px;font-weight:800;color:var(--p);margin-bottom:8px">CONFIRME AS COLUNAS DA SUA PLANILHA:</div>
           <div class="grid-2">
-            <div class="field"><label>Coluna da RUA *</label><select id="mapStreet"></select></div>
             <div class="field"><label>Coluna do NÚMERO *</label><select id="mapNumber"></select></div>
-          </div>
-          <div class="grid-2">
             <div class="field"><label>Coluna do NOME *</label><select id="mapName"></select></div>
+          </div>
+          <div class="grid-2">
             <div class="field"><label>Coluna do GESTOR</label><select id="mapGestor"></select></div>
-          </div>
-          <div class="grid-2">
             <div class="field"><label>Coluna do CPF</label><select id="mapCpf"></select></div>
-            <div class="field"><label>Coluna DATA NASCIMENTO</label><select id="mapBirth"></select></div>
           </div>
           <div class="grid-2">
-            <div class="field"><label>Coluna PESO</label><select id="mapPeso"></select></div>
-            <div class="field"><label>Coluna ESTATURA (ALTURA)</label><select id="mapAltura"></select></div>
+            <div class="field"><label>Coluna DATA NASCIMENTO</label><select id="mapBirth"></select></div>
+            <div class="field"><label>Coluna COMORBIDADES</label><select id="mapTags"></select></div>
           </div>
-          <div class="field"><label>Coluna de COMORBIDADES / OUTRAS CONDIÇÕES</label><select id="mapTags"></select></div>
           <button class="btn btn-primary" onclick="executeExcelImport()">🚀 Carregar Famílias no Aplicativo</button>
         </div>
       </div>
 
-      <!-- Exportador CSV -->
       <div class="card">
-        <h3 style="margin:0 0 6px">⇩ Baixar Relatório em Excel</h3>
-        <button class="btn btn-soft" onclick="exportCSV()">Baixar Planilha de Visitas (.CSV)</button>
+        <h3 style="margin:0 0 6px">⇩ Baixar Planilha em Excel</h3>
+        <button class="btn btn-soft" onclick="exportCSV()">Baixar Visitas (.CSV)</button>
       </div>
 
-      <!-- Backup Completo -->
       <div class="card">
-        <div class="card-header"><h3>Cópia de Segurança dos Dados</h3></div>
+        <div class="card-header"><h3>Cópia de Segurança</h3></div>
         <div class="grid-2">
           <button class="btn btn-sm btn-soft" onclick="downloadBackup()">Salvar Cópia (JSON)</button>
           <button class="btn btn-sm btn-danger" onclick="resetToDemo()">Restaurar Demonstração</button>
@@ -549,11 +487,11 @@ input,select,textarea,button{font:inherit}
     <button class="nav-tab active" data-v="visita" onclick="navTo('visita')">
       <span class="icon">📝</span>Visita
     </button>
-    <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
-      <span class="icon">📅</span>Agenda
-    </button>
     <button class="nav-tab" data-v="fechamento" onclick="navTo('fechamento')">
       <span class="icon">📊</span>Fechamento
+    </button>
+    <button class="nav-tab" data-v="agenda" onclick="navTo('agenda')">
+      <span class="icon">📅</span>Agenda
     </button>
     <button class="nav-tab" data-v="planilhas" onclick="navTo('planilhas')">
       <span class="icon">📂</span>Planilhas
@@ -562,11 +500,11 @@ input,select,textarea,button{font:inherit}
 
 </div>
 
-<!-- Modal Adicionar / Editar Morador -->
+<!-- Modal Adicionar Morador -->
 <div class="modal" id="modalResident">
   <div class="modal-content">
     <div class="card-header">
-      <h3 id="modalResidentTitle">Cadastrar / Editar Morador</h3>
+      <h3 id="modalResidentTitle">Cadastrar Morador</h3>
       <button class="btn btn-sm btn-soft" onclick="closeModal('modalResident')">✕</button>
     </div>
     <form id="formRes" onsubmit="saveResidentModal(event)">
@@ -574,34 +512,21 @@ input,select,textarea,button{font:inherit}
 
       <div class="field">
         <label>Nome Completo *</label>
-        <input type="text" id="mName" required placeholder="Ex.: Tainara Iara M P S">
+        <input type="text" id="mName" required placeholder="Ex.: Tainara Iara">
       </div>
       <div class="grid-2">
-        <div class="field">
-          <label>Nº do Gestor</label>
-          <input type="text" id="mGestor" placeholder="Ex.: 10983">
-        </div>
-        <div class="field">
-          <label>CPF</label>
-          <input type="text" id="mCpf" placeholder="000.000.000-00">
-        </div>
+        <div class="field"><label>Nº do Gestor</label><input type="text" id="mGestor" placeholder="Ex.: 10983"></div>
+        <div class="field"><label>CPF</label><input type="text" id="mCpf" placeholder="000.000.000-00"></div>
       </div>
       <div class="grid-2">
-        <div class="field">
-          <label>Data de Nascimento</label>
-          <input type="date" id="mBirth">
-        </div>
-        <div class="field">
-          <label>Sexo</label>
-          <select id="mSex"><option value="F">Feminino</option><option value="M">Masculino</option></select>
-        </div>
+        <div class="field"><label>Data de Nascimento</label><input type="date" id="mBirth" onchange="autoTagElderly()"></div>
+        <div class="field"><label>Sexo</label><select id="mSex"><option value="F">Feminino</option><option value="M">Masculino</option></select></div>
       </div>
       <div class="grid-2">
         <div class="field"><label>Peso (kg)</label><input type="text" id="mPeso" placeholder="Ex.: 45,3"></div>
         <div class="field"><label>Estatura / Altura (cm)</label><input type="text" id="mAltura" placeholder="Ex.: 159"></div>
       </div>
 
-      <!-- Estratificações Oficiais da Folha (Foto 1) -->
       <div class="grid-2">
         <div class="field">
           <label>Gestante - Risco:</label>
@@ -613,9 +538,9 @@ input,select,textarea,button{font:inherit}
           </select>
         </div>
         <div class="field">
-          <label>Idoso 318 (EVFAM):</label>
-          <select id="mIdosoEvfam">
-            <option value="">Não avaliado / Não idoso</option>
+          <label>Idoso - Classificação:</label>
+          <select id="mIdosoClass">
+            <option value="">Não idoso</option>
             <option value="Robusto">Robusto</option>
             <option value="Risco de fragilização">Risco de fragilização</option>
             <option value="Frágil">Frágil</option>
@@ -634,8 +559,9 @@ input,select,textarea,button{font:inherit}
       </div>
 
       <div class="field">
-        <label>Condições Crônicas & Vulnerabilidades:</label>
+        <label>Condições de Saúde (Tags Visíveis):</label>
         <div class="tags-cloud" id="modalTagCloud">
+          <span class="tag" data-tag="Idoso (60+)" onclick="toggleMTag(this)">🧓 Idoso (60+)</span>
           <span class="tag" data-tag="Hipertenso" onclick="toggleMTag(this)">🩺 Hipertenso</span>
           <span class="tag" data-tag="Diabético" onclick="toggleMTag(this)">🩸 Diabético</span>
           <span class="tag" data-tag="Acamado" onclick="toggleMTag(this)">🛏️ Acamado</span>
@@ -645,7 +571,6 @@ input,select,textarea,button{font:inherit}
           <span class="tag" data-tag="Pessoa com deficiência" onclick="toggleMTag(this)">♿ Pessoa com deficiência</span>
           <span class="tag" data-tag="Tuberculose" onclick="toggleMTag(this)">🫁 Tuberculose</span>
           <span class="tag" data-tag="Hanseníase" onclick="toggleMTag(this)">🩹 Hanseníase</span>
-          <span class="tag" data-tag="Tabagista (Fuma)" onclick="toggleMTag(this)">🚬 Tabagista</span>
         </div>
       </div>
 
@@ -654,12 +579,52 @@ input,select,textarea,button{font:inherit}
   </div>
 </div>
 
+<!-- Modal Como Baixar o App (PWA Guide) -->
+<div class="modal" id="modalInstallGuide">
+  <div class="modal-content">
+    <div class="card-header">
+      <h3>📲 Como Baixar o App no Celular ou Tablet</h3>
+      <button class="btn btn-sm btn-soft" onclick="closeModal('modalInstallGuide')">✕</button>
+    </div>
+    <div style="font-size:13px;line-height:1.5;color:#334155">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:10px;border-radius:10px;margin-bottom:10px">
+        <strong style="color:var(--green);display:block;margin-bottom:4px">Android / Tablet da UBS (Google Chrome):</strong>
+        1. Toque nos <strong>3 pontinhos</strong> no canto superior direito do navegador;<br>
+        2. Toque em <strong>"Instalar aplicativo"</strong> ou <strong>"Adicionar à tela inicial"</strong>;<br>
+        3. O ícone da UBS Paris será criado na tela inicial e funciona 100% sem internet!
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;padding:10px;border-radius:10px">
+        <strong style="color:var(--blue);display:block;margin-bottom:4px">iPhone / iPad (Safari):</strong>
+        1. Toque no botão de <strong>Compartilhar</strong> (o quadrado com uma setinha apontando para cima);<br>
+        2. Role para baixo e toque em <strong>"Adicionar à Tela de Início"</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Novidades -->
+<div class="modal" id="modalNovidades">
+  <div class="modal-content">
+    <div class="card-header">
+      <h3>✨ Novidades e Melhorias no UBS Paris</h3>
+      <button class="btn btn-sm btn-soft" onclick="closeModal('modalNovidades')">✕</button>
+    </div>
+    <div style="font-size:13px;color:#1e3a8a;line-height:1.5;background:#eff6ff;padding:12px;border-radius:10px">
+      <strong style="display:block;margin-bottom:6px">O que mudou com as sugestões das agentes:</strong>
+      • <strong>Visita Passo a Passo:</strong> Sem tela cheia e confusa. Escolha a rua/casa ➔ toque no portão ➔ marque a família.<br>
+      • <strong>Tabela Moderna de Produtividade:</strong> A folha mensal agora é um painel digital lindo com contagem automática de cadastros e visitas.<br>
+      • <strong>Super Cruzador de Condições:</strong> Você pode somar qualquer grupo ou ver cruzamentos exatos.<br>
+      • <strong>Idoso e EVFAM Corrigidos:</strong> Idoso como comorbidade visível e EVFAM no lugar certo (na família/casa).<br>
+      • <strong>App Instalável Ativo:</strong> Agora pode ser instalado no celular e tablet!
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// BASE DE DADOS MULTI-ÁREA
-const DB_KEY = 'ubsParis_FullExcel_v9';
-
+// BASE DE DADOS
+const DB_KEY = 'ubsParis_Wizard_v10';
 const defaultDB = {
   areas: [
     { id: 'a69_m1', name: 'Área 69 · Microárea 01' },
@@ -678,12 +643,12 @@ const defaultDB = {
             {
               id: 'r_demo1', name: 'João Paulo Afonso', gestor: '330398', cpf: '057.972.579-04',
               birthDate: '1986-08-08', sex: 'M', peso: '75', altura: '157',
-              tags: ['Bolsa Família'], gestRisco: '', idosoEvfam: '', mentalRisco: ''
+              tags: ['Bolsa Família'], gestRisco: '', idosoClass: '', mentalRisco: ''
             },
             {
               id: 'r_demo2', name: 'Laisa Pociano de Oliveira', gestor: '874816', cpf: '092.186.369-10',
               birthDate: '1996-02-03', sex: 'F', peso: '', altura: '',
-              tags: ['Bolsa Família'], gestRisco: 'Habitual', idosoEvfam: '', mentalRisco: ''
+              tags: ['Bolsa Família'], gestRisco: 'Habitual', idosoClass: '', mentalRisco: ''
             }
           ]
         },
@@ -693,7 +658,7 @@ const defaultDB = {
             {
               id: 'r_demo3', name: 'Lúcia Cardoso Silva', gestor: '123489', cpf: '679.716.799-04',
               birthDate: '1955-03-14', sex: 'F', peso: '', altura: '',
-              tags: ['Hipertenso', 'Diabético'], gestRisco: '', idosoEvfam: 'Frágil', mentalRisco: ''
+              tags: ['Idoso (60+)', 'Hipertenso', 'Diabético'], gestRisco: '', idosoClass: 'Frágil', mentalRisco: ''
             }
           ]
         }
@@ -713,6 +678,8 @@ let currentUser = { areaId: null, name: '' };
 let pinEntered = '', targetAreaId = '', targetAreaName = '';
 let selectedCalDate = new Date();
 let excelWorkbook = null;
+let activeCrossTags = [];
+let deferredPrompt = null;
 
 function loadDB(){
   try{
@@ -727,7 +694,7 @@ function persist(){
     localStorage.setItem(DB_KEY, JSON.stringify(db));
     return true;
   }catch(e){
-    toast('Erro de armazenamento local.');
+    toast('Erro de armazenamento.');
     return false;
   }
 }
@@ -805,14 +772,15 @@ function setupMainInterface(){
   const mgrField = document.getElementById('managerAreaSelectField');
   if(currentUser.areaId === 'all'){
     mgrField.style.display = 'block';
-    document.getElementById('vAreaManager').innerHTML = `<option value="all">Todas as Microáreas (Visão Geral)</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
+    document.getElementById('vAreaManager').innerHTML = `<option value="all">Todas as Microáreas</option>` + db.areas.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
   } else {
     mgrField.style.display = 'none';
   }
 
   updateStreetsList();
+  renderCrossTags();
+  updateModernReport();
   renderAgenda();
-  generateProductivitySheet();
 }
 
 function getActiveStreets(){
@@ -826,11 +794,11 @@ function getActiveStreets(){
 
 function switchManagerArea(){
   updateStreetsList();
+  updateModernReport();
   renderAgenda();
-  generateProductivitySheet();
 }
 
-// ================= 1. VISITA POR CASA =================
+// ================= 1. WIZARD: VISITA PASSO A PASSO LIMPO =================
 function updateStreetsList(){
   const streets = getActiveStreets();
   const sel = document.getElementById('vStreet');
@@ -846,35 +814,30 @@ function updateHousesList(){
 
   if(!street || !street.houses.length){
     houseSel.innerHTML = `<option value="">Nenhum número cadastrado</option>`;
-    hideHouseSections();
     return;
   }
-
-  houseSel.innerHTML = `<option value="">Selecione o Número...</option>` + street.houses.map(h => `<option value="${h.id}">Nº ${h.number}</option>`).join('');
-  if(street.houses.length > 0){
-    houseSel.value = street.houses[0].id;
-    loadHouseData();
-  }
+  houseSel.innerHTML = street.houses.map(h => `<option value="${h.id}">Nº ${h.number}</option>`).join('');
 }
 
-function loadHouseData(){
+function goToWizardStep(stepNum){
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.w-prog-item').forEach((p, idx) => p.classList.toggle('active', idx + 1 === stepNum));
+  document.getElementById(`wizardStep${stepNum}`).classList.add('active');
+
   const streetId = document.getElementById('vStreet').value;
   const houseId = document.getElementById('vHouse').value;
   const street = db.streets.find(s => s.id === streetId);
   const house = street?.houses.find(h => h.id === houseId);
 
-  if(!house){ hideHouseSections(); return; }
+  if(stepNum === 2 && house){
+    document.getElementById('step2HouseTitle').textContent = `${street.name}, Nº ${house.number}`;
+    document.getElementById('vHouseVuln').value = house.vuln || 'Baixa';
+  }
 
-  document.getElementById('houseTitle').textContent = `${street.name}, Nº ${house.number}`;
-  document.getElementById('vHouseVuln').value = house.vuln || 'Baixa';
-  document.getElementById('houseBox').style.display = 'block';
-
-  chooseOutcome('Realizada', document.querySelector('.outcome-btn.realizada'));
-}
-
-function hideHouseSections(){
-  document.getElementById('houseBox').style.display = 'none';
-  document.getElementById('familyCard').style.display = 'none';
+  if(stepNum === 3 && house){
+    document.getElementById('step3HouseTitle').textContent = `${street.name}, Nº ${house.number}`;
+    renderHouseResidents();
+  }
 }
 
 function updateHouseVuln(){
@@ -887,26 +850,36 @@ function updateHouseVuln(){
   }
 }
 
-function chooseOutcome(outcome, btn){
-  document.querySelectorAll('.outcome-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('vOutcome').value = outcome;
+function handleGateOutcome(outcome){
+  const streetId = document.getElementById('vStreet').value;
+  const houseId = document.getElementById('vHouse').value;
+  const date = document.getElementById('vDate').value;
 
   if(outcome === 'Realizada'){
-    document.getElementById('quickCloseBox').style.display = 'none';
-    document.getElementById('familyCard').style.display = 'block';
-    renderHouseResidents();
+    goToWizardStep(3);
   } else {
-    document.getElementById('quickCloseBox').style.display = 'block';
-    document.getElementById('familyCard').style.display = 'none';
+    // Ausente ou Recusa: Salva na hora em 1 clique!
+    db.visits.push({
+      id: 'v_' + Date.now(),
+      areaId: currentUser.areaId,
+      streetId,
+      houseId,
+      date,
+      outcome,
+      attendees: [],
+      notes: outcome === 'Ausente' ? 'Casa fechada / ninguém atendeu' : 'Recusa de atendimento'
+    });
+    persist();
+    toast(`✓ Registro salvo: ${outcome}!`);
+    updateModernReport();
+    goToWizardStep(1);
   }
 }
 
 function renderHouseResidents(){
   const streetId = document.getElementById('vStreet').value;
   const houseId = document.getElementById('vHouse').value;
-  const street = db.streets.find(s => s.id === streetId);
-  const house = street?.houses.find(h => h.id === houseId);
+  const house = db.streets.find(s => s.id === streetId)?.houses.find(h => h.id === houseId);
   const container = document.getElementById('residentsListContainer');
 
   if(!house.residents || !house.residents.length){
@@ -927,18 +900,16 @@ function renderHouseResidents(){
           <span>${r.name}</span>
         </label>
         <div>
-          <button class="btn btn-sm btn-soft" onclick="editResident('${r.id}')" title="Editar">✏️</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteResident('${r.id}')" title="Excluir">🗑️</button>
+          <button class="btn btn-sm btn-soft" onclick="editResident('${r.id}')">✏️</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteResident('${r.id}')">🗑️</button>
         </div>
       </div>
 
       <div style="font-size:11px;color:var(--muted);margin:2px 0 4px">
         ${r.gestor ? `Gestor: <strong>${r.gestor}</strong> · ` : ''}
         ${r.cpf ? `CPF: ${r.cpf} · ` : ''}
-        ${r.peso ? `Peso: ${r.peso}kg · ` : ''}
-        ${r.altura ? `Alt: ${r.altura}cm · ` : ''}
         ${r.gestRisco ? `Gestante: ${r.gestRisco} · ` : ''}
-        ${r.idosoEvfam ? `EVFAM: ${r.idosoEvfam}` : ''}
+        ${r.idosoClass ? `Idoso: ${r.idosoClass}` : ''}
       </div>
 
       <div class="tags-cloud">
@@ -961,16 +932,16 @@ function buildChecklistHTML(r){
   let html = '';
   if(r.tags.includes('Hipertenso')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Hipertensão (HAS):</div>
+      <div style="font-size:12px;font-weight:800;color:#991b1b;margin-bottom:4px">🩺 Aferição de Hipertensão:</div>
       <div class="grid-2">
         <div class="field"><label>PA Aferida</label><input type="text" id="pa_${r.id}" placeholder="120x80"></div>
-        <div class="field"><label>Consulta no semestre?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
+        <div class="field"><label>Consulta 6m?</label><select id="conHAS_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
       </div>
     `;
   }
   if(r.tags.includes('Diabético')){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Diabetes (DM):</div>
+      <div style="font-size:12px;font-weight:800;color:#075985;margin-bottom:4px">🩸 Aferição de Diabetes:</div>
       <div class="grid-2">
         <div class="field"><label>Glicemia (mg/dL)</label><input type="number" id="gli_${r.id}" placeholder="110"></div>
         <div class="field"><label>Pés avaliados?</label><select id="pesDM_${r.id}"><option value="Sim">Sim</option><option value="Não">Não</option></select></div>
@@ -979,14 +950,12 @@ function buildChecklistHTML(r){
   }
   if(r.gestRisco){
     html += `
-      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Acompanhamento Gestante (${r.gestRisco}):</div>
+      <div style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:4px">🤰 Pré-Natal (${r.gestRisco}):</div>
       <label class="check-item"><input type="checkbox" id="gVac_${r.id}"> Vacina dTpa em dia</label>
-      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos realizados</label>
+      <label class="check-item"><input type="checkbox" id="gTest_${r.id}"> Testes rápidos feitos</label>
     `;
   }
-  if(!html){
-    html = `<p style="font-size:12px;color:var(--muted);margin:0">Orientações gerais de saúde realizadas.</p>`;
-  }
+  if(!html) html = `<p style="font-size:12px;color:var(--muted);margin:0">Orientações de rotina realizadas.</p>`;
   return html;
 }
 
@@ -1011,43 +980,215 @@ function saveFullHouseVisit(){
     date,
     outcome: 'Realizada',
     attendees,
-    internacao: document.getElementById('vHouseInternacao').value === 'Sim',
-    notes,
-    synced: false
+    notes
   });
 
   persist();
-  toast('✓ Visita salva com sucesso!');
-  generateProductivitySheet();
-  navTo('fechamento');
+  toast('✓ Visita da família salva!');
+  updateModernReport();
+  goToWizardStep(1);
 }
 
-function saveQuickHouseVisit(){
-  const streetId = document.getElementById('vStreet').value;
-  const houseId = document.getElementById('vHouse').value;
-  const date = document.getElementById('vDate').value;
-  const outcome = document.getElementById('vOutcome').value;
+// ================= 2. TABELA MODERNA DE PRODUTIVIDADE & SUPER CRUZADOR =================
+function renderCrossTags(){
+  const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Gestante', 'Bolsa Família', 'Acamado', 'Criança (0 a 12 anos)', 'Adolescente (13 a 18 anos)'];
+  document.getElementById('crossTagCloud').innerHTML = tags.map(t => {
+    const isAct = activeCrossTags.includes(t);
+    return `<span class="tag ${isAct ? 'active' : ''}" onclick="toggleCrossTag('${t}')">${t}</span>`;
+  }).join('') + (activeCrossTags.length ? `<span class="tag btn-danger" onclick="clearCrossTags()">✕ Limpar</span>` : '');
+}
 
-  db.visits.push({
-    id: 'v_' + Date.now(),
-    areaId: currentUser.areaId,
-    streetId,
-    houseId,
-    date,
-    outcome,
-    attendees: [],
-    internacao: false,
-    notes: outcome === 'Ausente' ? 'Casa fechada / ausente' : 'Recusa de atendimento',
-    synced: false
+function toggleCrossTag(t){
+  if(activeCrossTags.includes(t)) activeCrossTags = activeCrossTags.filter(x => x !== t);
+  else activeCrossTags.push(t);
+  renderCrossTags();
+  updateModernReport();
+}
+
+function clearCrossTags(){
+  activeCrossTags = [];
+  renderCrossTags();
+  updateModernReport();
+}
+
+function updateModernReport(){
+  const streets = getActiveStreets();
+  const m = parseInt(document.getElementById('repMonth').value, 10);
+  const y = parseInt(document.getElementById('repYear').value, 10);
+
+  // Visitas do mês
+  const monthVisits = db.visits.filter(v => {
+    if(!v.date) return false;
+    const [vy, vm] = v.date.split('-').map(Number);
+    return vy === y && vm === m;
   });
 
-  persist();
-  toast(`✓ Registro salvo: ${outcome}`);
-  generateProductivitySheet();
-  navTo('fechamento');
+  const visitedIds = new Set();
+  monthVisits.forEach(v => {
+    if(v.outcome === 'Realizada' && v.attendees) v.attendees.forEach(a => visitedIds.add(a.residentId));
+  });
+
+  // Métricas dos Indicadores Oficiais
+  const rowData = [
+    { title: "Escala EVFAM: Vulnerabilidade Baixa (Domicílios)", check: r => r._houseVuln === 'Baixa' },
+    { title: "Escala EVFAM: Vulnerabilidade Moderada (Domicílios)", check: r => r._houseVuln === 'Moderada' },
+    { title: "Escala EVFAM: Vulnerabilidade Grave (Domicílios)", check: r => r._houseVuln === 'Grave' },
+    { title: "Gestantes: Risco Habitual", check: r => r.gestRisco === 'Habitual' },
+    { title: "Gestantes: Risco Intermediário", check: r => r.gestRisco === 'Intermediário' },
+    { title: "Gestantes: Alto Risco", check: r => r.gestRisco === 'Alto Risco' },
+    { title: "Recém-nascidos (< 1 ano)", check: r => r._age >= 0 && r._age < 1 },
+    { title: "Crianças (0 a 12 anos)", check: r => r._age >= 0 && r._age <= 12 },
+    { title: "Adolescentes (13 a 18 anos)", check: r => r._age >= 13 && r._age <= 18 },
+    { title: "Acamados", check: r => (r.tags || []).includes('Acamado') },
+    { title: "Domiciliados", check: r => (r.tags || []).includes('Domiciliado') },
+    { title: "Usuários com câncer em tratamento", check: r => (r.tags || []).includes('Câncer em tratamento') },
+    { title: "Famílias do Bolsa Família", check: r => (r.tags || []).includes('Bolsa Família') },
+    { title: "Pessoas com deficiência (PCD)", check: r => (r.tags || []).includes('Pessoa com deficiência') },
+    { title: "Hipertensos (HAS)", check: r => (r.tags || []).includes('Hipertenso') },
+    { title: "Diabéticos (DM)", check: r => (r.tags || []).includes('Diabético') },
+    { title: "Hipertensos e Diabéticos (HAS + DM juntos)", check: r => (r.tags || []).includes('Hipertenso') && (r.tags || []).includes('Diabético') },
+    { title: "Mulheres de 25 a 64 anos (Papanicolau / Preventivo)", check: r => r.sex === 'F' && r._age >= 25 && r._age <= 64 },
+    { title: "Homens a partir de 40 anos (Coleta PSA)", check: r => r.sex === 'M' && r._age >= 40 },
+    { title: "Transtorno Mental: Baixo risco", check: r => r.mentalRisco === 'Baixo risco' },
+    { title: "Transtorno Mental: Médio risco", check: r => r.mentalRisco === 'Médio risco' },
+    { title: "Transtorno Mental: Alto risco", check: r => r.mentalRisco === 'Alto risco' },
+    { title: "Idosos: Robusto", check: r => r.idosoClass === 'Robusto' || ((r.tags || []).includes('Idoso (60+)') && !r.idosoClass) },
+    { title: "Idosos: Risco de fragilização", check: r => r.idosoClass === 'Risco de fragilização' },
+    { title: "Idosos: Frágil", check: r => r.idosoClass === 'Frágil' },
+    { title: "Acompanhamento de Tuberculose", check: r => (r.tags || []).includes('Tuberculose') },
+    { title: "Acompanhamento de Hanseníase", check: r => (r.tags || []).includes('Hanseníase') }
+  ];
+
+  // Coletar todos os moradores
+  const allResidents = [];
+  streets.forEach(s => {
+    s.houses.forEach(h => {
+      (h.residents || []).forEach(r => {
+        let age = -1;
+        if(r.birthDate){
+          const b = new Date(r.birthDate);
+          age = Math.floor((new Date() - b) / (1000*60*60*24*365.25));
+        }
+        allResidents.push({ ...r, _age: age, _houseVuln: h.vuln || 'Baixa', _streetName: s.name, _houseNum: h.number });
+      });
+    });
+  });
+
+  // Renderizar Tabela Moderna
+  const tbody = document.getElementById('modernTableBody');
+  tbody.innerHTML = rowData.map((row, idx) => {
+    const matching = allResidents.filter(row.check);
+    const totCad = matching.length;
+    const totVis = matching.filter(r => visitedIds.has(r.id)).length;
+    const perc = totCad > 0 ? Math.round((totVis / totCad) * 100) + '%' : '0%';
+
+    return `
+      <tr onclick="showNominalListForGroup('${row.title}', ${idx})">
+        <td><strong>${row.title}</strong></td>
+        <td class="num-cell">${totCad}</td>
+        <td class="num-cell visited">${totVis}</td>
+        <td class="num-cell">${perc}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Atualizar o Cruzador Dinâmico
+  const mode = document.querySelector('input[name="crossMode"]:checked')?.value || 'intersection';
+  let crossFiltered = [];
+
+  if(!activeCrossTags.length){
+    crossFiltered = allResidents;
+  } else if(mode === 'intersection'){
+    crossFiltered = allResidents.filter(r => activeCrossTags.every(t => (r.tags || []).includes(t)));
+  } else {
+    crossFiltered = allResidents.filter(r => activeCrossTags.some(t => (r.tags || []).includes(t)));
+  }
+
+  const crossDone = crossFiltered.filter(r => visitedIds.has(r.id)).length;
+  const crossPending = crossFiltered.length - crossDone;
+
+  document.getElementById('crossResultsBox').innerHTML = `
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:10px">
+      <strong style="font-size:22px;color:var(--green);display:block">${crossDone}</strong>
+      <small style="color:#166534;font-weight:800">Visitados no Mês</small>
+    </div>
+    <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:10px">
+      <strong style="font-size:22px;color:var(--red);display:block">${crossPending}</strong>
+      <small style="color:#991b1b;font-weight:800">Pendentes no Mês</small>
+    </div>
+  `;
+
+  // Atualiza lista nominal com os resultados do cruzador
+  renderNominalList(crossFiltered, visitedIds, activeCrossTags.join(' + ') || 'Toda a População');
 }
 
-// ================= 2. CRUD MORADOR =================
+function showNominalListForGroup(title, idx){
+  const streets = getActiveStreets();
+  const allResidents = [];
+  streets.forEach(s => s.houses.forEach(h => (h.residents || []).forEach(r => {
+    let age = -1;
+    if(r.birthDate) age = Math.floor((new Date() - new Date(r.birthDate)) / (1000*60*60*24*365.25));
+    allResidents.push({ ...r, _age: age, _houseVuln: h.vuln || 'Baixa', _streetName: s.name, _houseNum: h.number });
+  })));
+
+  const m = parseInt(document.getElementById('repMonth').value, 10);
+  const y = parseInt(document.getElementById('repYear').value, 10);
+  const visitedIds = new Set();
+  db.visits.filter(v => {
+    if(!v.date) return false;
+    const [vy, vm] = v.date.split('-').map(Number);
+    return vy === y && vm === m && v.outcome === 'Realizada';
+  }).forEach(v => v.attendees?.forEach(a => visitedIds.add(a.residentId)));
+
+  const rowData = [
+    r => r._houseVuln === 'Baixa', r => r._houseVuln === 'Moderada', r => r._houseVuln === 'Grave',
+    r => r.gestRisco === 'Habitual', r => r.gestRisco === 'Intermediário', r => r.gestRisco === 'Alto Risco',
+    r => r._age >= 0 && r._age < 1, r => r._age >= 0 && r._age <= 12, r => r._age >= 13 && r._age <= 18,
+    r => (r.tags || []).includes('Acamado'), r => (r.tags || []).includes('Domiciliado'),
+    r => (r.tags || []).includes('Câncer em tratamento'), r => (r.tags || []).includes('Bolsa Família'),
+    r => (r.tags || []).includes('Pessoa com deficiência'), r => (r.tags || []).includes('Hipertenso'),
+    r => (r.tags || []).includes('Diabético'),
+    r => (r.tags || []).includes('Hipertenso') && (r.tags || []).includes('Diabético'),
+    r => r.sex === 'F' && r._age >= 25 && r._age <= 64, r => r.sex === 'M' && r._age >= 40,
+    r => r.mentalRisco === 'Baixo risco', r => r.mentalRisco === 'Médio risco', r => r.mentalRisco === 'Alto risco',
+    r => r.idosoClass === 'Robusto' || ((r.tags || []).includes('Idoso (60+)') && !r.idosoClass),
+    r => r.idosoClass === 'Risco de fragilização', r => r.idosoClass === 'Frágil',
+    r => (r.tags || []).includes('Tuberculose'), r => (r.tags || []).includes('Hanseníase')
+  ];
+
+  const filtered = allResidents.filter(rowData[idx]);
+  renderNominalList(filtered, visitedIds, title);
+  document.getElementById('cardNominalList').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderNominalList(list, visitedIds, title){
+  document.getElementById('nominalListTitle').textContent = `Lista Nominal: ${title}`;
+  document.getElementById('nominalCountBadge').textContent = `${list.length} pessoas`;
+
+  const container = document.getElementById('nominalListContainer');
+  if(!list.length){
+    container.innerHTML = `<p style="text-align:center;color:var(--muted);padding:10px">Nenhum cidadão cadastrado neste grupo.</p>`;
+    return;
+  }
+
+  container.innerHTML = list.map(r => {
+    const isDone = visitedIds.has(r.id);
+    return `
+      <div style="padding:10px 0;border-bottom:1px solid #edf4f1;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong style="font-size:14px">${r.name}</strong>
+          <small style="display:block;color:var(--muted)">📍 ${r._streetName}, Nº ${r._houseNum} ${r.gestor ? `· Gestor: ${r.gestor}` : ''}</small>
+          <div class="tags-cloud" style="margin:2px 0">
+            ${(r.tags || []).map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
+          </div>
+        </div>
+        <span class="status-pill ${isDone ? 'green' : 'red'}">${isDone ? '✓ Visitado' : '⚠️ Pendente'}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+// ================= 3. CRUD MORADOR =================
 function openAddResidentModal(){
   document.getElementById('formRes').reset();
   document.getElementById('editResidentId').value = '';
@@ -1071,7 +1212,7 @@ function editResident(resId){
   document.getElementById('mPeso').value = res.peso || '';
   document.getElementById('mAltura').value = res.altura || '';
   document.getElementById('mGestRisco').value = res.gestRisco || '';
-  document.getElementById('mIdosoEvfam').value = res.idosoEvfam || '';
+  document.getElementById('mIdosoClass').value = res.idosoClass || '';
   document.getElementById('mMentalRisco').value = res.mentalRisco || '';
 
   document.querySelectorAll('#modalTagCloud .tag').forEach(t => {
@@ -1090,11 +1231,21 @@ function deleteResident(resId){
         h.residents.splice(idx, 1);
         persist();
         renderHouseResidents();
-        generateProductivitySheet();
+        updateModernReport();
         toast('Morador removido.');
         return;
       }
     }
+  }
+}
+
+function autoTagElderly(){
+  const b = document.getElementById('mBirth').value;
+  if(!b) return;
+  const age = Math.floor((new Date() - new Date(b)) / (1000*60*60*24*365.25));
+  if(age >= 60){
+    const tag = document.querySelector('#modalTagCloud .tag[data-tag="Idoso (60+)"]');
+    if(tag) tag.classList.add('active');
   }
 }
 
@@ -1109,16 +1260,23 @@ function saveResidentModal(e){
   if(!house) return;
 
   const selectedTags = Array.from(document.querySelectorAll('#modalTagCloud .tag.active')).map(t => t.dataset.tag);
+  const birth = document.getElementById('mBirth').value;
+
+  if(birth){
+    const age = Math.floor((new Date() - new Date(birth)) / (1000*60*60*24*365.25));
+    if(age >= 60 && !selectedTags.includes('Idoso (60+)')) selectedTags.push('Idoso (60+)');
+  }
+
   const payload = {
     name: document.getElementById('mName').value.trim(),
     gestor: document.getElementById('mGestor').value.trim(),
     cpf: document.getElementById('mCpf').value.trim(),
-    birthDate: document.getElementById('mBirth').value,
+    birthDate: birth,
     sex: document.getElementById('mSex').value,
     peso: document.getElementById('mPeso').value.trim(),
     altura: document.getElementById('mAltura').value.trim(),
     gestRisco: document.getElementById('mGestRisco').value,
-    idosoEvfam: document.getElementById('mIdosoEvfam').value,
+    idosoClass: document.getElementById('mIdosoClass').value,
     mentalRisco: document.getElementById('mMentalRisco').value,
     tags: selectedTags
   };
@@ -1128,150 +1286,14 @@ function saveResidentModal(e){
     if(res) Object.assign(res, payload);
     toast('Cadastro atualizado!');
   } else {
-    house.residents.push({
-      id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5),
-      ...payload
-    });
+    house.residents.push({ id: 'r_' + Date.now() + Math.random().toString(36).slice(2,5), ...payload });
     toast('Morador cadastrado!');
   }
 
   persist();
   closeModal('modalResident');
   renderHouseResidents();
-  generateProductivitySheet();
-}
-
-// ================= 3. FECHAMENTO OFICIAL DE PRODUTIVIDADE (FOTO 1) =================
-function generateProductivitySheet(){
-  const streets = getActiveStreets();
-  const m = parseInt(document.getElementById('prodMonth').value, 10);
-  const y = parseInt(document.getElementById('prodYear').value, 10);
-
-  // Metadados
-  const monthNames = ['JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
-  document.getElementById('lblMonth').textContent = monthNames[m - 1];
-  document.getElementById('lblYear').textContent = y;
-
-  const isArea69 = currentUser.areaId?.includes('a69');
-  document.getElementById('thMainTitle').textContent = `FECHAMENTO DE PRODUTIVIDADE DO ACS UBS PARIS - ${isArea69 ? 'ESF 69' : 'ESF 70'}`;
-  document.getElementById('lblAcsName').textContent = currentUser.name.toUpperCase();
-  document.getElementById('lblMicroArea').textContent = currentUser.areaId ? currentUser.areaId.slice(-1) : 'Geral';
-
-  // Visitas ocorridas no mês selecionado
-  const monthVisits = db.visits.filter(v => {
-    if(!v.date) return false;
-    const [vy, vm] = v.date.split('-').map(Number);
-    return vy === y && vm === m;
-  });
-
-  const visitedResidentIds = new Set();
-  let ausentesCount = 0, recusasCount = 0, internacoesCount = 0;
-
-  monthVisits.forEach(v => {
-    if(v.outcome === 'Ausente') ausentesCount++;
-    if(v.outcome === 'Recusa') recusasCount++;
-    if(v.internacao) internacoesCount++;
-    if(v.outcome === 'Realizada' && v.attendees){
-      v.attendees.forEach(a => visitedResidentIds.add(a.residentId));
-    }
-  });
-
-  document.getElementById('lblAusentes').textContent = ausentesCount;
-  document.getElementById('lblRecusas').textContent = recusasCount;
-  document.getElementById('lblInternacoes').textContent = internacoesCount;
-
-  // Contagem Geral
-  let totFamilias = 0, totUsuarios = 0;
-  let vulnBaixa = 0, vulnMod = 0, vulnGrave = 0;
-
-  // Contadores das Linhas
-  const metrics = {
-    gest_hab: [0,0], gest_inter: [0,0], gest_alto: [0,0],
-    rn: [0,0], criancas: [0,0], teens: [0,0],
-    acamados: [0,0], domiciliados: [0,0], cancer: [0,0], bf: [0,0], pcd: [0,0],
-    has: [0,0], dm: [0,0], has_dm: [0,0],
-    mulheres_prev: [0,0], homens_psa: [0,0],
-    mental_baixo: [0,0], mental_medio: [0,0], mental_alto: [0,0],
-    idoso_robusto: [0,0], idoso_risco: [0,0], idoso_fragil: [0,0],
-    tb: [0,0], hanseniase: [0,0]
-  };
-
-  streets.forEach(s => {
-    s.houses.forEach(h => {
-      totFamilias++;
-      if(h.vuln === 'Grave') vulnGrave++;
-      else if(h.vuln === 'Moderada') vulnMod++;
-      else vulnBaixa++;
-
-      (h.residents || []).forEach(r => {
-        totUsuarios++;
-        const wasVisited = visitedResidentIds.has(r.id);
-        const add = (key) => {
-          metrics[key][0]++; // Total Cadastro
-          if(wasVisited) metrics[key][1]++; // Visitas no Mês
-        };
-
-        // Gestantes
-        if(r.gestRisco === 'Habitual') add('gest_hab');
-        if(r.gestRisco === 'Intermediário') add('gest_inter');
-        if(r.gestRisco === 'Alto Risco') add('gest_alto');
-
-        // Cálculo de Idade
-        let age = -1;
-        if(r.birthDate){
-          const b = new Date(r.birthDate);
-          age = Math.floor((new Date() - b) / (1000*60*60*24*365.25));
-        }
-
-        if(age >= 0 && age < 1) add('rn');
-        if(age >= 0 && age <= 12) add('criancas');
-        if(age >= 13 && age <= 18) add('teens');
-        if(r.sex === 'F' && age >= 25 && age <= 64) add('mulheres_prev');
-        if(r.sex === 'M' && age >= 40) add('homens_psa');
-
-        // Condições
-        const tags = r.tags || [];
-        if(tags.includes('Acamado')) add('acamados');
-        if(tags.includes('Domiciliado')) add('domiciliados');
-        if(tags.includes('Câncer em tratamento')) add('cancer');
-        if(tags.includes('Bolsa Família')) add('bf');
-        if(tags.includes('Pessoa com deficiência')) add('pcd');
-
-        const isHAS = tags.includes('Hipertenso');
-        const isDM = tags.includes('Diabético');
-        if(isHAS) add('has');
-        if(isDM) add('dm');
-        if(isHAS && isDM) add('has_dm');
-
-        // Transtorno Mental
-        if(r.mentalRisco === 'Baixo risco') add('mental_baixo');
-        if(r.mentalRisco === 'Médio risco') add('mental_medio');
-        if(r.mentalRisco === 'Alto risco') add('mental_alto');
-
-        // Idoso 318
-        if(r.idosoEvfam === 'Robusto') add('idoso_robusto');
-        if(r.idosoEvfam === 'Risco de fragilização') add('idoso_risco');
-        if(r.idosoEvfam === 'Frágil') add('idoso_fragil');
-
-        if(tags.includes('Tuberculose')) add('tb');
-        if(tags.includes('Hanseníase')) add('hanseniase');
-      });
-    });
-  });
-
-  document.getElementById('lblTotFamilias').textContent = totFamilias;
-  document.getElementById('lblTotUsuarios').textContent = totUsuarios;
-  document.getElementById('cad_vuln_baixa').textContent = vulnBaixa;
-  document.getElementById('cad_vuln_mod').textContent = vulnMod;
-  document.getElementById('cad_vuln_grave').textContent = vulnGrave;
-
-  // Atualiza as células com "Total Cadastro / Visitas Mês"
-  for(let k in metrics){
-    const el = document.getElementById(`cad_${k}`);
-    if(el){
-      el.textContent = `${metrics[k][0]}  (Visitas: ${metrics[k][1]})`;
-    }
-  }
+  updateModernReport();
 }
 
 // ================= 4. IMPORTADOR DE EXCEL (.XLSX) =================
@@ -1280,26 +1302,20 @@ function handleExcelUpload(e){
   if(!file) return;
 
   const reader = new FileReader();
-
   if(file.name.endsWith('.csv')){
-    // Leitura Direta de CSV
-    reader.onload = (evt) => parseCSVToTable(evt.target.result);
+    reader.onload = evt => parseCSVToTable(evt.target.result);
     reader.readAsText(file, 'UTF-8');
   } else {
-    // Leitura Oficial de Excel .xlsx / .xls
     reader.onload = function(evt){
       try {
         const data = new Uint8Array(evt.target.result);
         excelWorkbook = XLSX.read(data, { type: 'array' });
-
-        // Preenche seletor de abas (Ruas da Foto 2!)
         const sheetSel = document.getElementById('selExcelSheet');
-        sheetSel.innerHTML = excelWorkbook.SheetNames.map(name => `<option value="${name}">Rua / Aba: ${name}</option>`).join('');
-
+        sheetSel.innerHTML = excelWorkbook.SheetNames.map(name => `<option value="${name}">Rua: ${name}</option>`).join('');
         document.getElementById('sheetTabSelectorBox').style.display = 'block';
         loadExcelSheetRows();
       } catch(err) {
-        alert('Não foi possível ler este arquivo de Excel. Tente salvar como CSV ou verifique o arquivo.');
+        alert('Erro ao ler arquivo Excel. Tente exportar como CSV.');
       }
     };
     reader.readAsArrayBuffer(file);
@@ -1311,16 +1327,13 @@ function loadExcelSheetRows(){
   const sheetName = document.getElementById('selExcelSheet').value;
   const worksheet = excelWorkbook.Sheets[sheetName];
   const jsonRows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  if(!jsonRows.length) return;
 
-  if(!jsonRows.length){ toast('Aba vazia.'); return; }
-
-  // Encontra a linha de cabeçalho
-  let headerIndex = jsonRows.findIndex(r => r.some(c => String(c).toLowerCase().includes('nome') || String(c).toLowerCase().includes('gestor')));
+  let headerIndex = jsonRows.findIndex(r => r.some(c => String(c).toLowerCase().includes('nome')));
   if(headerIndex === -1) headerIndex = 0;
 
   const headers = jsonRows[headerIndex].map(h => String(h || '').trim());
   const rows = jsonRows.slice(headerIndex + 1);
-
   setupMapperSelectors(headers, rows, sheetName);
 }
 
@@ -1329,18 +1342,16 @@ function parseCSVToTable(text){
   const sep = lines[0].includes(';') ? ';' : ',';
   const headers = lines[0].split(sep).map(h => h.replace(/"/g,'').trim());
   const rows = lines.slice(1).map(l => l.split(sep).map(c => c.replace(/"/g,'').trim()));
-  setupMapperSelectors(headers, rows, 'Rua da Planilha');
+  setupMapperSelectors(headers, rows, 'Rua Importada');
 }
 
 function setupMapperSelectors(headers, rows, currentStreetName){
   importedRawData = { headers, rows, currentStreetName };
-
-  const ids = ['mapStreet', 'mapNumber', 'mapName', 'mapGestor', 'mapCpf', 'mapBirth', 'mapPeso', 'mapAltura', 'mapTags'];
+  const ids = ['mapNumber', 'mapName', 'mapGestor', 'mapCpf', 'mapBirth', 'mapTags'];
   ids.forEach(id => {
     document.getElementById(id).innerHTML = `<option value="">-- Ignorar --</option>` + headers.map((h, i) => `<option value="${i}">${h}</option>`).join('');
   });
 
-  // Auto-detecção inteligente das colunas da Foto 2
   headers.forEach((h, idx) => {
     const low = h.toLowerCase();
     if(low.includes('casa') || low.includes('nº')) document.getElementById('mapNumber').value = idx;
@@ -1348,13 +1359,11 @@ function setupMapperSelectors(headers, rows, currentStreetName){
     if(low.includes('gestor')) document.getElementById('mapGestor').value = idx;
     if(low.includes('cpf')) document.getElementById('mapCpf').value = idx;
     if(low.includes('nasc') || low.includes('data')) document.getElementById('mapBirth').value = idx;
-    if(low.includes('peso')) document.getElementById('mapPeso').value = idx;
-    if(low.includes('estatura') || low.includes('altura')) document.getElementById('mapAltura').value = idx;
     if(low.includes('comorb') || low.includes('condi') || low.includes('doen')) document.getElementById('mapTags').value = idx;
   });
 
   document.getElementById('mapperBox').style.display = 'block';
-  toast(`Aba "${currentStreetName}" carregada! Confirme as colunas.`);
+  toast(`Rua "${currentStreetName}" pronta para importar!`);
 }
 
 function executeExcelImport(){
@@ -1364,8 +1373,6 @@ function executeExcelImport(){
   const colGestor = document.getElementById('mapGestor').value;
   const colCpf = document.getElementById('mapCpf').value;
   const colBirth = document.getElementById('mapBirth').value;
-  const colPeso = document.getElementById('mapPeso').value;
-  const colAltura = document.getElementById('mapAltura').value;
   const colTags = document.getElementById('mapTags').value;
 
   if(colNumber === '' || colName === ''){
@@ -1408,13 +1415,7 @@ function executeExcelImport(){
       gestor: colGestor !== '' ? String(r[colGestor] || '').trim() : '',
       cpf: colCpf !== '' ? String(r[colCpf] || '').trim() : '',
       birthDate: colBirth !== '' ? String(r[colBirth] || '').trim() : '',
-      sex: 'F',
-      peso: colPeso !== '' ? String(r[colPeso] || '').trim() : '',
-      altura: colAltura !== '' ? String(r[colAltura] || '').trim() : '',
-      gestRisco: '',
-      idosoEvfam: '',
-      mentalRisco: '',
-      tags
+      sex: 'F', peso: '', altura: '', gestRisco: '', idosoClass: '', mentalRisco: '', tags
     });
     count++;
   });
@@ -1423,8 +1424,74 @@ function executeExcelImport(){
   document.getElementById('mapperBox').style.display = 'none';
   toast(`✓ Sucesso! ${count} pessoas importadas para a rua ${streetName}!`);
   updateStreetsList();
-  generateProductivitySheet();
+  updateModernReport();
   navTo('visita');
+}
+
+// ================= 5. PWA (INSTALAÇÃO REAL COMO APP) =================
+function setupPwaEngine(){
+  // Gera Manifesto Oficial dinâmico em memória
+  const manifest = {
+    name: "UBS Paris",
+    short_name: "UBS Paris",
+    start_url: window.location.href,
+    display: "standalone",
+    background_color: "#086b56",
+    theme_color: "#086b56",
+    icons: [
+      {
+        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23086b56'/%3E%3Cpath d='M40 20h20v20h20v20H60v20H40V60H20V40h20z' fill='%23fff'/%3E%3C/svg%3E",
+        sizes: "192x192 512x512",
+        type: "image/svg+xml",
+        purpose: "any maskable"
+      }
+    ]
+  };
+
+  const stringManifest = JSON.stringify(manifest);
+  const blobManifest = new Blob([stringManifest], { type: 'application/json' });
+  const manifestURL = URL.createObjectURL(blobManifest);
+
+  let linkTag = document.querySelector('link[rel="manifest"]');
+  if(!linkTag){
+    linkTag = document.createElement('link');
+    linkTag.rel = 'manifest';
+    document.head.appendChild(linkTag);
+  }
+  linkTag.href = manifestURL;
+
+  // Registra Service Worker virtual
+  if('serviceWorker' in navigator){
+    const swCode = `
+      self.addEventListener('install', e => self.skipWaiting());
+      self.addEventListener('activate', e => self.clients.claim());
+      self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+    `;
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(()=>{});
+  }
+
+  // Captura o evento oficial do Chrome de instalação
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('btnInstallApp').style.display = 'inline-flex';
+  });
+}
+
+function triggerPwaInstall(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((res) => {
+      if(res.outcome === 'accepted'){
+        toast('✓ Aplicativo instalado com sucesso!');
+        document.getElementById('btnInstallApp').style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    showModal('modalInstallGuide');
+  }
 }
 
 // ================= UTILITÁRIOS =================
@@ -1459,16 +1526,13 @@ function promptAddStreet(){
 function promptAddHouse(){
   const streetId = document.getElementById('vStreet').value;
   if(!streetId){ alert('Escolha uma rua primeiro!'); return; }
-  const num = prompt('Número da casa (pode conter letras, ex: 125 A, 707 F):');
+  const num = prompt('Número da casa (ex: 125 A, 707 F):');
   if(!num) return;
   const street = db.streets.find(s => s.id === streetId);
   street.houses.push({ id: 'h_' + Date.now(), number: num.trim(), vuln: 'Baixa', residents: [] });
   persist();
   updateHousesList();
 }
-
-function showModal(id){ document.getElementById(id).classList.add('open'); }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
 function renderAgenda(){
   const year = selectedCalDate.getFullYear();
@@ -1500,6 +1564,9 @@ function calNav(delta){
   renderAgenda();
 }
 
+function showModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+
 function downloadBackup(){
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' }));
@@ -1508,11 +1575,11 @@ function downloadBackup(){
 }
 
 function resetToDemo(){
-  if(!confirm('Restaurar dados de teste padrão?')) return;
+  if(!confirm('Restaurar dados padrão de demonstração?')) return;
   db = defaultDB;
   persist();
   updateStreetsList();
-  generateProductivitySheet();
+  updateModernReport();
   toast('Demonstração restaurada.');
 }
 
@@ -1538,10 +1605,14 @@ function navTo(viewId){
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.v === viewId));
 
   if(viewId === 'visita') updateStreetsList();
+  if(viewId === 'fechamento') updateModernReport();
   if(viewId === 'agenda') renderAgenda();
-  if(viewId === 'fechamento') generateProductivitySheet();
   window.scrollTo({top:0, behavior:'smooth'});
 }
+
+window.addEventListener('load', () => {
+  setupPwaEngine();
+});
 </script>
 </body>
 </html>
