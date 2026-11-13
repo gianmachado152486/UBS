@@ -74,7 +74,6 @@ input,select,textarea,button{font:inherit}
 .field input,.field select,.field textarea{width:100%;border:1px solid #c7d8d2;border-radius:9px;padding:10px;background:#fff;color:var(--ink);outline:none;font-size:14px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(8,107,86,0.12)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 
 /* Botões */
 .btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;width:100%}
@@ -103,15 +102,106 @@ input,select,textarea,button{font:inherit}
 .check-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px;cursor:pointer}
 .check-item input{width:18px;height:18px;accent-color:var(--p)}
 
-/* ================= TABELA DIGITAL MODERNA DE FECHAMENTO ================= */
-.modern-table-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-top:10px}
-.modern-table{width:100%;border-collapse:collapse;font-size:13px}
-.modern-table th{background:#e7f5ef;color:var(--p-dark);padding:10px 12px;text-align:left;font-weight:800;font-size:12px;text-transform:uppercase}
-.modern-table td{padding:10px 12px;border-bottom:1px solid #edf4f1}
+/* ================= BUG 1 CORRIGIDO: TABELA COM ROLAGEM HORIZONTAL SUAVE ================= */
+.modern-table-card{
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  margin-top:10px;
+  width:100%;
+  overflow-x:auto; /* ROLAGEM HORIZONTAL LIVRE */
+  -webkit-overflow-scrolling:touch;
+}
+.modern-table{
+  width:100%;
+  min-width:620px; /* LARGURA MÍNIMA GARANTIDA: NADA FICA CORTADO PELA METADE */
+  border-collapse:collapse;
+  font-size:13px;
+}
+.modern-table th{
+  background:#e7f5ef;
+  color:var(--p-dark);
+  padding:11px 12px;
+  text-align:left;
+  font-weight:800;
+  font-size:12px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.modern-table td{
+  padding:10px 12px;
+  border-bottom:1px solid #edf4f1;
+}
+.modern-table td:first-child{
+  min-width:260px;
+}
 .modern-table tr:hover{background:#f8fbf9;cursor:pointer}
-.modern-table tr.header-row{background:#fafdfb;font-weight:900;color:var(--p)}
-.num-cell{text-align:center;font-weight:800;font-size:14px}
+.num-cell{text-align:center;font-weight:800;font-size:14px;white-space:nowrap}
 .num-cell.visited{color:var(--green)}
+
+/* ================= BUG 2 CORRIGIDO: CALENDÁRIO QUADRADO EM GRADE REAL (7 COLUNAS) ================= */
+.calendar-widget{
+  background:#fff;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  padding:14px;
+  margin-bottom:12px;
+  width:100%;
+  box-sizing:border-box;
+}
+.cal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:800;
+  margin-bottom:12px;
+}
+.cal-grid{
+  display:grid !important;
+  grid-template-columns:repeat(7, 1fr) !important; /* SEMPRE 7 COLUNAS FIXAS: NUNCA MAIS QUEBRA EM LISTA */
+  gap:5px !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  text-align:center;
+}
+.cal-weekday{
+  font-size:11px;
+  font-weight:900;
+  color:var(--muted);
+  padding:4px 0;
+  text-align:center;
+}
+.cal-day{
+  height:42px !important;
+  border-radius:10px;
+  border:1.5px solid #e2ebe6;
+  display:flex !important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+  background:#fff;
+  user-select:none;
+}
+.cal-day:active{background:var(--p-light)}
+.cal-day.today{
+  border-color:var(--p) !important;
+  background:var(--p-light) !important;
+  color:var(--p);
+  font-weight:900;
+}
+.cal-day.selected{
+  background:var(--p) !important;
+  border-color:var(--p) !important;
+  color:#fff !important;
+}
+.cal-day.other-month{
+  opacity:0.25;
+  pointer-events:none;
+  border-color:transparent;
+}
 
 /* Badges */
 .status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:800}
@@ -211,21 +301,20 @@ input,select,textarea,button{font:inherit}
 
   <div class="app">
 
-    <!-- ================= ABA 1: NOVA VISITA PASSO A PASSO (WIZARD LIMPO) ================= -->
+    <!-- ================= ABA 1: VISITA PASSO A PASSO ================= -->
     <section class="view active" id="view-visita">
       <div class="card-header">
         <h2>Registro de Visita</h2>
         <span class="status-pill blue" id="activeAreaBadge">Microárea</span>
       </div>
 
-      <!-- Barra de Progresso Simples -->
       <div class="wizard-progress">
         <div class="w-prog-item active" id="prog1">1. Qual Casa?</div>
         <div class="w-prog-item" id="prog2">2. No Portão</div>
         <div class="w-prog-item" id="prog3">3. Quem Atendeu?</div>
       </div>
 
-      <!-- PASSO 1: Escolher Rua e Casa -->
+      <!-- PASSO 1 -->
       <div class="wizard-step active" id="wizardStep1">
         <div class="card">
           <div class="field" id="managerAreaSelectField" style="display:none">
@@ -254,7 +343,7 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- PASSO 2: O que aconteceu no portão? -->
+      <!-- PASSO 2 -->
       <div class="wizard-step" id="wizardStep2">
         <div class="card">
           <div class="card-header">
@@ -290,7 +379,7 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- PASSO 3: Moradores e Cuidados -->
+      <!-- PASSO 3 -->
       <div class="wizard-step" id="wizardStep3">
         <div class="card">
           <div class="card-header">
@@ -317,14 +406,13 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 2: FECHAMENTO & PRODUTIVIDADE (TABELA MODERNA + CRUZADOR) ================= -->
+    <!-- ================= ABA 2: FECHAMENTO & PRODUTIVIDADE ================= -->
     <section class="view" id="view-fechamento">
       <div class="card-header">
         <h2>Fechamento de Produtividade</h2>
         <button class="btn btn-sm btn-primary" onclick="window.print()">🖨 Imprimir Relatório</button>
       </div>
 
-      <!-- Controles do Período -->
       <div class="card">
         <div class="grid-2">
           <div class="field">
@@ -343,7 +431,7 @@ input,select,textarea,button{font:inherit}
         </div>
       </div>
 
-      <!-- O SUPER CRUZADOR & SOMADOR DINÂMICO -->
+      <!-- SUPER CRUZADOR & SOMADOR DINÂMICO -->
       <div class="card" style="border-left:5px solid var(--p)">
         <div class="card-header">
           <div>
@@ -365,15 +453,20 @@ input,select,textarea,button{font:inherit}
           </label>
         </div>
 
-        <!-- Indicador Rápido do Cruzamento -->
         <div class="grid-2" style="text-align:center;margin-top:6px" id="crossResultsBox"></div>
       </div>
 
-      <!-- TABELA MODERNA OFICIAL COM OS DADOS DA UBS PARIS -->
+      <!-- TABELA MODERNA OFICIAL COM ROLAGEM HORIZONTAL TOTALMENTE CORRIGIDA -->
       <div class="card">
-        <h3 style="margin:0 0 4px">📊 Painel Oficial de Indicadores da Microárea</h3>
-        <small style="color:var(--muted)">Toque em qualquer linha para abrir os nomes das pessoas desse grupo embaixo:</small>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div>
+            <h3 style="margin:0">📊 Painel Oficial de Indicadores da Microárea</h3>
+            <small style="color:var(--muted)">Toque em qualquer linha para abrir os nomes das pessoas desse grupo embaixo:</small>
+          </div>
+          <span class="status-pill blue" style="white-space:nowrap">↔ Deslize a tabela</span>
+        </div>
 
+        <!-- CONTAINER COM ROLAGEM HORIZONTAL SUAVE -->
         <div class="modern-table-card">
           <table class="modern-table">
             <thead>
@@ -399,25 +492,27 @@ input,select,textarea,button{font:inherit}
       </div>
     </section>
 
-    <!-- ================= ABA 3: AGENDA ================= -->
+    <!-- ================= ABA 3: AGENDA (CALENDÁRIO QUADRADO CORRIGIDO) ================= -->
     <section class="view" id="view-agenda">
       <div class="card-header">
         <h2>Agenda de Prazos</h2>
         <span class="status-pill green" id="agendaTodayBadge">Hoje</span>
       </div>
 
+      <!-- WIDGET DE CALENDÁRIO COM 7 COLUNAS PERFEITAS -->
       <div class="calendar-widget">
         <div class="cal-header">
           <button class="btn btn-sm btn-soft" onclick="calNav(-1)">◀ Anterior</button>
-          <span id="calTitle">Mês</span>
+          <span id="calTitle" style="font-size:15px;color:var(--p-dark)">Novembro 2026</span>
           <button class="btn btn-sm btn-soft" onclick="calNav(1)">Próximo ▶</button>
         </div>
+        <!-- GRADE COM DIAS DA SEMANA E DIAS DO MÊS -->
         <div class="cal-grid" id="calGrid"></div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <h3>Prazos Prioritários</h3>
+          <h3 id="agendaSelectedDayTitle">Prioridades e Prazos</h3>
           <span class="status-pill blue" id="agendaCount">0</span>
         </div>
         <div id="agendaItemsList"></div>
@@ -579,7 +674,7 @@ input,select,textarea,button{font:inherit}
   </div>
 </div>
 
-<!-- Modal Como Baixar o App (PWA Guide) -->
+<!-- Modal Como Baixar o App -->
 <div class="modal" id="modalInstallGuide">
   <div class="modal-content">
     <div class="card-header">
@@ -606,16 +701,15 @@ input,select,textarea,button{font:inherit}
 <div class="modal" id="modalNovidades">
   <div class="modal-content">
     <div class="card-header">
-      <h3>✨ Novidades e Melhorias no UBS Paris</h3>
+      <h3>✨ Novidades e Correções no UBS Paris</h3>
       <button class="btn btn-sm btn-soft" onclick="closeModal('modalNovidades')">✕</button>
     </div>
     <div style="font-size:13px;color:#1e3a8a;line-height:1.5;background:#eff6ff;padding:12px;border-radius:10px">
-      <strong style="display:block;margin-bottom:6px">O que mudou com as sugestões das agentes:</strong>
-      • <strong>Visita Passo a Passo:</strong> Sem tela cheia e confusa. Escolha a rua/casa ➔ toque no portão ➔ marque a família.<br>
-      • <strong>Tabela Moderna de Produtividade:</strong> A folha mensal agora é um painel digital lindo com contagem automática de cadastros e visitas.<br>
-      • <strong>Super Cruzador de Condições:</strong> Você pode somar qualquer grupo ou ver cruzamentos exatos.<br>
-      • <strong>Idoso e EVFAM Corrigidos:</strong> Idoso como comorbidade visível e EVFAM no lugar certo (na família/casa).<br>
-      • <strong>App Instalável Ativo:</strong> Agora pode ser instalado no celular e tablet!
+      <strong style="display:block;margin-bottom:6px">Correções desta versão:</strong>
+      • <strong>Tabela do Fechamento:</strong> Agora desliza suavemente para o lado com todas as colunas visíveis.<br>
+      • <strong>Calendário Quadrado:</strong> Corrigido para grade de 7 colunas fixas (Domingo a Sábado), com clique interativo nos dias.<br>
+      • <strong>Visita Passo a Passo:</strong> Três etapas limpas (Casa ➔ Portão ➔ Família).<br>
+      • <strong>App Instalável:</strong> Botão ativo no topo para instalar o aplicativo no celular.
     </div>
   </div>
 </div>
@@ -624,7 +718,7 @@ input,select,textarea,button{font:inherit}
 
 <script>
 // BASE DE DADOS
-const DB_KEY = 'ubsParis_Wizard_v10';
+const DB_KEY = 'ubsParis_Wizard_v11';
 const defaultDB = {
   areas: [
     { id: 'a69_m1', name: 'Área 69 · Microárea 01' },
@@ -667,7 +761,7 @@ const defaultDB = {
   ],
   visits: [
     {
-      id: 'v_init1', date: '2026-11-10', streetId: 'st_demo1', houseId: 'h_demo1', areaId: 'a69_m3',
+      id: 'v_init1', date: new Date().toISOString().slice(0,10), streetId: 'st_demo1', houseId: 'h_demo1', areaId: 'a69_m3',
       outcome: 'Realizada', attendees: [{ residentId: 'r_demo2' }], notes: 'Pré-natal em dia.'
     }
   ]
@@ -768,6 +862,7 @@ function setupMainInterface(){
   const todayStr = new Date().toISOString().slice(0,10);
   document.getElementById('vDate').value = todayStr;
   document.getElementById('topDateStr').textContent = `Hoje: ${new Date().toLocaleDateString('pt-BR')}`;
+  document.getElementById('agendaTodayBadge').textContent = `Hoje: ${new Date().getDate()}/${new Date().getMonth()+1}`;
 
   const mgrField = document.getElementById('managerAreaSelectField');
   if(currentUser.areaId === 'all'){
@@ -798,7 +893,7 @@ function switchManagerArea(){
   renderAgenda();
 }
 
-// ================= 1. WIZARD: VISITA PASSO A PASSO LIMPO =================
+// ================= 1. WIZARD: VISITA PASSO A PASSO =================
 function updateStreetsList(){
   const streets = getActiveStreets();
   const sel = document.getElementById('vStreet');
@@ -858,7 +953,6 @@ function handleGateOutcome(outcome){
   if(outcome === 'Realizada'){
     goToWizardStep(3);
   } else {
-    // Ausente ou Recusa: Salva na hora em 1 clique!
     db.visits.push({
       id: 'v_' + Date.now(),
       areaId: currentUser.areaId,
@@ -989,7 +1083,7 @@ function saveFullHouseVisit(){
   goToWizardStep(1);
 }
 
-// ================= 2. TABELA MODERNA DE PRODUTIVIDADE & SUPER CRUZADOR =================
+// ================= 2. TABELA MODERNA & CRUZADOR DINÂMICO =================
 function renderCrossTags(){
   const tags = ['Idoso (60+)', 'Hipertenso', 'Diabético', 'Gestante', 'Bolsa Família', 'Acamado', 'Criança (0 a 12 anos)', 'Adolescente (13 a 18 anos)'];
   document.getElementById('crossTagCloud').innerHTML = tags.map(t => {
@@ -1016,7 +1110,6 @@ function updateModernReport(){
   const m = parseInt(document.getElementById('repMonth').value, 10);
   const y = parseInt(document.getElementById('repYear').value, 10);
 
-  // Visitas do mês
   const monthVisits = db.visits.filter(v => {
     if(!v.date) return false;
     const [vy, vm] = v.date.split('-').map(Number);
@@ -1028,7 +1121,6 @@ function updateModernReport(){
     if(v.outcome === 'Realizada' && v.attendees) v.attendees.forEach(a => visitedIds.add(a.residentId));
   });
 
-  // Métricas dos Indicadores Oficiais
   const rowData = [
     { title: "Escala EVFAM: Vulnerabilidade Baixa (Domicílios)", check: r => r._houseVuln === 'Baixa' },
     { title: "Escala EVFAM: Vulnerabilidade Moderada (Domicílios)", check: r => r._houseVuln === 'Moderada' },
@@ -1059,7 +1151,6 @@ function updateModernReport(){
     { title: "Acompanhamento de Hanseníase", check: r => (r.tags || []).includes('Hanseníase') }
   ];
 
-  // Coletar todos os moradores
   const allResidents = [];
   streets.forEach(s => {
     s.houses.forEach(h => {
@@ -1074,7 +1165,6 @@ function updateModernReport(){
     });
   });
 
-  // Renderizar Tabela Moderna
   const tbody = document.getElementById('modernTableBody');
   tbody.innerHTML = rowData.map((row, idx) => {
     const matching = allResidents.filter(row.check);
@@ -1092,7 +1182,7 @@ function updateModernReport(){
     `;
   }).join('');
 
-  // Atualizar o Cruzador Dinâmico
+  // Cruzador
   const mode = document.querySelector('input[name="crossMode"]:checked')?.value || 'intersection';
   let crossFiltered = [];
 
@@ -1118,7 +1208,6 @@ function updateModernReport(){
     </div>
   `;
 
-  // Atualiza lista nominal com os resultados do cruzador
   renderNominalList(crossFiltered, visitedIds, activeCrossTags.join(' + ') || 'Toda a População');
 }
 
@@ -1296,7 +1385,108 @@ function saveResidentModal(e){
   updateModernReport();
 }
 
-// ================= 4. IMPORTADOR DE EXCEL (.XLSX) =================
+// ================= 4. AGENDA & CALENDÁRIO QUADRADO (7 COLUNAS FIXAS) =================
+function renderAgenda(){
+  const year = selectedCalDate.getFullYear();
+  const month = selectedCalDate.getMonth();
+  const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  document.getElementById('calTitle').textContent = `${monthNames[month]} de ${year}`;
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const totalDays = new Date(year, month + 1, 0).getDate();
+  const grid = document.getElementById('calGrid');
+
+  let html = `
+    <div class="cal-weekday">D</div><div class="cal-weekday">S</div><div class="cal-weekday">T</div>
+    <div class="cal-weekday">Q</div><div class="cal-weekday">Q</div><div class="cal-weekday">S</div><div class="cal-weekday">S</div>
+  `;
+
+  // Espaços do mês anterior
+  for(let i=0; i<firstDay; i++){
+    html += `<div class="cal-day other-month"></div>`;
+  }
+
+  const today = new Date();
+  for(let d=1; d<=totalDays; d++){
+    const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+    const isSel = selectedCalDate.getDate() === d && selectedCalDate.getMonth() === month;
+
+    html += `
+      <div class="cal-day ${isToday ? 'today' : ''} ${isSel ? 'selected' : ''}" onclick="selectCalDay(${d})">
+        <span>${d}</span>
+      </div>
+    `;
+  }
+  grid.innerHTML = html;
+  renderAgendaItemsList();
+}
+
+function calNav(delta){
+  selectedCalDate = new Date(selectedCalDate.getFullYear(), selectedCalDate.getMonth() + delta, 1);
+  renderAgenda();
+}
+
+function selectCalDay(d){
+  selectedCalDate.setDate(d);
+  renderAgenda();
+}
+
+function renderAgendaItemsList(){
+  const streets = getActiveStreets();
+  const day = selectedCalDate.getDate();
+  const month = selectedCalDate.getMonth() + 1;
+  const year = selectedCalDate.getFullYear();
+
+  document.getElementById('agendaSelectedDayTitle').textContent = `Prazos para ${day}/${month}/${year}`;
+
+  const citizens = [];
+  streets.forEach(s => {
+    s.houses.forEach(h => {
+      (h.residents || []).forEach(r => {
+        citizens.push({
+          ...r,
+          streetName: s.name,
+          houseNumber: h.number,
+          streetId: s.id,
+          houseId: h.id
+        });
+      });
+    });
+  });
+
+  document.getElementById('agendaCount').textContent = `${citizens.length} cidadãos`;
+  const container = document.getElementById('agendaItemsList');
+
+  if(!citizens.length){
+    container.innerHTML = `<p style="text-align:center;color:var(--muted);padding:10px">Nenhum prazo cadastrado.</p>`;
+    return;
+  }
+
+  container.innerHTML = citizens.slice(0, 10).map(c => `
+    <div style="border-left:4px solid var(--p);background:#fff;border-radius:8px;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-left-width:4px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong style="display:block;margin:3px 0">${c.name}</strong>
+          <small style="color:var(--muted)">📍 ${c.streetName}, Nº ${c.houseNumber} ${c.gestor ? `· Gestor: ${c.gestor}` : ''}</small>
+        </div>
+        <button class="btn btn-sm btn-primary" onclick="goToVisitFromAgenda('${c.streetId}','${c.houseId}')">Ir à Casa</button>
+      </div>
+      <div class="tags-cloud" style="margin-top:4px">
+        ${(c.tags || []).map(t => `<span class="tag ${getTagClass(t)}">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function goToVisitFromAgenda(streetId, houseId){
+  navTo('visita');
+  document.getElementById('vStreet').value = streetId;
+  updateHousesList();
+  document.getElementById('vHouse').value = houseId;
+  goToWizardStep(2);
+}
+
+// ================= 5. IMPORTADOR DE EXCEL (.XLSX) =================
 function handleExcelUpload(e){
   const file = e.target.files[0];
   if(!file) return;
@@ -1428,9 +1618,8 @@ function executeExcelImport(){
   navTo('visita');
 }
 
-// ================= 5. PWA (INSTALAÇÃO REAL COMO APP) =================
+// ================= 6. MOTOR DO PWA =================
 function setupPwaEngine(){
-  // Gera Manifesto Oficial dinâmico em memória
   const manifest = {
     name: "UBS Paris",
     short_name: "UBS Paris",
@@ -1448,19 +1637,15 @@ function setupPwaEngine(){
     ]
   };
 
-  const stringManifest = JSON.stringify(manifest);
-  const blobManifest = new Blob([stringManifest], { type: 'application/json' });
-  const manifestURL = URL.createObjectURL(blobManifest);
-
+  const blobManifest = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
   let linkTag = document.querySelector('link[rel="manifest"]');
   if(!linkTag){
     linkTag = document.createElement('link');
     linkTag.rel = 'manifest';
     document.head.appendChild(linkTag);
   }
-  linkTag.href = manifestURL;
+  linkTag.href = URL.createObjectURL(blobManifest);
 
-  // Registra Service Worker virtual
   if('serviceWorker' in navigator){
     const swCode = `
       self.addEventListener('install', e => self.skipWaiting());
@@ -1471,7 +1656,6 @@ function setupPwaEngine(){
     navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(()=>{});
   }
 
-  // Captura o evento oficial do Chrome de instalação
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
@@ -1534,36 +1718,6 @@ function promptAddHouse(){
   updateHousesList();
 }
 
-function renderAgenda(){
-  const year = selectedCalDate.getFullYear();
-  const month = selectedCalDate.getMonth();
-  const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  document.getElementById('calTitle').textContent = `${monthNames[month]} de ${year}`;
-
-  const firstDay = new Date(year, month, 1).getDay();
-  const totalDays = new Date(year, month + 1, 0).getDate();
-  const grid = document.getElementById('calGrid');
-
-  let html = `
-    <div class="cal-weekday">D</div><div class="cal-weekday">S</div><div class="cal-weekday">T</div>
-    <div class="cal-weekday">Q</div><div class="cal-weekday">Q</div><div class="cal-weekday">S</div><div class="cal-weekday">S</div>
-  `;
-
-  for(let i=0; i<firstDay; i++) html += `<div class="cal-day other-month"></div>`;
-
-  const today = new Date();
-  for(let d=1; d<=totalDays; d++){
-    const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
-    html += `<div class="cal-day ${isToday ? 'today' : ''}"><span>${d}</span></div>`;
-  }
-  grid.innerHTML = html;
-}
-
-function calNav(delta){
-  selectedCalDate = new Date(selectedCalDate.getFullYear(), selectedCalDate.getMonth() + delta, 1);
-  renderAgenda();
-}
-
 function showModal(id){ document.getElementById(id).classList.add('open'); }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 
@@ -1580,6 +1734,7 @@ function resetToDemo(){
   persist();
   updateStreetsList();
   updateModernReport();
+  renderAgenda();
   toast('Demonstração restaurada.');
 }
 
@@ -1592,9 +1747,8 @@ function exportCSV(){
     v.outcome,
     (v.notes || '').replace(/[\n\r;]/g, ' ')
   ]);
-  const csv = '\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(';')).join('\r\n')], { type: 'text/csv;charset=utf-8;' }));
   a.download = `Visitas_UBS_Paris_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
